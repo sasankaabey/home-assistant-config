@@ -1,0 +1,15 @@
+household:
+  name: Household
+  entities:
+    - person.ankit
+    - person.danielle
+    - person.zoe
+    - person.max
+    - person.aiden
+
+kids:
+  name: Kids
+  entities:
+    - person.zoe
+    - person.max
+    - person.aiden

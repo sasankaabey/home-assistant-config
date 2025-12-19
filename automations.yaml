@@ -1,0 +1,508 @@
+- id: '1747273313799'
+  alias: Sensor Light bedroom Trial
+  description: ''
+  use_blueprint:
+    path: Blackshome/sensor-light.yaml
+    input:
+      motion_trigger:
+      - binary_sensor.bedroom_occupancy_sensor_motion
+      light_switch:
+        entity_id: light.bedroom_lights_group
+      include_light_control: []
+      light_transition_off: 3
+      light_transition_on: 3
+      include_light_colour_control: use_colour_temperature
+      light_colour_temperature: 3500
+      include_dynamic_lighting: enable_sun_elevation_colour_lux_brightness
+      dynamic_lighting_lux_sensor: sensor.bedroom_occupancy_sensor_illuminance
+      dynamic_lighting_boolean: input_boolean.bedroom_sensor_helper_at_night
+      dynamic_lighting_min_colour_temp: 2000
+      include_device_tracker: zone_people_enabled
+      zone: zone.home
+      people:
+      - person.danielle_goodwin
+      - person.ankit_aggarwal
+- id: '1747287148107'
+  alias: Notify on Monstera PlantBook Issues
+  description: Sends a notification if the monstera plant has an issue (auto-detected)
+  triggers:
+  - entity_id: plantbook.monstera
+    to: problem
+    trigger: state
+  actions:
+  - data:
+      title: Monstera Needs Attention
+      message: Something’s off with your monstera. Check soil moisture, light, or
+        temperature.
+    action: notify.mobile_app_ankit_s_iphone
+  mode: single
+- id: '1747311474263'
+  alias: New automation
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - person.danielle_goodwin
+    from: not_home
+    to: home
+  - trigger: state
+    entity_id:
+    - binary_sensor.back_door_sensor
+    from: 'on'
+    to: 'off'
+  conditions: []
+  actions:
+  - action: media_player.volume_set
+    metadata: {}
+    data:
+      volume_level: 0.8
+    target:
+      entity_id: media_player.kitchen_2
+  - action: media_player.play_media
+    data:
+      media_content_type: music
+      media_content_id: '{% set files = range(1, 46) %} media-source://media_source/local/greetings/danielle/danielle_{{
+        files | random }}.mp3
+
+        '
+    target:
+      entity_id: media_player.kitchen
+  mode: single
+- id: tv_mount_tracks_tv_power
+  alias: TV Mount Tracks TV Power
+  trigger:
+  - platform: state
+    entity_id: media_player.living_room_tv
+    to: 'on'
+  - platform: state
+    entity_id: media_player.living_room_tv
+    to: 'off'
+  action:
+  - choose:
+    - conditions:
+      - condition: state
+        entity_id: media_player.living_room_tv
+        state: 'on'
+      - condition: state
+        entity_id: input_boolean.tv_mount_should_be_down
+        state: 'off'
+      sequence:
+      - service: script.lower_tv_mount_momentary
+      - service: input_boolean.turn_on
+        target:
+          entity_id: input_boolean.tv_mount_should_be_down
+    - conditions:
+      - condition: state
+        entity_id: media_player.living_room_tv
+        state: 'off'
+      - condition: state
+        entity_id: input_boolean.tv_mount_should_be_down
+        state: 'on'
+      sequence:
+      - service: script.raise_tv_mount_momentary
+      - service: input_boolean.turn_off
+        target:
+          entity_id: input_boolean.tv_mount_should_be_down
+- id: tv_mount_poll_check
+  alias: TV Mount - Verify Alignment Every 3 Minutes
+  trigger:
+  - platform: time_pattern
+    minutes: /3
+  action:
+  - choose:
+    - conditions:
+      - condition: state
+        entity_id: media_player.living_room_tv
+        state: 'on'
+      - condition: state
+        entity_id: input_boolean.tv_mount_should_be_down
+        state: 'off'
+      sequence:
+      - service: script.lower_tv_mount_momentary
+      - service: input_boolean.turn_on
+        target:
+          entity_id: input_boolean.tv_mount_should_be_down
+    - conditions:
+      - condition: state
+        entity_id: media_player.living_room_tv
+        state: 'off'
+      - condition: state
+        entity_id: input_boolean.tv_mount_should_be_down
+        state: 'on'
+      sequence:
+      - service: script.raise_tv_mount_momentary
+      - service: input_boolean.turn_off
+        target:
+          entity_id: input_boolean.tv_mount_should_be_down
+- id: litterbot_problem_alert
+  alias: Litterbot Problem Alert
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.litterbot
+    to: 'on'
+    for: 00:03:00
+  condition: []
+  action:
+  - service: input_boolean.turn_on
+    target:
+      entity_id: input_boolean.litterbot_nag_enabled
+  - condition: state
+    entity_id: person.ankit_aggarwal
+    state: home
+  - service: notify.mobile_app_ankit_s_iphone
+    data:
+      message: "⚠️ Litterbot needs attention! The cats can’t poop until it’s fixed.
+        \U0001F6AB\U0001F43E"
+      title: Litterbot Problem
+      data:
+        tag: litterbot_alert
+        importance: high
+        persistent: true
+        ttl: 0
+        priority: high
+        channel: Litterbot Alerts
+  - condition: state
+    entity_id: person.danielle_goodwin
+    state: home
+  - service: notify.mobile_app_pixel_7a
+    data:
+      message: "⚠️ Litterbot needs attention! The cats can’t poop until it’s fixed.
+        \U0001F6AB\U0001F43E"
+      title: Litterbot Problem
+      data:
+        tag: litterbot_alert
+        importance: high
+        persistent: true
+        ttl: 0
+        priority: high
+        channel: Litterbot Alerts
+  - condition: state
+    entity_id: person.max_aggarwal
+    state: home
+  - service: notify.mobile_app_luffy55
+    data:
+      message: "⚠️ Litterbot needs attention! The cats can’t poop until it’s fixed.
+        \U0001F6AB\U0001F43E"
+      title: Litterbot Problem
+      data:
+        tag: litterbot_alert
+        importance: high
+        persistent: true
+        ttl: 0
+        priority: high
+        channel: Litterbot Alerts
+  - condition: state
+    entity_id: person.ankit_aggarwal
+    state: home
+  - service: notify.alexa_media
+    data:
+      target: media_player.ankit_s_sonos_arc
+      message: Hey! The Litterbot is broken. Fix it or suffer feline consequences.
+      data:
+        type: announce
+        method: all
+  - condition: state
+    entity_id: person.ankit_aggarwal
+    state: home
+  - service: notify.alexa_media
+    data:
+      target: media_player.bedroom_echo
+      message: Hey! The Litterbot is broken. Fix it or suffer feline consequences.
+      data:
+        type: announce
+        method: all
+  - condition: state
+    entity_id: person.danielle_goodwin
+    state: home
+  - service: notify.alexa_media
+    data:
+      target: media_player.kitchen_echo
+      message: Hey! The Litterbot is broken. Fix it or suffer feline consequences.
+      data:
+        type: announce
+        method: all
+  - condition: state
+    entity_id: person.max_aggarwal
+    state: home
+  - service: notify.alexa_media
+    data:
+      target: media_player.max_s_bedroom_echo
+      message: Hey! The Litterbot is broken. Fix it or suffer feline consequences.
+      data:
+        type: announce
+        method: all
+  - condition: state
+    entity_id: person.aiden_kampe
+    state: home
+  - service: notify.alexa_media
+    data:
+      target: media_player.aiden_s_echo_show
+      message: Hey! The Litterbot is broken. Fix it or suffer feline consequences.
+      data:
+        type: announce
+        method: all
+  - condition: state
+    entity_id: person.zoe_aggarwal
+    state: home
+  - service: notify.alexa_media
+    data:
+      target: media_player.zoe_s_room
+      message: Hey! The Litterbot is broken. Fix it or suffer feline consequences.
+      data:
+        type: announce
+        method: all
+  mode: single
+- id: modular_nag_loop
+  alias: Modular Nag Loop
+  trigger:
+  - platform: time_pattern
+    minutes: /1
+  condition:
+  - condition: state
+    entity_id: input_boolean.litterbot_nag_enabled
+    state: 'on'
+  action:
+  - variables:
+      now_minute: '{{ now().minute }}'
+      interval: '{{ states(''input_number.litterbot_nag_interval'') | int }}'
+  - condition: template
+    value_template: '{{ now_minute % interval == 0 }}'
+  - service: script.notify_custom_alert
+    data:
+      message: "Still broken. The cats are plotting your downfall. \U0001F4A3\U0001F43E"
+      title: Litterbot Still Needs Fixing
+- id: litterbot_problem_detected
+  alias: Litterbot Problem Trigger
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.litterbot
+    to: 'on'
+    for: 00:03:00
+  action:
+  - service: script.notify_custom_alert
+    data:
+      message: ⚠️ The Litterbot is jammed again. Someone rescue the poop machine!
+      title: Litterbot Alert
+      nag_boolean: input_boolean.litterbot_nag_enabled
+- id: litterbot_wait_for_someone_then_alert
+  alias: Litterbot Alert Waits for Someone
+  triggers:
+  - entity_id: binary_sensor.litterbot
+    to: 'on'
+    for: 00:03:00
+    trigger: state
+  conditions:
+  - condition: and
+    conditions:
+    - condition: state
+      entity_id: person.ankit_aggarwal
+      state: not_home
+    - condition: state
+      entity_id: person.danielle_goodwin
+      state: not_home
+    - condition: state
+      entity_id: person.max_aggarwal
+      state: not_home
+    - condition: state
+      entity_id: person.zoe_aggarwal
+      state: not_home
+    - condition: state
+      entity_id: person.aiden_kampe
+      state: not_home
+  actions:
+  - wait_for_trigger:
+    - entity_id: person.ankit_aggarwal
+      to: home
+      trigger: state
+    - entity_id: person.danielle_goodwin
+      to: home
+      trigger: state
+    - entity_id: person.max_aggarwal
+      to: home
+      trigger: state
+    - entity_id: person.zoe_aggarwal
+      to: home
+      trigger: state
+    - entity_id: person.aiden_kampe
+      to: home
+      trigger: state
+  - condition: state
+    entity_id: binary_sensor.litterbot
+    state: 'on'
+  - wait_for_trigger:
+    - entity_id: binary_sensor.back_door_sensor
+      to: 'off'
+      trigger: state
+  - delay: 00:05:00
+  - action: script.notify_sequential_snark_alert
+- id: reset_litterbot_snark_counter
+  alias: Reset Litterbot Snark Counter
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.litterbot
+    to: 'off'
+  action:
+  - service: input_number.set_value
+    target:
+      entity_id: input_number.litterbot_nag_message_index
+    data:
+      value: 0
+- id: '1747979807000'
+  alias: Litterbot Problem Cleared
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - binary_sensor.litterbot
+    to: 'off'
+    from:
+  conditions:
+  - condition: state
+    entity_id: input_boolean.litterbot_nag_enabled
+    state: 'on'
+  actions:
+  - action: input_boolean.turn_off
+    metadata: {}
+    data: {}
+    target:
+      entity_id: input_boolean.litterbot_nag_enabled
+  mode: single
+- id: '1748008204114'
+  alias: Main Floor Thermostat Current State
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - climate.main_floor
+    attribute: hvac_action
+    from: 'off'
+    id: therm_off
+  - trigger: state
+    entity_id:
+    - climate.main_floor
+    attribute: hvac_action
+    from: idle
+    id: therm_idle
+  - trigger: state
+    entity_id:
+    - climate.main_floor
+    attribute: hvac_action
+    id: therm_to_off
+    to: 'off'
+  - trigger: state
+    entity_id:
+    - climate.main_floor
+    attribute: hvac_action
+    id: therm_to_idle
+    to: idle
+  conditions:
+  - condition: not
+    conditions:
+    - condition: state
+      entity_id: climate.main_floor
+      state: unavailable
+    - condition: state
+      entity_id: climate.main_floor
+      state: unknown
+  actions:
+  - choose:
+    - conditions:
+      - condition: state
+        entity_id: climate.main_floor
+        attribute: hvac_action
+        state: heating
+      sequence:
+      - action: input_select.select_option
+        metadata: {}
+        data:
+          option: Heat
+        target:
+          entity_id: input_select.main_floor_thermostat_current_action
+    - conditions:
+      - condition: state
+        entity_id: climate.main_floor
+        attribute: hvac_action
+        state: cooling
+      sequence:
+      - action: input_select.select_option
+        metadata: {}
+        data:
+          option: Cool
+        target:
+          entity_id: input_select.main_floor_thermostat_current_action
+    - conditions:
+      - condition: state
+        entity_id: climate.main_floor
+        attribute: hvac_action
+        state: drying
+      sequence:
+      - action: input_select.select_option
+        metadata: {}
+        data:
+          option: Drying
+        target:
+          entity_id: input_select.main_floor_thermostat_current_action
+    - conditions:
+      - condition: state
+        entity_id: climate.main_floor
+        attribute: hvac_action
+        state: fan
+      sequence:
+      - action: input_select.select_option
+        metadata: {}
+        data:
+          option: Fan
+        target:
+          entity_id: input_select.main_floor_thermostat_current_action
+    - conditions:
+      - condition: trigger
+        id:
+        - therm_to_off
+        - therm_to_idle
+      sequence:
+      - action: input_select.select_option
+        metadata: {}
+        data:
+          option: None
+        target:
+          entity_id: input_select.main_floor_thermostat_current_action
+  mode: single
+- id: '1753931565789'
+  alias: Wake up plants
+  description: ''
+  triggers:
+  - trigger: sun
+    event: sunrise
+    offset: 00:30:00
+  conditions:
+  - condition: time
+    weekday:
+    - mon
+    - tue
+    - wed
+    - thu
+    - fri
+  actions:
+  - action: switch.turn_on
+    metadata: {}
+    data: {}
+    target:
+      entity_id: switch.bedroom_plants
+  mode: single
+- id: '1754439244664'
+  alias: Bedroom Plants
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - binary_sensor.bedroom_occupancy_sensor_motion
+    from:
+    to: 'on'
+  conditions: []
+  actions:
+  - action: light.turn_off
+    metadata: {}
+    data: {}
+    target:
+      entity_id: light.bedroom_plants
+  mode: single

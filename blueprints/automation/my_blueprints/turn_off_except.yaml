@@ -1,0 +1,29 @@
+blueprint:
+  name: "Turn Off All Lights Except Excluded"
+  description: "Turn off all lights in Home Assistant except those you specify to exclude."
+  domain: automation
+  input:
+    triggers:
+      name: Triggers
+      description: "List of triggers that start this automation."
+      selector:
+        trigger: {}
+    exclude_lights:
+      name: Lights to Exclude
+      description: "Lights that will not be turned off."
+      selector:
+        entity:
+          domain: light
+          multiple: true
+
+# Use the provided triggers
+trigger: !input triggers
+
+action:
+  - service: light.turn_off
+    target:
+      entity_id: >
+        {{ states.light
+           | map(attribute='entity_id')
+           | reject('in', exclude_lights)
+           | list }}

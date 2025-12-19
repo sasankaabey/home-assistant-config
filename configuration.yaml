@@ -1,0 +1,34 @@
+# Loads default set of integrations. Do not remove.
+default_config:
+
+# Load frontend themes from the themes folder
+frontend:
+  themes: !include_dir_merge_named themes
+
+# Core includes
+
+automation manual: !include_dir_merge_list automations/
+automation ui: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+group: !include groups.yaml
+input_select: !include inputs/input_select.yaml
+input_text: !include inputs/input_text.yaml
+input_boolean: !include inputs/input_boolean.yaml
+input_number: !include inputs/input_number.yaml
+input_button: !include inputs/input_button.yaml
+template: !include template.yaml
+
+# Logger Configuration
+logger:
+  default: warning
+  logs:
+    homeassistant.components.rest.sensor: debug
+    urllib3.connectionpool: debug
+
+shell_command:
+  split_scripts: python3 /config/split_scripts_yaml.py >> /config/split_log.txt 2>&1
+
+api:
+
+openplantbook:

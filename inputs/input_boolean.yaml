@@ -1,0 +1,17 @@
+goodnight_trigger:
+  name: Goodnight Trigger
+  initial: false
+
+danielle_greeted_recently:
+  name: Danielle Greeted Recently
+  initial: false
+  icon: mdi:account-heart
+
+tv_mount_should_be_down:
+  name: TV Mount State Tracker
+  icon: mdi:television-classic
+  initial: off
+
+litterbot_nag_enabled:
+  name: Litterbot Nag Enabled
+  initial: false

@@ -1,0 +1,30 @@
+alias: "Litterbot Problem Resolved"
+id: "litterbot_problem_cleared"
+trigger:
+  - platform: state
+    entity_id: binary_sensor.litterbot
+    to: "off"
+condition: []
+action:
+  - service: input_boolean.turn_off
+    target:
+      entity_id: input_boolean.litterbot_nag_enabled
+
+  - service: notify.alexa_media
+    data:
+      target:
+        
+        - media_player.bedroom_echo
+        - media_player.living_room_alexa
+        - media_player.kitchen_echo
+        - media_player.zoe_s_room
+        - media_player.kitchen_2
+        - media_player.living_room_soundbar_2
+        - media_player.aiden_s_echo_show
+        - media_player.ankit_s_sonos_arc
+        - media_player.max_s_bedroom_echo
+      message: "Good news! The Litterbot is now working again."
+      data:
+        type: announce
+        method: all
+mode: single

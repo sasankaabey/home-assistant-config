@@ -1,0 +1,36 @@
+- id: '1747168873126'
+  alias: Handle Alexa Actionable by Person ID
+  description: Routes actions based on which person responded to Alexa
+  triggers:
+  - event_type: alexa_actionable_notification
+    trigger: event
+  actions:
+  - choose:
+    - conditions:
+      - condition: template
+        value_template: '{{ responder == ''ankit'' }}'
+      sequence:
+      - data:
+          message: 'Ankit responded to Alexa: {{ trigger.event.data.event_response
+            }}'
+        action: notify.mobile_app_ankit_s_iphone
+    - conditions:
+      - condition: template
+        value_template: '{{ responder == ''unknown'' }}'
+      sequence:
+      - data:
+          title: Unknown Alexa Responder
+          message: 'Received a response from an unrecognized voice profile. Person
+            ID: {{ trigger.event.data.event_person_id }} Response: {{ trigger.event.data.event_response
+            }}
+
+            '
+        action: persistent_notification.create
+  variables:
+    person_id_map:
+      ? amzn1.ask.person.AMBPQ6J5RMQDHF7GPGGFG7NNTUVCX4AIF2ESJAZGCTVXA5WUGKQGAXIHPX42QU5E3HIKDX2JB56242FAT3CY3Q4AZLMZVA3LB2C7AAHVHOFXVHZZ5KWGKQK2XRXNIASWK5YOIN4Y
+      : ankit
+    responder: '{{ person_id_map.get(trigger.event.data.event_person_id, ''unknown'')
+      }}
+
+      '

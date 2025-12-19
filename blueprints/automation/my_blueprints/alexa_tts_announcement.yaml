@@ -1,0 +1,68 @@
+blueprint:
+  name: "Alexa TTS Announcement"
+  description: "Use your Alexa devices to speak a custom text-to-speech message when a trigger fires."
+  domain: automation
+
+  input:
+    triggers:
+      name: Triggers
+      description: "The trigger(s) for this announcement."
+      selector:
+        trigger: {}
+
+    alexa_device:
+      name: Alexa Device
+      description: "Which Alexa media_player to send the announcement to."
+      selector:
+        entity:
+          domain: media_player
+
+    message:
+      name: Message Text
+      description: "The text to speak on the Alexa device."
+      selector:
+        text: {}
+
+    suppress_confirmation:
+      name: Suppress Confirmation
+      description: "Whether to suppress Alexa's 'OK' confirmation after speaking."
+      default: true
+      selector:
+        boolean: {}
+
+    volume_level:
+      name: Volume Level
+      description: "Optional volume level (0.0-1.0) for the announcement."
+      default: 0.5
+      selector:
+        number:
+          min: 0.0
+          max: 1.0
+          step: 0.1
+          unit_of_measurement: volume
+
+trigger: !input triggers
+
+action:
+  - service: alexa_media.update_last_called
+    data: {}
+
+  - delay: '00:00:01'
+
+  - service: media_player.volume_set
+    target:
+      entity_id: !input alexa_device
+    data:
+      volume_level: !input volume_level
+
+  - service: notify.alexa_media
+    data:
+      target:
+        - !input alexa_device
+      message: !input message
+      data:
+        type: tts
+        message_group: spoken
+        # optionally suppress confirmation
+        # The skill may still say 'Okay' depending on device settings
+        TextToSpeech.suppress_confirmation: !input suppress_confirmation

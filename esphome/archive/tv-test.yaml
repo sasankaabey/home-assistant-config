@@ -1,0 +1,32 @@
+esphome:
+  name: tv-test
+  friendly_name: TV Test
+
+esp32:
+  board: esp32dev
+  framework:
+    type: arduino
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+  encryption:
+    key: "2KScfbg2aLcOX5TfyOPrRr9Uox/EhAScZ4DaCHcTSHs="
+
+ota:
+  - platform: esphome
+    password: "2a1231383d7081a37775096eb650fcab"
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Tv-Test Fallback Hotspot"
+    password: "Deof1oVmgbHz"
+
+captive_portal:
+    

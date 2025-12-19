@@ -1,0 +1,125 @@
+alias: "Litterbot Problem Alert"
+id: "litterbot_problem_alert"
+trigger:
+  - platform: state
+    entity_id: binary_sensor.litterbot
+    to: "on"
+    for: "00:03:00"
+condition: []
+action:
+  - service: input_boolean.turn_on
+    target:
+      entity_id: input_boolean.litterbot_nag_enabled
+
+  - condition: state
+    entity_id: person.ankit_aggarwal
+    state: "home"
+  - service: notify.mobile_app_ankit_s_iphone
+    data:
+      message: "⚠️ Litterbot needs attention! The cats can’t poop until it’s fixed. 🚫🐾"
+      title: "Litterbot Problem"
+      data:
+        tag: litterbot_alert
+        importance: high
+        persistent: true
+        ttl: 0
+        priority: high
+        channel: "Litterbot Alerts"
+
+  - condition: state
+    entity_id: person.danielle_goodwin
+    state: "home"
+  - service: notify.mobile_app_pixel_7a
+    data:
+      message: "⚠️ Litterbot needs attention! The cats can’t poop until it’s fixed. 🚫🐾"
+      title: "Litterbot Problem"
+      data:
+        tag: litterbot_alert
+        importance: high
+        persistent: true
+        ttl: 0
+        priority: high
+        channel: "Litterbot Alerts"
+
+  - condition: state
+    entity_id: person.max_aggarwal
+    state: "home"
+  - service: notify.mobile_app_luffy55
+    data:
+      message: "⚠️ Litterbot needs attention! The cats can’t poop until it’s fixed. 🚫🐾"
+      title: "Litterbot Problem"
+      data:
+        tag: litterbot_alert
+        importance: high
+        persistent: true
+        ttl: 0
+        priority: high
+        channel: "Litterbot Alerts"
+
+  - condition: state
+    entity_id: person.ankit_aggarwal
+    state: "home"
+  - service: notify.alexa_media
+    data:
+      target: "media_player.ankit_s_sonos_arc"
+      message: "Hey! The Litterbot is broken. Fix it or suffer feline consequences."
+      data:
+        type: announce
+        method: all
+
+  - condition: state
+    entity_id: person.ankit_aggarwal
+    state: "home"
+  - service: notify.alexa_media
+    data:
+      target: "media_player.bedroom_echo"
+      message: "Hey! The Litterbot is broken. Fix it or suffer feline consequences."
+      data:
+        type: announce
+        method: all
+
+  - condition: state
+    entity_id: person.danielle_goodwin
+    state: "home"
+  - service: notify.alexa_media
+    data:
+      target: "media_player.kitchen_echo"
+      message: "Hey! The Litterbot is broken. Fix it or suffer feline consequences."
+      data:
+        type: announce
+        method: all
+
+  - condition: state
+    entity_id: person.max_aggarwal
+    state: "home"
+  - service: notify.alexa_media
+    data:
+      target: "media_player.max_s_bedroom_echo"
+      message: "Hey! The Litterbot is broken. Fix it or suffer feline consequences."
+      data:
+        type: announce
+        method: all
+
+  - condition: state
+    entity_id: person.aiden_kampe
+    state: "home"
+  - service: notify.alexa_media
+    data:
+      target: "media_player.aiden_s_echo_show"
+      message: "Hey! The Litterbot is broken. Fix it or suffer feline consequences."
+      data:
+        type: announce
+        method: all
+
+  - condition: state
+    entity_id: person.zoe_aggarwal
+    state: "home"
+  - service: notify.alexa_media
+    data:
+      target: "media_player.zoe_s_room"
+      message: "Hey! The Litterbot is broken. Fix it or suffer feline consequences."
+      data:
+        type: announce
+        method: all
+
+mode: single

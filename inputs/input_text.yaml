@@ -1,0 +1,58 @@
+flirty_line_1:
+  name: "Flirty Line Monday"
+  max: 255
+  initial: ""
+flirty_line_2:
+  name: "Flirty Line Tuesday"
+  max: 255
+  initial: ""
+flirty_line_3:
+  name: "Flirty Line Wednesday"
+  max: 255
+  initial: ""
+flirty_line_4:
+  name: "Flirty Line Thursday"
+  max: 255
+  initial: ""
+flirty_line_5:
+  name: "Flirty Line Friday"
+  max: 255
+  initial: ""
+flirty_line_6:
+  name: "Flirty Line Saturday"
+  max: 255
+  initial: ""
+flirty_line_7:
+  name: "Flirty Line Sunday"
+  max: 255
+  initial: ""
+flirty_line_8:
+  name: "Flirty Line 8"
+  max: 255
+  initial: ""
+flirty_line_9:
+  name: "Flirty Line 9"
+  max: 255
+  initial: ""
+flirty_line_10:
+  name: "Flirty Line 10"
+  max: 255
+  initial: ""
+flirty_message:
+  name: "Flirty Message (Today’s)"
+  max: 255
+  initial: ""
+daily_override_greeting:
+  name: Daily Override Greeting
+  max: 255
+hello_world_response_type:
+  name: Hello World Response Type
+hello_world_response:
+  name: Hello World 
+  
+
+
+alexa_actionable_notification:
+  name: Alexa Actionable Notification Holder
+  max: 255
+  initial: '{"text": "This is a test of the Alexa Actions custom skill. Did it work?", "event": "actionable.skill.test"}'

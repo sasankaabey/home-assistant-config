@@ -1,0 +1,40 @@
+- sensor:
+    - name: "Open Floorplan Average Illuminance"
+      unique_id: open_floorplan_average_illuminance
+      state: >-
+        {{ [
+          states('sensor.kitchen_occupancy_sensor_illuminance') | float(0),
+          states('sensor.dining_room_occupancy_sensor_illuminance') | float(0),
+          states('sensor.living_room_occupancy_illuminance') | float(0)
+        ] | sum / 3 | round(1) }}
+      unit_of_measurement: lx
+      device_class: illuminance
+
+- sensor:
+  - name: "TV Mount Position"
+    state: >
+      {{ "Down" if is_state('input_boolean.tv_mount_should_be_down', 'on') else "Up" }}
+    icon: >
+      {% if is_state('input_boolean.tv_mount_should_be_down', 'on') %}
+        mdi:chevron-down
+      {% else %}
+        mdi:chevron-up
+      {% endif %}
+
+- sensor:
+    - name: "Litterbot Nag Message"
+      state: >
+        {% set messages = [
+          "Hey! The Litterbot is broken. Let's take care of business.",
+          "Still broken. Please fix it before the cat union calls a strike.",
+          "Seriously, it's been long enough. That bot isn't going to fix itself.",
+          "They've held it in long enough. Proceed to emergency cleanup mode.",
+          "You are now enemy #1 in the eyes of your cats. Fix. The. Robot.",
+          "We're nearing DEFCON 1. Poopocalypse is imminent.",
+          "Fur will fly. Litter will scatter. Handle the situation.",
+          "This is not a drill. Litterbot status: shameful.",
+          "Legends speak of a working Litterbot. Become that legend.",
+          "Last warning: save your soul, scoop the hole."
+        ] %}
+        {% set idx = states('input_number.litterbot_nag_message_index') | int %}
+        {{ messages[idx % messages|length] }}

@@ -1,0 +1,32 @@
+esphome:
+  name: tyesty
+  friendly_name: tyesty
+
+esp32:
+  board: esp32-s2-saola-1
+  framework:
+    type: arduino
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+  encryption:
+    key: "uW0FS1NEeJcXTl/Rf3iicMsAgU2JFa2roBwli0E0bmE="
+
+ota:
+  - platform: esphome
+    password: "701c25b35517cada80c99aec16ca5bb5"
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Tyesty Fallback Hotspot"
+    password: "ViWBGxnphsQW"
+
+captive_portal:
+    

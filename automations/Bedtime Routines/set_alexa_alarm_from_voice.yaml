@@ -1,0 +1,12 @@
+- alias: Set Alexa Alarm Based on Spoken Time
+  id: set_alexa_alarm_from_voice
+  trigger:
+    - platform: event
+      event_type: alexa_actionable_notification
+      event_data:
+        event_id: set_alarm_time
+  action:
+    - service: media_player.alexa_set_alarm
+      data:
+        entity_id: media_player.bedroom_echo
+        time: "{{ trigger.event.data.event_response | regex_replace(find='[^0-9:]', replace='') }}"

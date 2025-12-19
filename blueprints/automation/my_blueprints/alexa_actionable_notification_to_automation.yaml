@@ -1,0 +1,116 @@
+blueprint:
+  name: "Alexa Actionable Notification to Automation"
+  description: "Ask via Alexa actionable notification and trigger automations based on response types."
+  domain: automation
+
+  input:
+    triggers:
+      name: Triggers
+      description: "List of triggers that start this automation."
+      selector:
+        trigger: {}
+
+    text:
+      name: Prompt Text
+      description: "The text Alexa will speak."
+      selector:
+        text: {}
+
+    event_id:
+      name: Event ID
+      description: "Unique event ID for correlation of Alexa responses."
+      selector:
+        text: {}
+
+    suppress_confirmation:
+      name: Suppress Confirmation
+      description: "Suppress Alexa's 'Okay' confirmation after speaking."
+      default: false
+      selector:
+        boolean: {}
+
+    automation_yes:
+      name: Automation on Yes
+      description: "Automation to run when user responds Yes."
+      selector:
+        entity:
+          domain: automation
+
+    automation_no:
+      name: Automation on No
+      description: "Automation to run when user responds No."
+      selector:
+        entity:
+          domain: automation
+
+    automation_numeric:
+      name: Automation on Numeric Response
+      description: "Automation to run when user gives a numeric response."
+      selector:
+        entity:
+          domain: automation
+
+    response_timeout:
+      name: Response Timeout (seconds)
+      description: "How long to wait for a response."
+      default: 60
+      selector:
+        number:
+          min: 1
+          max: 300
+          unit_of_measurement: seconds
+
+trigger: !input triggers
+
+action:
+  - service: script.activate_alexa_actionable_notification
+    data:
+      text: !input text
+      event_id: !input event_id
+      suppress_confirmation: "{{ 'true' if suppress_confirmation else 'false' }}"
+
+  - wait_for_trigger:
+      - id: notify
+        platform: event
+        event_type: alexa_actionable_notification
+        event_data:
+          event_id: !input event_id
+    timeout: !input response_timeout
+    continue_on_timeout: false
+
+  - choose:
+      - conditions:
+          - condition: trigger
+            id: notify
+          - condition: template
+            value_template: "{{ trigger.event.data.event_response_type == 'ResponseYes' }}"
+        sequence:
+          - service: automation.turn_on
+            target:
+              entity_id: !input automation_yes
+
+      - conditions:
+          - condition: trigger
+            id: notify
+          - condition: template
+            value_template: "{{ trigger.event.data.event_response_type == 'ResponseNo' }}"
+        sequence:
+          - service: automation.turn_on
+            target:
+              entity_id: !input automation_no
+
+      - conditions:
+          - condition: trigger
+            id: notify
+          - condition: template
+            value_template: "{{ trigger.event.data.event_response_type == 'ResponseNumeric' }}"
+        sequence:
+          - service: automation.turn_on
+            target:
+              entity_id: !input automation_numeric
+
+default:
+- service: logbook.log
+  data:
+    name: "Alexa Actionable Notification"
+    message: "No matching response automation for {{ trigger.event.data.event_response_type }}"

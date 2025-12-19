@@ -1,0 +1,51 @@
+- id: office_desk_light_by_current
+  alias: Office Desk Light by Monitor Consumption
+  description: Turns on the desk light when either monitor draws > 25 W, and turns
+    it off when both draw < 25 W.
+  triggers:
+  - entity_id: sensor.lg_32_widescreen_monitor_current_consumption
+    above: 25
+    trigger: numeric_state
+  - entity_id: sensor.lg_ultragear_40_monitor_current_consumption
+    above: 25
+    trigger: numeric_state
+  - entity_id: sensor.lg_32_widescreen_monitor_current_consumption
+    below: 25
+    trigger: numeric_state
+  - entity_id: sensor.lg_ultragear_40_monitor_current_consumption
+    below: 25
+    trigger: numeric_state
+  actions:
+  - choose:
+    - conditions:
+      - condition: or
+        conditions:
+        - condition: numeric_state
+          entity_id: sensor.lg_32_widescreen_monitor_current_consumption
+          above: 25
+        - condition: numeric_state
+          entity_id: sensor.lg_ultragear_40_monitor_current_consumption
+          above: 25
+      sequence:
+      - target:
+          entity_id: light.office_desk
+        action: light.turn_on
+        data:
+          brightness_step_pct: 50
+          transition: 3
+    - conditions:
+      - condition: and
+        conditions:
+        - condition: numeric_state
+          entity_id: sensor.lg_32_widescreen_monitor_current_consumption
+          below: 25
+        - condition: numeric_state
+          entity_id: sensor.lg_ultragear_40_monitor_current_consumption
+          below: 25
+      sequence:
+      - target:
+          entity_id: light.office_desk
+        action: light.turn_off
+        data:
+          transition: 3
+  mode: single

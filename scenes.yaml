@@ -1,0 +1,344 @@
+- id: '1745645220290'
+  name: Max’s Lights Off
+  entities:
+    light.maxs_floor_lamp:
+      min_color_temp_kelvin: 2000
+      max_color_temp_kelvin: 9000
+      min_mireds: 111
+      max_mireds: 500
+      effect_list:
+      - none
+      - sunrise
+      - sunset
+      - movie
+      - dating
+      - romantic
+      - twinkle
+      - candlelight
+      - snowflake
+      - energetic
+      - breathe
+      - crossing
+      supported_color_modes:
+      - color_temp
+      - rgb
+      effect:
+      color_mode:
+      brightness:
+      color_temp_kelvin:
+      color_temp:
+      hs_color:
+      rgb_color:
+      xy_color:
+      icon: mdi:floor-lamp
+      friendly_name: Max's Floor Lamp
+      supported_features: 4
+      state: 'off'
+    light.maxs_lamp_outlet:
+      supported_color_modes:
+      - onoff
+      color_mode:
+      friendly_name: Max’s Lamp Outlet
+      supported_features: 0
+      state: 'off'
+    automation.maxs_lights:
+      id: '1745613159081'
+      last_triggered: '2025-04-25T22:30:38.945291+00:00'
+      mode: single
+      current: 0
+      friendly_name: Max’s Lights On
+      state: 'off'
+  icon: mdi:lightbulb-multiple-off
+  metadata:
+    automation.maxs_lights:
+      entity_only: true
+- id: '1745808359197'
+  name: Everyone Goodnight
+  entities:
+    automation.bedroom_sensor_lights:
+      id: '1745784183758'
+      last_triggered: '2025-04-28T02:23:34.981503+00:00'
+      mode: restart
+      current: 0
+      friendly_name: Bedroom Sensor Lights
+      state: 'off'
+    light.bedroom_lights:
+      min_color_temp_kelvin: 2202
+      max_color_temp_kelvin: 6535
+      min_mireds: 153
+      max_mireds: 454
+      effect_list:
+      - candle
+      - glisten
+      - 'off'
+      - sparkle
+      supported_color_modes:
+      - color_temp
+      effect:
+      color_mode:
+      brightness:
+      color_temp_kelvin:
+      color_temp:
+      hs_color:
+      rgb_color:
+      xy_color:
+      entity_id:
+      - light.bedroom_1
+      - light.bedroom_2
+      - light.bedroom_3
+      - light.bedroom_4
+      icon: mdi:light-recessed
+      friendly_name: Bedroom Lights
+      supported_features: 44
+      state: 'off'
+    automation.sensor_light_kitchen:
+      id: '1745685520023'
+      last_triggered: '2025-04-28T02:07:26.234760+00:00'
+      mode: restart
+      current: 0
+      friendly_name: Sensor Light Kitchen
+      state: 'on'
+    automation.dining_room_sensor_lights:
+      id: '1745799137207'
+      last_triggered: '2025-04-28T02:39:05.835194+00:00'
+      mode: restart
+      current: 0
+      friendly_name: Dining Room Sensor Lights
+      state: 'on'
+    light.downstairs:
+      supported_color_modes:
+      - brightness
+      color_mode:
+      brightness:
+      is_hue_group: true
+      hue_scenes: []
+      hue_type: zone
+      lights:
+      - Basement Lamp
+      entity_id:
+      - light.basement_lamp
+      dynamics: false
+      icon: mdi:lightbulb-group
+      friendly_name: Downstairs
+      supported_features: 40
+      state: 'off'
+  icon: mdi:weather-night
+  metadata:
+    automation.bedroom_sensor_lights:
+      entity_only: true
+    light.bedroom_lights:
+      entity_only: true
+    automation.sensor_light_kitchen:
+      entity_only: true
+    automation.dining_room_sensor_lights:
+      entity_only: true
+    light.downstairs:
+      entity_only: true
+- id: '1746425324793'
+  name: Turn Off Bedroom Lights and Motion
+  entities:
+    light.bed_lightstrip:
+      min_color_temp_kelvin: 2000
+      max_color_temp_kelvin: 6329
+      min_mireds: 158
+      max_mireds: 500
+      supported_color_modes:
+      - color_temp
+      - xy
+      color_mode:
+      brightness:
+      color_temp_kelvin:
+      color_temp:
+      hs_color:
+      rgb_color:
+      xy_color:
+      mode: normal
+      dynamics: none
+      icon: mdi:bed-king-outline
+      friendly_name: Bed Light
+      supported_features: 40
+      state: 'off'
+    light.bedroom_lights:
+      min_color_temp_kelvin: 2202
+      max_color_temp_kelvin: 6535
+      min_mireds: 153
+      max_mireds: 454
+      effect_list:
+      - candle
+      - glisten
+      - 'off'
+      - sparkle
+      supported_color_modes:
+      - color_temp
+      effect:
+      color_mode:
+      brightness:
+      color_temp_kelvin:
+      color_temp:
+      hs_color:
+      rgb_color:
+      xy_color:
+      entity_id:
+      - light.bedroom_1
+      - light.bedroom_2
+      - light.bedroom_3
+      - light.bedroom_4
+      icon: mdi:light-recessed
+      friendly_name: Bedroom Lights
+      supported_features: 44
+      state: 'off'
+    light.nightstands:
+      min_color_temp_kelvin: 2000
+      max_color_temp_kelvin: 6329
+      min_mireds: 158
+      max_mireds: 500
+      effect_list:
+      - candle
+      - 'off'
+      supported_color_modes:
+      - color_temp
+      - xy
+      effect:
+      color_mode:
+      brightness:
+      color_temp_kelvin:
+      color_temp:
+      hs_color:
+      rgb_color:
+      xy_color:
+      entity_id:
+      - light.ankits_nightstand
+      - light.danielles_nightstand
+      - light.bed_lightstrip
+      icon: hue:table-shade
+      friendly_name: Nightstands
+      supported_features: 44
+      state: 'off'
+    number.bedroom_occupancy_sensor_motion_sensitivity:
+      min: 0
+      max: 10
+      step: 1
+      mode: auto
+      unit_of_measurement: x
+      friendly_name: Bedroom Occupancy Sensor Motion sensitivity
+      state: '0'
+    number.bedroom_occupancy_sensor_breath_sensitivity:
+      min: 0
+      max: 10
+      step: 1
+      mode: auto
+      unit_of_measurement: x
+      friendly_name: Bedroom Occupancy Sensor Breath sensitivity
+      state: '0'
+    automation.office_lights:
+      id: '1746107639807'
+      last_triggered: '2025-05-04T23:28:58.830925+00:00'
+      mode: single
+      current: 0
+      friendly_name: Office Lights
+      state: 'off'
+    automation.office_at_night_motion:
+      id: '1746153854530'
+      last_triggered: '2025-05-05T04:12:53.020071+00:00'
+      mode: single
+      current: 0
+      friendly_name: Office at night motion
+      state: 'on'
+    light.hallway_lamp:
+      effect_list:
+      - 'off'
+      - candle
+      supported_color_modes:
+      - brightness
+      effect:
+      color_mode:
+      brightness:
+      mode: normal
+      dynamics: none
+      friendly_name: Hallway Lamp
+      supported_features: 44
+      state: 'off'
+    light.light_strip:
+      min_color_temp_kelvin: 2000
+      max_color_temp_kelvin: 6329
+      min_mireds: 158
+      max_mireds: 500
+      supported_color_modes:
+      - color_temp
+      - xy
+      color_mode:
+      brightness:
+      color_temp_kelvin:
+      color_temp:
+      hs_color:
+      rgb_color:
+      xy_color:
+      mode: normal
+      dynamics: none
+      friendly_name: 'Light strip '
+      supported_features: 40
+      state: 'off'
+    light.office_desk:
+      supported_color_modes:
+      - brightness
+      color_mode:
+      brightness:
+      mode: normal
+      dynamics: none
+      icon: mdi:desk
+      friendly_name: Office Desk
+      supported_features: 40
+      state: 'off'
+    light.stairway_lights:
+      min_color_temp_kelvin: 2000
+      max_color_temp_kelvin: 6500
+      min_mireds: 153
+      max_mireds: 500
+      supported_color_modes:
+      - color_temp
+      - hs
+      icon: mdi:stairs
+      friendly_name: Stairway Lights
+      supported_features: 0
+      state: unavailable
+    automation.living_room_at_night:
+      id: '1746156588494'
+      last_triggered: '2025-05-02T03:31:16.404315+00:00'
+      mode: single
+      current: 0
+      friendly_name: Living room at night
+      state: 'on'
+    automation.living_room_sensor_lights:
+      id: '1746125001309'
+      last_triggered: '2025-05-03T03:00:14.826649+00:00'
+      mode: restart
+      current: 0
+      friendly_name: Living Room Sensor Lights
+      state: 'off'
+  metadata:
+    light.bed_lightstrip:
+      entity_only: true
+    light.bedroom_lights:
+      entity_only: true
+    light.nightstands:
+      entity_only: true
+    number.bedroom_occupancy_sensor_motion_sensitivity:
+      entity_only: true
+    number.bedroom_occupancy_sensor_breath_sensitivity:
+      entity_only: true
+    automation.office_lights:
+      entity_only: true
+    automation.office_at_night_motion:
+      entity_only: true
+    light.hallway_lamp:
+      entity_only: true
+    light.light_strip:
+      entity_only: true
+    light.office_desk:
+      entity_only: true
+    light.stairway_lights:
+      entity_only: true
+    automation.living_room_at_night:
+      entity_only: true
+    automation.living_room_sensor_lights:
+      entity_only: true

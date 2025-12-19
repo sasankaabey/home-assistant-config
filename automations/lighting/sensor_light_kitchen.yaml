@@ -1,0 +1,51 @@
+- id: '1745685520023'
+  alias: Sensor Light Kitchen
+  description: ''
+  use_blueprint:
+    path: Blackshome/sensor-light.yaml
+    input:
+      motion_trigger:
+      - binary_sensor.kitchen_occupancy_sensor_motion
+      light_switch:
+        entity_id: light.kitchen_lights
+      include_light_control:
+      - use_transition
+      - use_brightness
+      include_dynamic_lighting: enable_sun_elevation_colour_lux_brightness
+      dynamic_lighting_lux_sensor: sensor.open_floorplan_average_illuminance
+      dynamic_lighting_min_lux: '{{ states(''input_number.dynamic_min_lux'')    |
+        int }}'
+      dynamic_lighting_max_lux: '{{ states(''input_number.dynamic_max_lux'')    |
+        int }}'
+      dynamic_lighting_min_brightness: '{{ states(''input_number.dynamic_min_brightness'')
+        | int }}'
+      dynamic_lighting_max_brightness: '{{ states(''input_number.dynamic_max_brightness'')
+        | int }}'
+      dynamic_lighting_min_colour_temp: '{{ states(''input_number.dynamic_min_ct'')  |
+        int }}'
+      dynamic_lighting_max_colour_temp: '{{ states(''input_number.dynamic_max_ct'')  |
+        int }}'
+      include_night_lights: night_lights_enabled
+      night_lights_conditions:
+      - time_enabled
+      night_lights_after_time: '21:30:00'
+      night_lights_before_time: 06:00:00
+      night_lights:
+        entity_id: light.kitchen_lights
+      include_night_light_control:
+      - use_brightness
+      - use_transition
+      - if_lights_are_on_adjust_when_crossing_over
+      include_night_light_colour_control: use_colour_temperature
+      night_light_colour_temperature: 2700
+      include_night_glow: night_glow_enabled
+      night_glow_light_brightness: 5
+      night_glow_lights:
+        entity_id: light.kitchen_lights
+      include_night_glow_light_control:
+      - use_brightness
+      include_night_glow_light_colour_control: use_colour_temperature
+      night_glow_light_colour_temperature: 2700
+      include_light_colour_control: use_colour_temperature
+      ambient_light_sensor: sensor.open_floorplan_average_illuminance
+      ambient_light_options: ambient_light_option_enabled

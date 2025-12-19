@@ -1,0 +1,32 @@
+esphome:
+  name: screek-l13
+  friendly_name: Screek L13
+
+esp32:
+  board: esp32-c3-devkitm-1
+  framework:
+    type: arduino
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+  encryption:
+    key: "qM83sInFLb8NE69NakCkiv50wY/BGK5kinu8gJtHYoE="
+
+ota:
+  - platform: esphome
+    password: "6feff0981b9a1844a8f9b725693d0dd9"
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Screek-L13 Fallback Hotspot"
+    password: "aKeQe7FonslP"
+
+captive_portal:
+    

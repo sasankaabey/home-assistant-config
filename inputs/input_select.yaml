@@ -1,0 +1,11 @@
+washer_owner:
+  name: Washer Load Owner
+  options:
+    - Unknown
+    - Ankit
+    - Danielle
+    - Zoe
+    - Max
+    - Aiden
+    - Mixed
+  initial: Unknown

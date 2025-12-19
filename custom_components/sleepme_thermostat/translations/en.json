@@ -1,0 +1,36 @@
+{
+  "title": "SleepMe Dock Pro",
+  "config": {
+    "step": {
+      "user": {
+        "title": "Add SleepMe Dock Pro",
+        "description": "Please enter your API token to proceed.",
+        "data": {
+          "api_token": "API Token"
+        },
+        "data_description": {
+          "api_token": "Enter the API token provided by SleepMe."
+        }
+      },
+      "select_device": {
+        "title": "Select Dock Pro Device",
+        "description": "Select the Docker Pro device you want to add.",
+        "data": {
+          "device_id": "Device"
+        },
+        "data_description": {
+          "device_id": "Choose one of the devices discovered."
+        }
+      }
+    },
+    "error": {
+      "invalid_token": "Invalid API token, please try again.",
+      "cannot_connect": "Failed to connect to the SleepMe API.",
+      "no_devices_found": "No devices found for this API token.",
+      "cannot_fetch_device_info": "Unable to fetch device information."
+    },
+    "abort": {
+      "already_configured": "This device is already configured."
+    }
+  }
+}

@@ -1,0 +1,58 @@
+esphome:
+  name: esphome-web-401980
+  friendly_name: TVmount
+  min_version: 2024.11.0
+  name_add_mac_suffix: false
+
+esp32:
+  board: esp32dev
+  framework:
+    type: esp-idf
+
+logger:
+
+api:
+
+ota:
+  - platform: esphome
+
+wifi:
+  ssid: "Aggarwin"
+  password: "4432041701"
+
+
+captive_portal:
+
+switch:
+  - platform: gpio
+    pin: 13
+    id: down_switch
+    internal: true
+    on_turn_on:
+      - delay: 200ms
+      - switch.turn_off: down_switch
+
+  - platform: gpio
+    pin: 14
+    id: up_switch
+    internal: true
+    on_turn_on:
+      - delay: 200ms
+      - switch.turn_off: up_switch
+
+button:
+  - platform: template
+    name: "Lower Screen"
+    id: down_button
+    icon: "mdi:power-standby"
+    on_press: 
+      then:
+        - switch.toggle: down_switch
+
+  - platform: template
+    name: "Return Screen"
+    id: up_button
+    icon: "mdi:power-standby"
+    on_press: 
+      then:
+        - switch.toggle: up_switch

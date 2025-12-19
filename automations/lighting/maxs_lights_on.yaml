@@ -1,0 +1,44 @@
+- id: '1746745922064'
+  alias: Max's Lights On
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - binary_sensor.esphome_web_470cfa_presence
+    to: 'on'
+    from: 'off'
+    id: max_motion
+  - trigger: state
+    entity_id:
+    - binary_sensor.esphome_web_470cfa_presence
+    from: null
+    to: 'off'
+    for:
+      hours: 0
+      minutes: 5
+      seconds: 0
+    id: max_clear
+  conditions: []
+  actions:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id:
+        - max_motion
+      sequence:
+      - action: light.turn_on
+        metadata: {}
+        data: {}
+        target:
+          area_id: maxs_room
+    - conditions:
+      - condition: trigger
+        id:
+        - max_clear
+      sequence:
+      - action: light.turn_off
+        metadata: {}
+        data: {}
+        target:
+          area_id: maxs_room
+  mode: single

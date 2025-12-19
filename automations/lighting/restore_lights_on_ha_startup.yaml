@@ -1,0 +1,15 @@
+- alias: Restore lights on HA startup
+  description: "After a restart, turn back on every light whose state was restored\
+    \ as \u201Con\u201D in Home Assistant.\n"
+  trigger:
+  - platform: homeassistant
+    event: start
+  action:
+  - delay: 00:00:10
+  - variables:
+      lights_on: "{{ states.light\n   | selectattr('state','eq','on')\n   | map(attribute='entity_id')\n\
+        \   | list }}\n"
+  - service: light.turn_on
+    data:
+      entity_id: '{{ lights_on }}'
+  id: 60d5a267413843009e17becd680505f0

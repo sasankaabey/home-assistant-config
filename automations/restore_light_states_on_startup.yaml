@@ -1,0 +1,94 @@
+- alias: Restore Light States on Startup
+  description: Ensure lights return to their pre-restart state after Home Assistant
+    restarts
+  trigger:
+  - platform: homeassistant
+    event: start
+  action:
+  - service: scene.create
+    data:
+      scene_id: pre_restart_lights
+      snapshot_entities:
+      - light.danielles_nightstand
+      - light.basement_lamp
+      - light.zoes_light
+      - light.living_room_tv_light
+      - light.light_strip
+      - light.hue_iris
+      - light.ankits_nightstand
+      - light.downstairs
+      - light.bedroom
+      - light.living_room
+      - light.main_level
+      - light.upstairs
+      - light.zoes_room
+      - light.home
+      - light.basement
+      - light.back_deck_string_lights
+      - light.fence_string_lights
+      - light.maxs_floor_lamp
+      - light.zoes_floor_lamp
+      - light.living_room_ceiling
+      - light.nightstands
+      - light.bed_lightstrip
+      - light.living_room_lights
+      - light.office
+      - light.max_s_lamp_dnd
+      - light.maxs_lamp_outlet
+      - light.aidens_floor_lamp
+      - light.smart_rgbtw_bulb
+      - light.smart_rgbtw_bulb_2
+      - light.smart_rgbtw_bulb_3
+      - light.smart_rgbtw_bulb_4
+      - light.kitchen_lights
+      - light.wled
+      - light.wled_main
+      - light.wled_segment_1
+      - light.g45_rgbcw_wifi_le5w
+      - light.g45_rgbcw_wifi_le5w_2
+      - light.g45_rgbcw_wifi_le5w_3
+      - light.g45_rgbcw_wifi_le5w_4
+      - light.dining_room_ceiling
+      - light.dining_room_tray
+      - light.dining_room_table_2
+      - light.aiden_s_lamp
+      - light.stairway_lights
+      - light.living_room_floor_lamp_three_leg
+      - light.living_room_floor_lamp_single_leg
+      - light.living_room_lamps_and_tv_lights
+      - light.kasa_smart_dimmer
+      - light.kasa_smart_dimmer_2
+      - light.kasa_smart_dimmer_3
+      - light.office_desk
+      - light.office_2
+      - light.screek_office_motion_sensor_red_info_light
+      - light.open_floorplan_lights
+      - light.bedroom_ceiling_4
+      - light.bedroom_ceiling_2
+      - light.bedroom_ceiling_3
+      - light.bedroom_ceiling_1
+      - light.bedroom_nightstands
+      - light.bedroom_ambient_lights
+      - light.bedroom_lights_group
+      - light.bedroom_ceiling_lights
+      - light.office_overhead_lights
+      - light.office_ambient_lights
+      - light.office_ct_lights
+      - light.hallway
+      - light.hallway_lamp
+      - light.stairway_2
+      - light.stairway_3
+      - light.stairway_4
+      - light.stairway_1
+      - light.front_door
+      - light.front_door_light
+  - delay:
+      seconds: 5
+  - service: scene.turn_on
+    data:
+      entity_id: scene.pre_restart_lights
+  - service: system_log.write
+    data:
+      message: Light states restored after startup
+      level: info
+  mode: single

@@ -1,0 +1,112 @@
+washer_idle_threshold:
+  name: Washer Idle Threshold (W)
+  initial: 2
+  min: 0
+  max: 100
+  step: 0.1
+
+open_floorplan_min_brightness:
+  name: Open Floorplan Min Brightness (%)
+  initial: 10
+  min: 1
+  max: 100
+  step: 1
+
+open_floorplan_max_brightness:
+  name: Open Floorplan Max Brightness (%)
+  initial: 100
+  min: 1
+  max: 100
+  step: 1
+
+open_floorplan_min_color_temp:
+  name: Open Floorplan Min Color Temp (mireds)
+  initial: 153
+  min: 153
+  max: 500
+  step: 1
+
+open_floorplan_max_color_temp:
+  name: Open Floorplan Max Color Temp (mireds)
+  initial: 500
+  min: 153
+  max: 500
+  step: 1
+
+open_floorplan_dynamic_brightness:
+  name: Open Floorplan Dynamic Brightness (%)
+  initial: 50
+  min: 1
+  max: 100
+  step: 1
+
+open_floorplan_dynamic_color_temp:
+  name: Open Floorplan Dynamic Color Temp (mireds)
+  initial: 300
+  min: 153
+  max: 500
+  step: 1
+
+primary_bedroom_manual_brightness:
+  name: Primary Bedroom Manual Brightness (%)
+  initial: 50
+  min: 1
+  max: 100
+  step: 1
+
+primary_bedroom_manual_color_temp:
+  name: Primary Bedroom Manual Color Temp (mireds)
+  initial: 400
+  min: 153
+  max: 500
+  step: 1
+
+bedroom_ct_morning:
+  name: Bedroom CT at Sunrise (mireds)
+  initial: 370
+  min: 153
+  max: 500
+  step: 1
+
+bedroom_ct_day:
+  name: Bedroom CT at Noon (mireds)
+  initial: 250
+  min: 153
+  max: 500
+  step: 1
+
+bedroom_ct_evening:
+  name: Bedroom CT at Sunset (mireds)
+  initial: 400
+  min: 153
+  max: 500
+  step: 1
+
+bedroom_ct_night:
+  name: Bedroom CT at Night (mireds)
+  initial: 500
+  min: 153
+  max: 500
+  step: 1
+
+bedroom_dynamic_color_temp:
+  name: Bedroom Dynamic Color Temp (mireds)
+  initial: 370
+  min: 153
+  max: 500
+  step: 1
+
+litterbot_nag_interval:
+  name: Litterbot Nag Interval
+  initial: 10
+  min: 1
+  max: 60
+  step: 1
+  unit_of_measurement: "minutes"
+
+litterbot_nag_message_index:
+  name: Litterbot Nag Message Index
+  initial: 0
+  min: 0
+  max: 9  # Adjust based on total number of messages
+  step: 1
