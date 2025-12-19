@@ -6,25 +6,27 @@
 
 # Secrets
 secrets.yaml
-
 # Databases
 *.db
 *.db-shm
 *.db-wal
-
 # Logs & temp
 *.log
 *.txt
 watch_log.txt
 watchman_report.txt
 split_log.txt
-
 # Python junk
 __pycache__/
 deps/
-
 # Editor
 .vscode/
-
 # Backups / exports
 *.zip
+# Local tools / runtime extras
+appdaemon/
+image/
+html5_push_registrations.conf
+split_scripts_yaml.py
+watch_scripts.py
+home-assistant.log.fault
