@@ -30,3 +30,6 @@ html5_push_registrations.conf
 split_scripts_yaml.py
 watch_scripts.py
 home-assistant.log.fault
+
+# Generated media / caches
+www/alexa_tts/
