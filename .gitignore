@@ -1,0 +1,30 @@
+# Home Assistant runtime
+.storage/
+.cloud/
+.ha_run.lock
+.HA_VERSION
+
+# Secrets
+secrets.yaml
+
+# Databases
+*.db
+*.db-shm
+*.db-wal
+
+# Logs & temp
+*.log
+*.txt
+watch_log.txt
+watchman_report.txt
+split_log.txt
+
+# Python junk
+__pycache__/
+deps/
+
+# Editor
+.vscode/
+
+# Backups / exports
+*.zip
