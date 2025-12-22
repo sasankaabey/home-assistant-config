@@ -2,7 +2,9 @@
 set -euo pipefail
 
 SRC_DIR="$(cd "$(dirname "$0")" && pwd)"
-DEST_DIR="/Volumes/config"
+REMOTE_HOST="${REMOTE_HOST:-homeassistant.local}"
+REMOTE_USER="${REMOTE_USER:-root}"
+DEST_DIR="${DEST_DIR:-/config}"
 
 RSYNC_OPTS=(
   -a
@@ -37,4 +39,4 @@ if [[ "${DRY_RUN:-}" == "1" ]]; then
   RSYNC_OPTS+=(--dry-run)
 fi
 
-rsync "${RSYNC_OPTS[@]}" "$SRC_DIR/" "$DEST_DIR/"
+rsync -e ssh "${RSYNC_OPTS[@]}" "$SRC_DIR/" "${REMOTE_USER}@${REMOTE_HOST}:${DEST_DIR}/"
