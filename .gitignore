@@ -8,6 +8,8 @@
 secrets.yaml
 # Databases
 *.db
+*.db.*
+*.db-*
 *.db-shm
 *.db-wal
 # Logs & temp
