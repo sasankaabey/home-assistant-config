@@ -2,6 +2,8 @@ name: Human presence sensor
 products:
   - id: wzp9yjsobanavsut
     model: ZY-HPS01-5.8G
+  - id: 3rljcwhv5zazapfv
+    name: Human Presence Sensor
 entities:
   - entity: binary_sensor
     class: motion

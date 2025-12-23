@@ -34,6 +34,12 @@ products:
   - id: iucfl5wpdk4w0cjm
     manufacturer: Laser Smart Home
     model: LSH-E14RGB5W
+  - id: ljxiikpcuufvr13w
+    name: G45-RGBCW-WiFi & LE5W
+  - id: ampwegeciifeyifz
+    name: Color Light
+  - id: key8u54q9dtru5jw
+    name: G45-RGBCW-WiFi & LE5W (local)
 entities:
   - entity: light
     dps:

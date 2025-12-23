@@ -1,6 +1,5 @@
-name: Smoke detector
+name: Smoke sensor (forced match)
 products:
-  - id: lsjnzox4skgduemo
   - id: 39ugxpfslhy6qtj2
     name: Smoke Sensor
 entities:
@@ -10,6 +9,7 @@ entities:
       - id: 1
         type: string
         name: sensor
+        optional: true
         mapping:
           - dps_val: alarm
             value: true
@@ -27,6 +27,7 @@ entities:
         name: sensor
         unit: ppm
         class: measurement
+        optional: true
   - entity: binary_sensor
     class: problem
     category: diagnostic
@@ -34,6 +35,7 @@ entities:
       - id: 11
         type: bitfield
         name: sensor
+        optional: true
         mapping:
           - dps_val: 0
             value: false
@@ -41,6 +43,7 @@ entities:
       - id: 11
         type: bitfield
         name: fault_code
+        optional: true
   - entity: sensor
     class: battery
     dps:
@@ -49,9 +52,11 @@ entities:
         name: sensor
         unit: "%"
         class: measurement
+        optional: true
       - id: 14
         type: string
         name: level
+        optional: true
   - entity: switch
     name: Mute
     icon: "mdi:volume-mute"
@@ -59,6 +64,7 @@ entities:
       - id: 16
         type: boolean
         name: switch
+        optional: true
         mapping:
           - dps_val: false
             icon: "mdi:volume-high"
@@ -69,3 +75,4 @@ entities:
       - id: 101
         type: boolean
         name: button
+        optional: true

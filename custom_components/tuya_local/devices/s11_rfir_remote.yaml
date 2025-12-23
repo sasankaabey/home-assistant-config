@@ -8,6 +8,10 @@ products:
     name: RF/IR remote
   - id: 0gawnyfgyneswent
     model: IR Controller Pro
+  - id: saciapriryy0xnsg
+    name: Smart Remote Controller (IR+RF433/315)
+  - id: keym4vvjhx4sd9kk
+    name: Smart Remote Controller (local)
 entities:
   - entity: remote
     dps:

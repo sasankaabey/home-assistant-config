@@ -1,4 +1,9 @@
 name: Simple switch
+products:
+  - id: n0kphfrgn3fd0iat
+    name: 4-gang switch
+  - id: keyjnuy4s3kre7m7
+    name: 4-gang switch (local)
 entities:
   - entity: switch
     translation_key: switch_x
