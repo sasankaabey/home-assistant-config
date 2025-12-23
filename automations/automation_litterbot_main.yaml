@@ -2,7 +2,7 @@ alias: "Litterbot Problem Alert"
 id: "litterbot_problem_alert"
 trigger:
   - platform: state
-    entity_id: binary_sensor.litterbot
+    entity_id: binary_sensor.shitbot_problem
     to: "on"
     for: "00:03:00"
 condition: []
