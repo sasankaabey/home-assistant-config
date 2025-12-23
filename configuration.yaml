@@ -92,3 +92,6 @@ cloud:
         - binary_sensor.*sound*
   google_assistant:
     filter: *voice_filter
+
+homekit:
+  filter: *voice_filter
