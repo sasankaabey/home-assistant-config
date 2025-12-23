@@ -44,6 +44,7 @@ tuya_qr.png
 tuya_local_dps.json
 tuya_iot_devices.json
 snapshot.json
+ha_inventory.json
 
 # Generated media / caches
 www/alexa_tts/
