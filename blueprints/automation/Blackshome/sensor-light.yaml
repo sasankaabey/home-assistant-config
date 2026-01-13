@@ -6055,11 +6055,14 @@ action:
               sequence:
               - variables:
                   dynamic_brightness_pct: "{% set lux = states(dynamic_lighting_lux_sensor)
-                    | float %} {% set slope = (dynamic_lighting_min_brightness - dynamic_lighting_max_brightness)
-                    / (dynamic_lighting_max_lux - dynamic_lighting_min_lux) %} {%
-                    set ak = (( slope * dynamic_lighting_min_lux) * -1) + dynamic_lighting_max_brightness
+                    | float(default=dynamic_lighting_min_lux) %} {% set min_lux = dynamic_lighting_min_lux
+                    | float %} {% set max_lux = dynamic_lighting_max_lux | float
+                    %} {% set lux_range = (max_lux - min_lux) %} {% set lux_range
+                    = lux_range if lux_range != 0 else 1 %} {% set slope = (dynamic_lighting_min_brightness
+                    - dynamic_lighting_max_brightness) / lux_range %} {% set ak
+                    = (( slope * min_lux) * -1) + dynamic_lighting_max_brightness
                     %} {% set le = light_entities %} {% set lec = expand(le) | map(attribute='entity_id')
-                    | list | length %} {% set lp = (expand(le) | map(attribute='attributes.brightness')
+                    | list | length %} {% set lec = lec if lec > 0 else 1 %} {% set lp = (expand(le) | map(attribute='attributes.brightness')
                     | reject('equalto', None) | sum | float(default=255) / 255 * 100
                     / lec) | round(0) %} {% if lux <= dynamic_lighting_min_lux %}\n
                     \ {% set bv = dynamic_lighting_max_brightness %}\n{% elif lux
@@ -6091,11 +6094,14 @@ action:
                     **{ 'rgbww_color': light_rgbww_colour }) %}\n{% endif %} {{ light.data
                     }}\n"
                   in_dead_zone: "{% set lux = states(dynamic_lighting_lux_sensor)
-                    | float %} {% set slope = (dynamic_lighting_min_brightness - dynamic_lighting_max_brightness)
-                    / (dynamic_lighting_max_lux - dynamic_lighting_min_lux) %} {%
-                    set ak = (( slope * dynamic_lighting_min_lux) * -1) + dynamic_lighting_max_brightness
+                    | float(default=dynamic_lighting_min_lux) %} {% set min_lux
+                    = dynamic_lighting_min_lux | float %} {% set max_lux = dynamic_lighting_max_lux
+                    | float %} {% set lux_range = (max_lux - min_lux) %} {% set lux_range
+                    = lux_range if lux_range != 0 else 1 %} {% set slope = (dynamic_lighting_min_brightness
+                    - dynamic_lighting_max_brightness) / lux_range %} {% set ak
+                    = (( slope * min_lux) * -1) + dynamic_lighting_max_brightness
                     %} {% set le = light_entities %} {% set lec = expand(le) | map(attribute='entity_id')
-                    | list | length %} {% set lp = (expand(le) | map(attribute='attributes.brightness')
+                    | list | length %} {% set lec = lec if lec > 0 else 1 %} {% set lp = (expand(le) | map(attribute='attributes.brightness')
                     | reject('equalto', None) | sum | float(default=255) / 255 * 100
                     / lec) | round(0) %} {% if lux <= dynamic_lighting_min_lux %}\n
                     \ {% set bv = dynamic_lighting_max_brightness %}\n{% elif lux
@@ -6195,11 +6201,14 @@ action:
               sequence:
               - variables:
                   dynamic_brightness_pct: "{% set lux = states(dynamic_lighting_lux_sensor)
-                    | float %} {% set slope = (dynamic_lighting_min_brightness - dynamic_lighting_max_brightness)
-                    / (dynamic_lighting_min_lux - dynamic_lighting_max_lux) %} {%
-                    set ak = (( slope * dynamic_lighting_min_lux) * -1) + dynamic_lighting_min_brightness
+                    | float(default=dynamic_lighting_min_lux) %} {% set min_lux = dynamic_lighting_min_lux
+                    | float %} {% set max_lux = dynamic_lighting_max_lux | float
+                    %} {% set lux_range = (min_lux - max_lux) %} {% set lux_range
+                    = lux_range if lux_range != 0 else -1 %} {% set slope = (dynamic_lighting_min_brightness
+                    - dynamic_lighting_max_brightness) / lux_range %} {% set ak
+                    = (( slope * min_lux) * -1) + dynamic_lighting_min_brightness
                     %} {% set le = light_entities %} {% set lec = expand(le) | map(attribute='entity_id')
-                    | list | length %} {% set lp = (expand(le) | map(attribute='attributes.brightness')
+                    | list | length %} {% set lec = lec if lec > 0 else 1 %} {% set lp = (expand(le) | map(attribute='attributes.brightness')
                     | reject('equalto', None) | sum | float(default=255) / 255 * 100
                     / lec) | round(0) %} {% if lux <= dynamic_lighting_min_lux %}\n
                     \ {% set bv = dynamic_lighting_min_brightness %}\n{% elif lux
@@ -6231,11 +6240,14 @@ action:
                     **{ 'rgbww_color': light_rgbww_colour }) %}\n{% endif %} {{ light.data
                     }}\n"
                   in_dead_zone: "{% set lux = states(dynamic_lighting_lux_sensor)
-                    | float %} {% set slope = (dynamic_lighting_min_brightness - dynamic_lighting_max_brightness)
-                    / (dynamic_lighting_min_lux - dynamic_lighting_max_lux) %} {%
-                    set ak = (( slope * dynamic_lighting_min_lux) * -1) + dynamic_lighting_min_brightness
+                    | float(default=dynamic_lighting_min_lux) %} {% set min_lux
+                    = dynamic_lighting_min_lux | float %} {% set max_lux = dynamic_lighting_max_lux
+                    | float %} {% set lux_range = (min_lux - max_lux) %} {% set lux_range
+                    = lux_range if lux_range != 0 else -1 %} {% set slope = (dynamic_lighting_min_brightness
+                    - dynamic_lighting_max_brightness) / lux_range %} {% set ak
+                    = (( slope * min_lux) * -1) + dynamic_lighting_min_brightness
                     %} {% set le = light_entities %} {% set lec = expand(le) | map(attribute='entity_id')
-                    | list | length %} {% set lp = (expand(le) | map(attribute='attributes.brightness')
+                    | list | length %} {% set lec = lec if lec > 0 else 1 %} {% set lp = (expand(le) | map(attribute='attributes.brightness')
                     | reject('equalto', None) | sum | float(default=255) / 255 * 100
                     / lec) | round(0) %} {% if lux <= dynamic_lighting_min_lux %}\n
                     \ {% set bv = dynamic_lighting_min_brightness %}\n{% elif lux
@@ -6523,7 +6535,7 @@ action:
                     **{ 'rgbww_color': light_rgbww_colour }) %}\n{% endif %} {{ light.data
                     }}\n"
                   should_wait: "{% set le = light_entities %} {% set lec = expand(le)
-                    | map(attribute='entity_id') | list | length %} {% set lp = (expand(le)
+                    | map(attribute='entity_id') | list | length %} {% set lec = lec if lec > 0 else 1 %} {% set lp = (expand(le)
                     | map(attribute='attributes.brightness') | reject('equalto', None)
                     | sum | float(default=255) / 255 * 100 / lec) | round(0) %} {%
                     set elevation = state_attr('sun.sun', 'elevation') | float %}
@@ -6694,7 +6706,7 @@ action:
                     **{ 'rgbww_color': light_rgbww_colour }) %}\n{% endif %} {{ light.data
                     }}\n"
                   should_wait: "{% set le = light_entities %} {% set lec = expand(le)
-                    | map(attribute='entity_id') | list | length %} {% set lp = (expand(le)
+                    | map(attribute='entity_id') | list | length %} {% set lec = lec if lec > 0 else 1 %} {% set lp = (expand(le)
                     | map(attribute='attributes.brightness') | reject('equalto', None)
                     | sum | float(default=255) / 255 * 100 / lec) | round(0) %} {%
                     set elevation = state_attr('sun.sun', 'elevation') | float %}
@@ -6885,7 +6897,7 @@ action:
                     %}\n  {% set light.data = dict(light.data, **{ 'transition': light_transition_on
                     }) %}\n{% endif %} {{ light.data }}\n"
                   should_wait: "{% set le = light_entities %} {% set lec = expand(le)
-                    | map(attribute='entity_id') | list | length %} {% set lp = (expand(le)
+                    | map(attribute='entity_id') | list | length %} {% set lec = lec if lec > 0 else 1 %} {% set lp = (expand(le)
                     | map(attribute='attributes.brightness') | reject('equalto', None)
                     | sum | float(default=255) / 255 * 100 / lec) | round(0) %} {%
                     set elevation = state_attr('sun.sun', 'elevation') | float %}
@@ -7077,7 +7089,7 @@ action:
                     %}\n  {% set light.data = dict(light.data, **{ 'transition': light_transition_on
                     }) %}\n{% endif %} {{ light.data }}\n"
                   should_wait: "{% set le = light_entities %} {% set lec = expand(le)
-                    | map(attribute='entity_id') | list | length %} {% set lp = (expand(le)
+                    | map(attribute='entity_id') | list | length %} {% set lec = lec if lec > 0 else 1 %} {% set lp = (expand(le)
                     | map(attribute='attributes.brightness') | reject('equalto', None)
                     | sum | float(default=255) / 255 * 100 / lec) | round(0) %} {%
                     set elevation = state_attr('sun.sun', 'elevation') | float %}
@@ -7211,11 +7223,13 @@ action:
                   sequence:
                   - variables:
                       dynamic_brightness_pct: "{% set lux = states(dynamic_lighting_lux_sensor)
-                        | float %} {% set slope = (dynamic_lighting_min_brightness
-                        - dynamic_lighting_max_brightness) / (dynamic_lighting_max_lux
-                        - dynamic_lighting_min_lux) %} {% set ak = (( slope * dynamic_lighting_min_lux)
-                        * -1) + dynamic_lighting_max_brightness %} {% set le = light_entities
-                        %} {% set lec = expand(le) | map(attribute='entity_id') |
+                        | float(default=dynamic_lighting_min_lux) %} {% set min_lux
+                        = dynamic_lighting_min_lux | float %} {% set max_lux = dynamic_lighting_max_lux
+                        | float %} {% set lux_range = (max_lux - min_lux) %} {%
+                        set lux_range = lux_range if lux_range != 0 else 1 %} {%
+                        set slope = (dynamic_lighting_min_brightness - dynamic_lighting_max_brightness)
+                        / lux_range %} {% set ak = (( slope * min_lux) * -1) + dynamic_lighting_max_brightness
+                        %} {% set le = light_entities %} {% set lec = expand(le) | map(attribute='entity_id') |
                         list | length %} {% set lp = (expand(le) | map(attribute='attributes.brightness')
                         | reject('equalto', None) | sum | float(default=255) / 255
                         * 100 / lec) | round(0) %} {% if lux <= dynamic_lighting_min_lux
@@ -7279,11 +7293,13 @@ action:
                         \ {% set light.data = dict(light.data, **{ 'transition': light_transition_on
                         }) %}\n{% endif %} {{ light.data }}\n"
                       in_dead_zone: "{% set lux = states(dynamic_lighting_lux_sensor)
-                        | float %} {% set slope = (dynamic_lighting_min_brightness
-                        - dynamic_lighting_max_brightness) / (dynamic_lighting_max_lux
-                        - dynamic_lighting_min_lux) %} {% set ak = (( slope * dynamic_lighting_min_lux)
-                        * -1) + dynamic_lighting_max_brightness %} {% set le = light_entities
-                        %} {% set lec = expand(le) | map(attribute='entity_id') |
+                        | float(default=dynamic_lighting_min_lux) %} {% set min_lux
+                        = dynamic_lighting_min_lux | float %} {% set max_lux = dynamic_lighting_max_lux
+                        | float %} {% set lux_range = (max_lux - min_lux) %} {%
+                        set lux_range = lux_range if lux_range != 0 else 1 %} {%
+                        set slope = (dynamic_lighting_min_brightness - dynamic_lighting_max_brightness)
+                        / lux_range %} {% set ak = (( slope * min_lux) * -1) + dynamic_lighting_max_brightness
+                        %} {% set le = light_entities %} {% set lec = expand(le) | map(attribute='entity_id') |
                         list | length %} {% set lp = (expand(le) | map(attribute='attributes.brightness')
                         | reject('equalto', None) | sum | float(default=255) / 255
                         * 100 / lec) | round(0) %} {% if lux <= dynamic_lighting_min_lux
@@ -7572,11 +7588,13 @@ action:
                   sequence:
                   - variables:
                       dynamic_brightness_pct: "{% set lux = states(dynamic_lighting_lux_sensor)
-                        | float %} {% set slope = (dynamic_lighting_min_brightness
-                        - dynamic_lighting_max_brightness) / (dynamic_lighting_min_lux
-                        - dynamic_lighting_max_lux) %} {% set ak = (( slope * dynamic_lighting_min_lux)
-                        * -1) + dynamic_lighting_min_brightness %} {% set le = light_entities
-                        %} {% set lec = expand(le) | map(attribute='entity_id') |
+                        | float(default=dynamic_lighting_min_lux) %} {% set min_lux
+                        = dynamic_lighting_min_lux | float %} {% set max_lux = dynamic_lighting_max_lux
+                        | float %} {% set lux_range = (min_lux - max_lux) %} {%
+                        set lux_range = lux_range if lux_range != 0 else -1 %} {%
+                        set slope = (dynamic_lighting_min_brightness - dynamic_lighting_max_brightness)
+                        / lux_range %} {% set ak = (( slope * min_lux) * -1) + dynamic_lighting_min_brightness
+                        %} {% set le = light_entities %} {% set lec = expand(le) | map(attribute='entity_id') |
                         list | length %} {% set lp = (expand(le) | map(attribute='attributes.brightness')
                         | reject('equalto', None) | sum | float(default=255) / 255
                         * 100 / lec) | round(0) %} {% if lux <= dynamic_lighting_min_lux
@@ -7640,11 +7658,13 @@ action:
                         \ {% set light.data = dict(light.data, **{ 'transition': light_transition_on
                         }) %}\n{% endif %} {{ light.data }}\n"
                       in_dead_zone: "{% set lux = states(dynamic_lighting_lux_sensor)
-                        | float %} {% set slope = (dynamic_lighting_min_brightness
-                        - dynamic_lighting_max_brightness) / (dynamic_lighting_min_lux
-                        - dynamic_lighting_max_lux) %} {% set ak = (( slope * dynamic_lighting_min_lux)
-                        * -1) + dynamic_lighting_min_brightness %} {% set le = light_entities
-                        %} {% set lec = expand(le) | map(attribute='entity_id') |
+                        | float(default=dynamic_lighting_min_lux) %} {% set min_lux
+                        = dynamic_lighting_min_lux | float %} {% set max_lux = dynamic_lighting_max_lux
+                        | float %} {% set lux_range = (min_lux - max_lux) %} {%
+                        set lux_range = lux_range if lux_range != 0 else -1 %} {%
+                        set slope = (dynamic_lighting_min_brightness - dynamic_lighting_max_brightness)
+                        / lux_range %} {% set ak = (( slope * min_lux) * -1) + dynamic_lighting_min_brightness
+                        %} {% set le = light_entities %} {% set lec = expand(le) | map(attribute='entity_id') |
                         list | length %} {% set lp = (expand(le) | map(attribute='attributes.brightness')
                         | reject('equalto', None) | sum | float(default=255) / 255
                         * 100 / lec) | round(0) %} {% if lux <= dynamic_lighting_min_lux

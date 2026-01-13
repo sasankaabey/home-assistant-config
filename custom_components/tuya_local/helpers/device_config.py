@@ -106,7 +106,6 @@ class TuyaDeviceConfig:
         self._fname = fname
         filename = join(_CONFIG_DIR, fname)
         self._config = load_yaml(filename)
-        self._reported_deprecated_primary = False
         _LOGGER.debug("Loaded device config %s", fname)
 
     @property
@@ -129,31 +128,9 @@ class TuyaDeviceConfig:
         """Return the legacy conf_type associated with this device."""
         return self._config.get("legacy_type", self.config_type)
 
-    @property
-    def primary_entity(self):
-        """Return the primary type of entity for this device."""
-        if "primary_entity" not in self._config:
-            # primary entity is a deprecated fallback, so if it is
-            # missing, we need to log a warning about the missing entities
-            # list.
-            _LOGGER.error(f"{self.config_type}.yaml does not define an entities list.")
-            return TuyaEntityConfig(self, self._config["entities"][0])
-        if not self._reported_deprecated_primary:
-            _LOGGER.warning(
-                f"{self.config_type}.yaml distinguishes between primary"
-                " and secondary_entities. This is deprecated, please"
-                " modify it to use a single list."
-            )
-            self._reported_deprecated_primary = True
-
-        return TuyaEntityConfig(self, self._config["primary_entity"])
-
     def all_entities(self):
         """Iterate through all entities for this device."""
         entities = self._config.get("entities")
-        if not entities:
-            yield self.primary_entity
-            entities = self._config.get("secondary_entities", {})
 
         for e in entities:
             yield TuyaEntityConfig(self, e)
@@ -476,7 +453,10 @@ class TuyaDpsConfig:
     def get_value(self, device):
         """Return the value of the dps from the given device."""
         mask = self.mask
-        bytevalue = self.decoded_value(device)
+        # Get raw value directly avoiding accidental scaling by decoded_value()
+        raw_from_device = device.get_property(self.id)
+        bytevalue = self.decode_value(raw_from_device, device)
+
         if mask and isinstance(bytevalue, bytes):
             value = int.from_bytes(bytevalue, self.endianness)
             scale = mask & (1 + ~mask)
@@ -489,8 +469,15 @@ class TuyaDpsConfig:
                 raw_result = to_signed(raw_result, bit_count)
 
             return self._map_from_dps(raw_result, device)
+
+        elif mask and isinstance(bytevalue, int):
+            # Handle masking for integer DPs
+            scale = mask & (1 + ~mask)
+            raw_result = (bytevalue & mask) // scale
+            return self._map_from_dps(raw_result, device)
+
         else:
-            return self._map_from_dps(device.get_property(self.id), device)
+            return self._map_from_dps(raw_from_device, device)
 
     def decoded_value(self, device):
         v = self._map_from_dps(device.get_property(self.id), device)
@@ -1072,14 +1059,25 @@ class TuyaDpsConfig:
             # Convert to int
             endianness = self.endianness
             mask_scale = mask & (1 + ~mask)
-            decoded_value = self.decoded_value(device)
-            # if we have already updated it as part of this update,
-            # use it to preserve bits
+
+            # Get raw current value directly (avoids scaling being auto applied as it causes issues)
+            raw_current = device.get_property(self.id)
             if self.id in pending_map:
                 decoded_value = self.decode_value(pending_map[self.id], device)
-            current_value = int.from_bytes(decoded_value, endianness)
-            result = (current_value & ~mask) | (mask & int(result * mask_scale))
-            result = self.encode_value(result.to_bytes(length, endianness))
+            else:
+                decoded_value = self.decode_value(raw_current, device)
+
+            if isinstance(decoded_value, int):
+                current_value = decoded_value
+                result = (current_value & ~mask) | (mask & int(result * mask_scale))
+                # Only convert back to bytes if the DP is actually hex/base64
+                if self.rawtype in ["hex", "base64", "utf16b64"]:
+                    result = self.encode_value(result.to_bytes(length, endianness))
+            else:
+                # Bytes path (original logic)
+                current_value = int.from_bytes(decoded_value, endianness)
+                result = (current_value & ~mask) | (mask & int(result * mask_scale))
+                result = self.encode_value(result.to_bytes(length, endianness))
 
         dps_map[self.id] = self._correct_type(result)
         return dps_map

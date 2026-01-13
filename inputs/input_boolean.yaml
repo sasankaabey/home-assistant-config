@@ -15,3 +15,7 @@ tv_mount_should_be_down:
 litterbot_nag_enabled:
   name: Litterbot Nag Enabled
   initial: false
+
+litterbot_nag_snooze_until_home:
+  name: Litterbot Nag Snooze Until Home
+  initial: false

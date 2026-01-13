@@ -4,9 +4,9 @@
     path: Blackshome/sensor-light.yaml
     input:
       motion_trigger:
-      - binary_sensor.bedroom_occupancy_sensor_motion
+      - binary_sensor.primary_bedroom_occupancy_sensor_motion
       light_switch:
-        entity_id: light.bedroom_lights_group
+        entity_id: light.primary_bedroom_lights
       include_light_control:
       - use_transition
       - use_brightness
@@ -36,7 +36,7 @@
       - input_boolean.bypass_primary_bedroom
       include_bypass_auto_off:
       - bypass_auto_off_enabled_off
-      ambient_light_sensor: sensor.bedroom_occupancy_sensor_illuminance
+      ambient_light_sensor: sensor.primary_bedroom_occupancy_sensor_illuminance
       zone: zone.home
       people:
       - person.danielle_goodwin

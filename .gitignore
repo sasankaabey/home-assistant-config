@@ -6,8 +6,12 @@
 
 # Secrets
 secrets.yaml
+.env
+.env.*
 # Databases
 *.db
+*.db.*
+*.db-*
 *.db-shm
 *.db-wal
 # Logs & temp
@@ -19,8 +23,10 @@ split_log.txt
 # Python junk
 __pycache__/
 deps/
+.venv/
 # Editor
 .vscode/
+.DS_Store
 # Backups / exports
 *.zip
 # Local tools / runtime extras
@@ -30,6 +36,15 @@ html5_push_registrations.conf
 split_scripts_yaml.py
 watch_scripts.py
 home-assistant.log.fault
+tuya_cloud_devices.json
+tuya_cloud_datamodels.json
+tuya_cloud_datamodels_raw.json
+tuya_qr.png
+.tuya_qr.json
+tuya_local_dps.json
+tuya_iot_devices.json
+snapshot.json
+ha_inventory.json
 
 # Generated media / caches
 www/alexa_tts/

@@ -34,7 +34,7 @@
             },
             "local": {
                 "title": "Configurează dispozitivul Tuya Local",
-                "description": "[Urmați aceste instrucțiuni pentru a găsi device id și local key.](https://github.com/make-all/tuya-local#finding-your-device-id-and-local-key)",
+                "description": "[Urmați aceste instrucțiuni pentru a găsi device id și local key.](https://github.com/make-all/tuya-local/blob/main/DEVICE_DETAILS.md#finding-your-device-id-and-local-key)",
                 "data": {
                     "host": "Adresă IP sau hostname",
                     "device_id": "Device ID (sau Device ID al hub-ului pentru dispozitive conectate prin gateway)",
@@ -83,7 +83,7 @@
         "step": {
             "user": {
                 "title": "Configurează dispozitivul Tuya Local",
-                "description": "[Urmați aceste instrucțiuni pentru a găsi cheia locală.](https://github.com/make-all/tuya-local#finding-your-device-id-and-local-key)",
+                "description": "[Urmați aceste instrucțiuni pentru a găsi cheia locală.](https://github.com/make-all/tuya-local/blob/main/DEVICE_DETAILS.md#finding-your-device-id-and-local-key)",
                 "data": {
                     "host": "Adresă IP sau hostname",
                     "local_key": "Cheie locală",
@@ -204,6 +204,9 @@
                     }
                 }
             },
+            "cold_water": {
+                "name": "Apă rece"
+            },
             "thermostat": {
                 "name": "Termostat",
                 "state_attributes": {
@@ -276,7 +279,8 @@
                             "program_1": "Program 1",
                             "program_2": "Program 2",
                             "program_3": "Program 3",
-                            "standby": "În așteptare"
+                            "standby": "În așteptare",
+                            "fan_only": "Doar ventilator"
                         }
                     }
                 }
@@ -374,6 +378,9 @@
                             "smart": "Inteligent",
                             "strong": "Puternic",
                             "custom": "Personalizat",
+                            "auto": "Auto",
+                            "manual": "Manual",
+                            "program": "Program",
                             "high": "Ridicat",
                             "medium": "Mediu",
                             "low": "Scăzut",
@@ -392,6 +399,7 @@
                             "circulate": "Circulare",
                             "sleep": "Somn",
                             "auto": "Auto",
+                            "manual": "Manual",
                             "eco": "Eco",
                             "anti-condensation": "Anti-condens",
                             "extractor": "Extractor",
@@ -436,6 +444,9 @@
             }
         },
         "number": {
+            "manual_feed": {
+                "name": "Hrănire manuală"
+            },
             "maximum_temperature": {
                 "name": "Temperatură maximă"
             },
@@ -555,6 +566,15 @@
                     "very_high": "Foarte ridicat"
                 }
             },
+            "motion_sensitivity": {
+                "name": "Sensibilitate mișcare",
+                "state": {
+                    "off": "Oprit",
+                    "low": "Scăzut",
+                    "medium": "Mediu",
+                    "high": "Ridicat"
+                }
+            },
             "recipe": {
                 "name": "Rețetă",
                 "state": {
@@ -606,7 +626,10 @@
                 "state": {
                     "cancel": "Anulează",
                     "continuous": "Continuu",
+                    "15s": "15 secunde",
+                    "20s": "20 secunde",
                     "30s": "30 secunde",
+                    "45s": "45 secunde",
                     "1m": "1 minut",
                     "2m": "2 minute",
                     "5m": "5 minute",
@@ -709,7 +732,8 @@
                     "normal": "Normal",
                     "smart": "Inteligent",
                     "night": "Noapte",
-                    "motion": "Mișcare"
+                    "motion": "Mișcare",
+                    "off": "Oprit"
                 }
             },
             "bidet_mode": {
@@ -932,7 +956,15 @@
                     "dry": "Uscat",
                     "comfortable": "Confortabil",
                     "damp": "Umed",
-                    "smoothing": "Netezire"
+                    "smoothing": "Netezire",
+                    "cleaned": "Curățat",
+                    "cold_water_unavailable": "Apă rece indisponibilă",
+                    "drain": "Drenaj",
+                    "drain_cold_water": "Drenare apă rece",
+                    "drain_hot_water": "Drenare apă caldă",
+                    "drain_normal_water": "Drenare apă normală",
+                    "high_temperature_emptying": "Golire la temperatură înaltă",
+                    "high_temperature_emptied": "Golire la temperatură înaltă finalizată"
                 }
             },
             "time_remaining": {
@@ -982,11 +1014,20 @@
             },
             "power_x": {
                 "name": "Putere {x}"
+            },
+            "filter_life": {
+                "name": "Durata de viață a filtrului"
             }
         },
         "switch": {
             "anti_frost": {
                 "name": "Antigel"
+            },
+            "auto_clean": {
+                "name": "Curățare automată"
+            },
+            "auto_light": {
+                "name": "Lumină automată"
             },
             "breaker": {
                 "name": "Siguranță",
@@ -1000,6 +1041,9 @@
             },
             "evaporator_cleaning": {
                 "name": "Curățare evaporator"
+            },
+            "flip_image": {
+                "name": "Răsucire imagine"
             },
             "ionizer": {
                 "name": "Ionizator"
@@ -1047,6 +1091,9 @@
             },
             "kettle": {
                 "name": "Fierbător"
+            },
+            "hot_water": {
+                "name": "Apă caldă"
             }
         }
     }

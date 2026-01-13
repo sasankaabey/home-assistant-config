@@ -34,7 +34,7 @@
             },
             "local": {
                 "title": "Konfigurera din Tuya Local-enhet",
-                "description": "[Följ dessa instruktioner för att hitta ditt enhets-ID och lokala nyckel.](https://github.com/make-all/tuya-local#finding-your-device-id-and-local-key)",
+                "description": "[Följ dessa instruktioner för att hitta ditt enhets-ID och lokala nyckel.](https://github.com/make-all/tuya-local/blob/main/DEVICE_DETAILS.md#finding-your-device-id-and-local-key)",
                 "data": {
                     "host": "IP-adress eller värdnamn",
                     "device_id": "Enhets-ID (eller hubbens enhets-ID för enheter anslutna via gateway)",
@@ -83,7 +83,7 @@
         "step": {
             "user": {
                 "title": "Konfigurera din Tuya Local-enhet",
-                "description": "[Följ dessa instruktioner för att hitta din lokala nyckel.](https://github.com/make-all/tuya-local#finding-your-device-id-and-local-key)",
+                "description": "[Följ dessa instruktioner för att hitta din lokala nyckel.](https://github.com/make-all/tuya-local/blob/main/DEVICE_DETAILS.md#finding-your-device-id-and-local-key)",
                 "data": {
                     "host": "IP-adress eller värdnamn",
                     "local_key": "Lokal nyckel",
@@ -204,6 +204,9 @@
                     }
                 }
             },
+            "cold_water": {
+                "name": "Kallvattenberedare"
+            },
             "thermostat": {
                 "name": "Termostat",
                 "state_attributes": {
@@ -276,7 +279,8 @@
                             "program_1": "Program 1",
                             "program_2": "Program 2",
                             "program_3": "Program 3",
-                            "standby": "Standby"
+                            "standby": "Standby",
+                            "fan_only": "Endast fläkt"
                         }
                     }
                 }
@@ -374,6 +378,9 @@
                             "smart": "Smart",
                             "strong": "Stark",
                             "custom": "Anpassad",
+                            "auto": "Auto",
+                            "manual": "Manuell",
+                            "program": "Program",
                             "high": "Hög",
                             "medium": "Medel",
                             "low": "Låg",
@@ -392,6 +399,7 @@
                             "circulate": "Cirkulera",
                             "sleep": "Sömn",
                             "auto": "Auto",
+                            "manual": "Manuell",
                             "eco": "Eko",
                             "anti-condensation": "Anti-kondens",
                             "extractor": "Fläkt",
@@ -436,6 +444,9 @@
             }
         },
         "number": {
+            "manual_feed": {
+                "name": "Manuell matning"
+            },
             "maximum_temperature": {
                 "name": "Maximal temperatur"
             },
@@ -555,6 +566,15 @@
                     "very_high": "Mycket hög"
                 }
             },
+            "motion_sensitivity": {
+                "name": "Rörelsekänslighet",
+                "state": {
+                    "off": "Av",
+                    "low": "Låg",
+                    "medium": "Medel",
+                    "high": "Hög"
+                }
+            },
             "recipe": {
                 "name": "Recept",
                 "state": {
@@ -606,7 +626,10 @@
                 "state": {
                     "cancel": "Avbryt",
                     "continuous": "Kontinuerlig",
+                    "15s": "15 sekunder",
+                    "20s": "20 sekunder",
                     "30s": "30 sekunder",
+                    "45s": "45 sekunder",
                     "1m": "1 minut",
                     "2m": "2 minuter",
                     "5m": "5 minuter",
@@ -709,7 +732,8 @@
                     "normal": "Normal",
                     "smart": "Smart",
                     "night": "Natt",
-                    "motion": "Rörelse"
+                    "motion": "Rörelse",
+                    "off": "Av"
                 }
             },
             "bidet_mode": {
@@ -932,7 +956,15 @@
                     "dry": "Torr",
                     "comfortable": "Bekväm",
                     "damp": "Fuktig",
-                    "smoothing": "Utjämning"
+                    "smoothing": "Utjämning",
+                    "cleaned": "Rengjord",
+                    "cold_water_unavailable": "Kallt vatten otillgängligt",
+                    "drain": "Tömning",
+                    "drain_cold_water": "Töm kallt vatten",
+                    "drain_hot_water": "Töm varmt vatten",
+                    "drain_normal_water": "Töm normalt vatten",
+                    "high_temperature_emptying": "Hög temperatur tömning",
+                    "high_temperature_emptied": "Hög temperatur tömd"
                 }
             },
             "time_remaining": {
@@ -982,11 +1014,20 @@
             },
             "power_x": {
                 "name": "Effekt {x}"
+            },
+            "filter_life": {
+                "name": "Filterlivslängd"
             }
         },
         "switch": {
             "anti_frost": {
                 "name": "Frostskydd"
+            },
+            "auto_clean": {
+                "name": "Autorening"
+            },
+            "auto_light": {
+                "name": "Autoljus"
             },
             "breaker": {
                 "name": "Brytare",
@@ -1000,6 +1041,9 @@
             },
             "evaporator_cleaning": {
                 "name": "Förångarrengöring"
+            },
+            "flip_image": {
+                "name": "Vänd bild"
             },
             "ionizer": {
                 "name": "Jonisering"
@@ -1047,6 +1091,9 @@
             },
             "kettle": {
                 "name": "Vattenkokare"
+            },
+            "hot_water": {
+                "name": "Varmvattenberedare"
             }
         }
     }

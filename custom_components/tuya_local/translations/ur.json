@@ -1,3 +1,4 @@
+
 {
     "title": "ٹویا لوکل",
     "config": {
@@ -34,7 +35,7 @@
             },
             "local": {
                 "title": "اپنے ٹویا لوکل ڈیوائس کو ترتیب دیں۔",
-                "description": "[اپنی ڈیوائس آئی ڈی اور لوکل کلید تلاش کرنے کے لیے ان ہدایات پر عمل کریں۔](https://github.com/make-all/tuya-local#finding-your-device-id-and-local-key)",
+                "description": "[اپنی ڈیوائس آئی ڈی اور لوکل کلید تلاش کرنے کے لیے ان ہدایات پر عمل کریں۔](https://github.com/make-all/tuya-local/blob/main/DEVICE_DETAILS.md#finding-your-device-id-and-local-key)",
                 "data": {
                     "host": "IP ایڈریس یا میزبان نام",
                     "or device_id of gateway for devices connected through gateway": "",
@@ -85,7 +86,7 @@
         "step": {
             "user": {
                 "title": "اپنے ٹویا لوکل ڈیوائس کو ترتیب دیں",
-                "description": "[اپنی مقامی کلید تلاش کرنے کے لیے ان ہدایات پر عمل کریں۔](https://github.com/make-all/tuya-local#finding-your-device-id-and-local-key)",
+                "description": "[اپنی مقامی کلید تلاش کرنے کے لیے ان ہدایات پر عمل کریں۔](https://github.com/make-all/tuya-local/blob/main/DEVICE_DETAILS.md#finding-your-device-id-and-local-key)",
                 "data": {
                     "host": "IP پتہ یا میزبان نام",
                     "local_key": "مقامی کلید",
@@ -206,6 +207,9 @@
                     }
                 }
             },
+            "cold_water": {
+                "name": "ٹھنڈا پانی"
+            },
             "thermostat": {
                 "name": "تھرموسٹیٹ",
                 "state_attributes": {
@@ -278,7 +282,8 @@
                             "program_1": "پروگرام 1",
                             "program_2": "پروگرام 2",
                             "program_3": "پروگرام 3",
-                            "standby": "اسٹینڈ بائی"
+                            "standby": "اسٹینڈ بائی",
+                            "fan_only": "پنکھا"
                         }
                     }
                 }
@@ -376,6 +381,9 @@
                             "smart": "سمارٹ",
                             "strong": "مضبوط",
                             "custom": "اپنی مرضی کے مطابق",
+                            "auto": "خود کار",
+                            "manual": "دستی",
+                            "program": "پروگرام",
                             "high": "زیادہ",
                             "medium": "درمیانہ",
                             "low": "کم",
@@ -394,6 +402,7 @@
                             "circulate": "گردش کریں۔",
                             "sleep": "سونا",
                             "auto": "خود مختار",
+                            "manual": "دستی",
                             "eco": "ایکو",
                             "anti-condensation": "اینٹی کنڈینسیشن",
                             "extractor": "نکالنے والا",
@@ -438,6 +447,9 @@
             }
         },
         "number": {
+            "manual_feed": {
+                "name": "دستی فیڈ"
+            },
             "maximum_temperature": {
                 "name": "زیادہ سے زیادہ درجہ حرارت"
             },
@@ -557,6 +569,15 @@
                     "very_high": "بہت زیادہ"
                 }
             },
+            "motion_sensitivity": {
+                "name": "موشن حساسیت",
+                "state": {
+                    "off": "آف",
+                    "low": "کم",
+                    "medium": "درمیانہ",
+                    "high": "زیادہ"
+                }
+            },
             "recipe": {
                 "name": "ریسیپی",
                 "state": {
@@ -608,7 +629,10 @@
                 "state": {
                     "cancel": "منسوخ کریں",
                     "continuous": "مسلسل",
+                    "15s": "15 سیکنڈ",
+                    "20s": "20 سیکنڈ",
                     "30s": "30 سیکنڈ",
+                    "45s": "45 سیکنڈ",
                     "1m": "1 منٹ",
                     "2m": "2 منٹ",
                     "5m": "5 منٹ",
@@ -711,7 +735,8 @@
                     "normal": "عام",
                     "smart": "سمارٹ",
                     "night": "رات",
-                    "motion": "حرکت"
+                    "motion": "حرکت",
+                    "off": "آف"
                 }
             },
             "bidet_mode": {
@@ -934,7 +959,15 @@
                     "dry": "خشک",
                     "comfortable": "آرام دہ",
                     "damp": "نم",
-                    "smoothing": "ہموار کرنا"
+                    "smoothing": "ہموار کرنا",
+                    "cleaned": "صاف کیا گیا",
+                    "cold_water_unavailable": "ٹھنڈا پانی دستیاب نہیں",
+                    "drain": "نکاسی",
+                    "drain_cold_water": "ٹھنڈا پانی نکالیں",
+                    "drain_hot_water": "گرم پانی نکالیں",
+                    "drain_normal_water": "عام پانی نکالیں",
+                    "high_temperature_emptying": "اعلی درجہ حرارت خالی کرنا",
+                    "high_temperature_emptied": "اعلی درجہ حرارت خالی ہوگیا"
                 }
             },
             "time_remaining": {
@@ -984,11 +1017,20 @@
             },
             "power_x": {
                 "name": "پاور {x}"
+            },
+            "filter_life": {
+                "name": "فلٹر کی عمر"
             }
         },
         "switch": {
             "anti_frost": {
                 "name": "اینٹی فراسٹ"
+            },
+            "auto_clean": {
+                "name": "خود کار صفائی"
+            },
+            "auto_light": {
+                "name": "خود کار روشنی"
             },
             "breaker": {
                 "name": "بریککر",
@@ -1003,8 +1045,11 @@
             "evaporator_cleaning": {
                 "name": "بخارات کی صفائی"
             },
+            "flip_image": {
+                "name": "تصویر پلٹائیں"
+            },
             "ionizer": {
-                "name": "Ionizer"
+                "name": "آئنائزر"
             },
             "keytone": {
                 "name": "کی پیڈ ٹون"
@@ -1049,6 +1094,9 @@
             },
             "kettle": {
                 "name": "کیٹل"
+            },
+            "hot_water": {
+                "name": "گرم پانی"
             }
         }
     }

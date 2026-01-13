@@ -1,58 +1,83 @@
 alias: "Litterbot Nagging Reminder"
 id: "litterbot_nagging"
 trigger:
-  - platform: time_pattern
-    minutes: "/10"
-condition:
-  - condition: state
-    entity_id: binary_sensor.litterbot
-    state: "on"
-  - condition: state
+  - platform: state
+    entity_id: binary_sensor.basement_pantry_shitbot_problem
+    to: "on"
+  - platform: state
     entity_id: input_boolean.litterbot_nag_enabled
-    state: "on"
+    to: "on"
+condition: []
 action:
   - repeat:
-      for_each:
-        
-        - media_player.bedroom_echo
-        - media_player.living_room_alexa
-        - media_player.kitchen_echo
-        - media_player.zoe_s_room
-        - media_player.kitchen_2
-        - media_player.living_room_soundbar_2
-        - media_player.aiden_s_echo_show
-        - media_player.ankit_s_sonos_arc
-        - media_player.max_s_bedroom_echo
+      while:
+        - condition: state
+          entity_id: binary_sensor.basement_pantry_shitbot_problem
+          state: "on"
+        - condition: state
+          entity_id: input_boolean.litterbot_nag_enabled
+          state: "on"
       sequence:
-        - service: notify.alexa_media
-          data:
-            target: "{{ repeat.item }}"
-            message: >
-              {% set nags = [
-                "Friendly reminder from the cat union: the litter robot is still broken. Fix it, human servant.",
-                "Alert: the bathroom for noble felines is out of order. Emergency whisker council has convened.",
-                "Your cats are sharpening their claws in protest. Fix the Litterbot before the revolution begins.",
-                "Litterbot is still busted. This is not a drill. Poop is pending. Proceed to maintenance.",
-                "Attention: Your fluffy overlords are preparing a lawsuit. The grounds? Inaccessible bathroom facilities.",
-                "If you’re hearing this, it means no one has fixed the Litterbot. Shame. Shame!"
+        - variables:
+            interval_minutes: "{{ states('input_number.litterbot_nag_interval') | int(30) }}"
+            snooze_until: "{{ states('input_datetime.litterbot_nag_snooze_until') }}"
+            home_snooze_enabled: "{{ is_state('input_boolean.litterbot_nag_snooze_until_home', 'on') }}"
+            home_snooze_person: >-
+              {% set candidate = states('input_text.litterbot_nag_snooze_until_home_person') %}
+              {% if candidate in states %}
+                {{ candidate }}
+              {% else %}
+                person.ankit_aggarwal
+              {% endif %}
+            home_snoozed: >-
+              {{ home_snooze_enabled and not is_state(home_snooze_person, 'home') }}
+            time_snoozed: >-
+              {{ snooze_until not in ['unknown', 'unavailable', 'none', ''] and
+                 as_timestamp(snooze_until) > as_timestamp(now()) }}
+            snoozed: "{{ time_snoozed or home_snoozed }}"
+            nag_message: >-
+              {% set camden_nags = [
+                "Camden grumbles: still broken.",
+                "Camden: this is unacceptable.",
+                "Camden: we need service.",
+                "Camden: this is your job.",
+                "Camden: restroom access denied.",
+                "Camden: shame."
               ] %}
-              {{ nags | random }}
-            data:
-              type: announce
-              method: all
+              {% set poe_nags = [
+                "Poe: oh. is this bad? fix it.",
+                "Poe: wait, what? fix it.",
+                "Poe: is that the bathroom? make it work.",
+                "Poe: I don't get it. fix it.",
+                "Poe: are we okay? fix it.",
+                "Poe: please make it stop."
+              ] %}
+              {{ [camden_nags | random, poe_nags | random] }}
 
-  - repeat:
-      for_each:
-        - notify.mobile_app_ankit
-        - notify.mobile_app_danielle
-      sequence:
-        - service: "{{ repeat.item }}"
-          data:
-            message: "💩 Litterbot is STILL busted. Cats are circling. Send help."
-            title: "NAG: Fix the Litterbot"
-            data:
-              persistent: true
-              ttl: 0
-              priority: high
-              tag: litterbot_nag
+        - if:
+            - condition: template
+              value_template: "{{ not snoozed }}"
+          then:
+            - service: notify.mobile_app_ankit_s_iphone
+              data:
+                message: "💩 Litterbot is STILL busted. Cats are circling. Send help."
+                title: "NAG: Fix the Litterbot"
+                data:
+                  persistent: true
+                  ttl: 0
+                  priority: high
+                  tag: litterbot_nag
+
+            - service: notify.mobile_app_pixel_7a
+              data:
+                message: "💩 Litterbot is STILL busted. Cats are circling. Send help."
+                title: "NAG: Fix the Litterbot"
+                data:
+                  persistent: true
+                  ttl: 0
+                  priority: high
+                  tag: litterbot_nag
+
+        - delay:
+            minutes: "{{ interval_minutes }}"
 mode: single

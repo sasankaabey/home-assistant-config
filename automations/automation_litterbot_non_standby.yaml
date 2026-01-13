@@ -1,0 +1,29 @@
+alias: "Litterbot Non-Standby Alert"
+id: "litterbot_non_standby_alert"
+trigger:
+  - platform: state
+    entity_id: sensor.basement_pantry_shitbot_status
+condition:
+  - condition: template
+    value_template: >-
+      {% set status = states('sensor.basement_pantry_shitbot_status') %}
+      {{ status not in ['standby', 'sleep', 'sleeping'] }}
+action:
+  - delay:
+      minutes: "{{ states('input_number.litterbot_non_standby_minutes') | int(5) }}"
+  - condition: template
+    value_template: >-
+      {% set status = states('sensor.basement_pantry_shitbot_status') %}
+      {{ status not in ['standby', 'sleep', 'sleeping'] }}
+  - service: script.litterbot_alexa_announce
+    data:
+      message: "ShitBot is stuck and needs attention."
+  - service: notify.mobile_app_ankit_s_iphone
+    data:
+      title: "Litterbot check"
+      message: "ShitBot is stuck or offline and needs attention."
+  - service: notify.mobile_app_pixel_7a
+    data:
+      title: "Litterbot check"
+      message: "ShitBot is stuck or offline and needs attention."
+mode: restart

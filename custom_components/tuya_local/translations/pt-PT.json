@@ -34,7 +34,7 @@
             },
             "local": {
                 "title": "Configure seu dispositivo Tuya Local",
-                "description": "[Siga estas instruções para encontrar o ID do seu dispositivo e a chave local.](https://github.com/make-all/tuya-local#finding-your-device-id-and-local-key)",
+                "description": "[Siga estas instruções para encontrar o ID do seu dispositivo e a chave local.](https://github.com/make-all/tuya-local/blob/main/DEVICE_DETAILS.md#finding-your-device-id-and-local-key)",
                 "data": {
                     "host": "Endereço IP ou nome do host",
                     "device_id": "Device ID (ou device_id do gateway para dispositivos conectados via gateway)",
@@ -83,7 +83,7 @@
         "step": {
             "user": {
                 "title": "Configure seu dispositivo Tuya Local",
-                "description": "[Siga estas instruções para encontrar o ID do seu dispositivo e a chave local.](https://github.com/make-all/tuya-local#finding-your-device-id-and-local-key)",
+                "description": "[Siga estas instruções para encontrar o ID do seu dispositivo e a chave local.](https://github.com/make-all/tuya-local/blob/main/DEVICE_DETAILS.md#finding-your-device-id-and-local-key)",
                 "data": {
                     "host": "Endereço IP ou nome do host",
                     "local_key": "Chave Local",
@@ -204,6 +204,9 @@
                     }
                 }
             },
+            "cold_water": {
+                "name": "Água fria"
+            },
             "thermostat": {
                 "name": "Termostato",
                 "state_attributes": {
@@ -276,7 +279,8 @@
                             "program_1": "Programa 1",
                             "program_2": "Programa 2",
                             "program_3": "Programa 3",
-                            "standby": "Em espera"
+                            "standby": "Em espera",
+                            "fan_only": "Ventilador"
                         }
                     }
                 }
@@ -374,6 +378,9 @@
                             "smart": "Inteligente",
                             "strong": "Forte",
                             "custom": "Personalizado",
+                            "auto": "Auto",
+                            "manual": "Manual",
+                            "program": "Programa",
                             "high": "Alto",
                             "medium": "Médio",
                             "low": "Baixo",
@@ -392,6 +399,7 @@
                             "circulate": "Circular",
                             "sleep": "Dormir",
                             "auto": "Auto",
+                            "manual": "Manual",
                             "eco": "Ecológico",
                             "anti-condensation": "Anti-condensação",
                             "extractor": "Extrator",
@@ -436,6 +444,9 @@
             }
         },
         "number": {
+            "manual_feed": {
+                "name": "Alimentação manual"
+            },
             "maximum_temperature": {
                 "name": "Temperatura máxima"
             },
@@ -555,6 +566,15 @@
                     "very_high": "Muito alto"
                 }
             },
+            "motion_sensitivity": {
+                "name": "Sensibilidade de movimento",
+                "state": {
+                    "off": "Desligado",
+                    "low": "Baixo",
+                    "medium": "Médio",
+                    "high": "Alto"
+                }
+            },
             "recipe": {
                 "name": "Receita",
                 "state": {
@@ -606,7 +626,10 @@
                 "state": {
                     "cancel": "Cancelar",
                     "continuous": "Contínuo",
+                    "15s": "15 segundos",
+                    "20s": "20 segundos",
                     "30s": "30 segundos",
+                    "45s": "45 segundos",
                     "1m": "1 minuto",
                     "2m": "2 minutos",
                     "5m": "5 minutos",
@@ -709,7 +732,8 @@
                     "normal": "Normal",
                     "smart": "Inteligente",
                     "night": "Noturno",
-                    "motion": "Movimento"
+                    "motion": "Movimento",
+                    "off": "Desligado"
                 }
             },
             "bidet_mode": {
@@ -932,7 +956,15 @@
                     "dry": "Seco",
                     "comfortable": "Confortável",
                     "damp": "Úmido",
-                    "smoothing": "Suavizar"
+                    "smoothing": "Suavizar",
+                    "cleaned": "Limpo",
+                    "cold_water_unavailable": "Água fria indisponível",
+                    "drain": "Drenar",
+                    "drain_cold_water": "Drenar água fria",
+                    "drain_hot_water": "Drenar água quente",
+                    "drain_normal_water": "Drenar água normal",
+                    "high_temperature_emptying": "Esvaziamento de alta temperatura",
+                    "high_temperature_emptied": "Esvaziado em alta temperatura"
                 }
             },
             "time_remaining": {
@@ -982,11 +1014,20 @@
             },
             "power_x": {
                 "name": "Potência {x}"
+            },
+            "filter_life": {
+                "name": "Vida útil do filtro"
             }
         },
         "switch": {
             "anti_frost": {
                 "name": "Antigelo"
+            },
+            "auto_clean": {
+                "name": "Auto limpeza"
+            },
+            "auto_light": {
+                "name": "Luz automática"
             },
             "breaker": {
                 "name": "Disjuntor",
@@ -1000,6 +1041,9 @@
             },
             "evaporator_cleaning": {
                 "name": "Limpeza de evaporador"
+            },
+            "flip_image": {
+                "name": "Virar imagem"
             },
             "ionizer": {
                 "name": "Ionizador"
@@ -1047,6 +1091,9 @@
             },
             "kettle": {
                 "name": "Chaleira"
+            },
+            "hot_water": {
+                "name": "Água quente"
             }
         }
     }

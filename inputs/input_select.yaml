@@ -9,3 +9,21 @@ washer_owner:
     - Aiden
     - Mixed
   initial: Unknown
+
+litterbot_camden_tts_engine:
+  name: Camden TTS Engine
+  options:
+    - tts.elevenlabs
+    - tts.home_assistant_cloud
+    - tts.piper
+    - tts.google_translate_en_com
+  initial: tts.elevenlabs
+
+litterbot_poe_tts_engine:
+  name: Poe TTS Engine
+  options:
+    - tts.elevenlabs
+    - tts.piper
+    - tts.home_assistant_cloud
+    - tts.google_translate_en_com
+  initial: tts.elevenlabs

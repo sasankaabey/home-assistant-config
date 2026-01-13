@@ -1,0 +1,26 @@
+alias: "Litterbot Clean Cycles Alert"
+id: "litterbot_clean_cycles_alert"
+trigger:
+  - platform: template
+    value_template: >-
+      {% set cycles = states('sensor.basement_pantry_shitbot_cleans_in_bin') | int(0) %}
+      {% set threshold = states('input_number.litterbot_clean_cycles_threshold') | int(10) %}
+      {{ cycles >= threshold and cycles > 0 }}
+condition: []
+action:
+  - service: script.litterbot_alexa_announce
+    data:
+      message: "ShitBot needs to be cleaned."
+  - service: notify.mobile_app_ankit_s_iphone
+    data:
+      title: "Litterbot bin"
+      message: >-
+        ShitBot has {{ states('sensor.basement_pantry_shitbot_cleans_in_bin') }}
+        clean cycles in the bin. Time to empty it.
+  - service: notify.mobile_app_pixel_7a
+    data:
+      title: "Litterbot bin"
+      message: >-
+        ShitBot has {{ states('sensor.basement_pantry_shitbot_cleans_in_bin') }}
+        clean cycles in the bin. Time to empty it.
+mode: single

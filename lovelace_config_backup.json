@@ -1,0 +1,1941 @@
+{
+  "views": [
+    {
+      "path": "default_view",
+      "title": "Desktop",
+      "cards": [
+        {
+          "square": false,
+          "type": "grid",
+          "cards": [
+            {
+              "type": "heading",
+              "icon": "",
+              "heading_style": "subtitle",
+              "badges": [
+                {
+                  "type": "entity",
+                  "show_state": true,
+                  "show_icon": true,
+                  "entity": "binary_sensor.living_room_occupancy_motion",
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "automation.sensor_lights_living_room",
+                      "state": "on"
+                    }
+                  ],
+                  "color": "state"
+                },
+                {
+                  "type": "entity",
+                  "show_state": true,
+                  "show_icon": true,
+                  "entity": "sensor.living_room_occupancy_illuminance",
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "automation.sensor_lights_living_room",
+                      "state": "on"
+                    }
+                  ],
+                  "color": "state",
+                  "icon": "mdi:brightness-5"
+                },
+                {
+                  "type": "entity",
+                  "show_state": true,
+                  "show_icon": true,
+                  "entity": "automation.sensor_lights_living_room",
+                  "tap_action": {
+                    "action": "toggle"
+                  },
+                  "color": "state",
+                  "name": "Sensor On/Off",
+                  "icon": "hue:motion-sensor-luminance"
+                },
+                {
+                  "type": "entity",
+                  "show_state": true,
+                  "show_icon": true,
+                  "entity": "climate.main_floor",
+                  "state_content": "current_temperature"
+                },
+                {
+                  "type": "entity",
+                  "show_state": true,
+                  "show_icon": false,
+                  "entity": "input_select.main_floor_thermostat_current_action",
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "input_select.main_floor_thermostat_current_action",
+                      "state_not": "None"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "camera_view": "auto",
+              "fit_mode": "fill",
+              "type": "picture-glance",
+              "entities": [
+                {
+                  "entity": "media_player.living_room_apple_tv"
+                },
+                {
+                  "entity": "media_player.living_room_tv"
+                },
+                {
+                  "entity": "script.re_sync_tv_mount_with_tv_power"
+                },
+                {
+                  "entity": "light.living_room_lights"
+                },
+                {
+                  "entity": "light.living_room_ceiling"
+                },
+                {
+                  "entity": "light.living_room_lamps_and_tv_lights"
+                },
+                {
+                  "entity": "light.living_room_tv_light"
+                }
+              ],
+              "tap_action": {
+                "action": "toggle"
+              },
+              "image": "/api/image/serve/77b7f31eb59952461f00c5d14aeb6540/512x512",
+              "entity": "light.living_room_lights",
+              "double_tap_action": {
+                "action": "more-info"
+              }
+            }
+          ],
+          "columns": 1
+        },
+        {
+          "type": "entities",
+          "entities": [
+            "input_boolean.washer_on",
+            "sensor.washer_running_current",
+            "sensor.washer_running_current_consumption",
+            "sensor.washer_running_voltage"
+          ],
+          "title": "Laundry Room"
+        },
+        {
+          "type": "grid",
+          "square": false,
+          "columns": 1,
+          "cards": [
+            {
+              "type": "heading",
+              "icon": "",
+              "heading_style": "title",
+              "badges": [
+                {
+                  "type": "entity",
+                  "show_state": true,
+                  "show_icon": true,
+                  "entity": "binary_sensor.dining_room_occupancy_sensor_motion",
+                  "color": "state",
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "automation.sensor_lights_dining_room",
+                      "state": "on"
+                    }
+                  ]
+                },
+                {
+                  "type": "entity",
+                  "show_state": true,
+                  "show_icon": true,
+                  "entity": "sensor.dining_room_occupancy_sensor_illuminance",
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "automation.sensor_lights_dining_room",
+                      "state": "on"
+                    }
+                  ],
+                  "color": "state"
+                },
+                {
+                  "type": "entity",
+                  "show_state": true,
+                  "show_icon": true,
+                  "entity": "automation.sensor_lights_dining_room",
+                  "color": "state",
+                  "tap_action": {
+                    "action": "toggle"
+                  },
+                  "icon": "hue:motion-sensor-luminance-alt"
+                },
+                {
+                  "type": "entity",
+                  "show_state": true,
+                  "show_icon": true,
+                  "entity": "climate.main_floor",
+                  "state_content": "current_temperature"
+                },
+                {
+                  "type": "entity",
+                  "show_state": true,
+                  "show_icon": false,
+                  "entity": "input_select.main_floor_thermostat_current_action",
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "input_select.main_floor_thermostat_current_action",
+                      "state_not": "None"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "camera_view": "auto",
+              "fit_mode": "fill",
+              "type": "picture-glance",
+              "image": "/api/image/serve/636d9156e458607459c7be29d916c4f1/512x512",
+              "entities": [
+                {
+                  "entity": "light.dining_room_ceiling"
+                },
+                {
+                  "entity": "light.dining_room_table_2"
+                },
+                {
+                  "entity": "light.dining_room_tray"
+                }
+              ],
+              "entity": "light.dining_room_ceiling",
+              "tap_action": {
+                "action": "toggle"
+              },
+              "hold_action": {
+                "action": "more-info"
+              },
+              "double_tap_action": {
+                "action": "more-info"
+              }
+            }
+          ]
+        },
+        {
+          "type": "entities",
+          "entities": [
+            "input_boolean.enable_dynamic_lighting",
+            "light.open_floorplan_lights"
+          ],
+          "title": "First Floor"
+        },
+        {
+          "square": false,
+          "type": "grid",
+          "columns": 1,
+          "cards": [
+            {
+              "type": "heading",
+              "icon": "",
+              "heading_style": "title",
+              "badges": [
+                {
+                  "type": "entity",
+                  "show_state": true,
+                  "show_icon": true,
+                  "entity": "binary_sensor.back_door_sensor",
+                  "color": "state",
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "binary_sensor.back_door_sensor",
+                      "state_not": "off"
+                    }
+                  ]
+                },
+                {
+                  "type": "entity",
+                  "show_state": true,
+                  "show_icon": true,
+                  "entity": "binary_sensor.kitchen_occupancy_sensor_motion",
+                  "icon": "mdi:motion-sensor",
+                  "color": "state",
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "automation.sensor_light_kitchen",
+                      "state": "on"
+                    }
+                  ]
+                },
+                {
+                  "type": "entity",
+                  "show_state": true,
+                  "show_icon": true,
+                  "entity": "sensor.kitchen_occupancy_sensor_illuminance",
+                  "color": "state",
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "automation.sensor_light_kitchen",
+                      "state": "on"
+                    }
+                  ]
+                },
+                {
+                  "type": "entity",
+                  "show_state": true,
+                  "show_icon": true,
+                  "entity": "automation.sensor_light_kitchen",
+                  "color": "state",
+                  "icon": "hue:motion-sensor-luminance",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "type": "entity",
+                  "show_state": true,
+                  "show_icon": true,
+                  "entity": "climate.main_floor",
+                  "tap_action": {
+                    "action": "more-info"
+                  },
+                  "state_content": "current_temperature"
+                },
+                {
+                  "type": "entity",
+                  "show_state": true,
+                  "show_icon": false,
+                  "entity": "input_select.main_floor_thermostat_current_action",
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "input_select.main_floor_thermostat_current_action",
+                      "state_not": "None"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "camera_view": "auto",
+              "fit_mode": "cover",
+              "type": "picture-glance",
+              "image": "/api/image/serve/8518cfc9c6c01039b8cbce39dc2b3ccd/512x512",
+              "entities": [
+                {
+                  "entity": "light.kitchen_lights"
+                },
+                {
+                  "entity": "media_player.kitchen_echo"
+                }
+              ],
+              "entity": "light.kitchen_lights",
+              "tap_action": {
+                "action": "toggle"
+              },
+              "double_tap_action": {
+                "action": "more-info"
+              }
+            }
+          ]
+        },
+        {
+          "type": "entities",
+          "entities": [
+            "light.front_door_light"
+          ],
+          "title": "Front door"
+        },
+        {
+          "type": "entities",
+          "entities": [
+            "light.zoes_floor_lamp",
+            "light.zoes_light",
+            "light.zoes_room"
+          ],
+          "title": "Zoe's Room"
+        },
+        {
+          "type": "entities",
+          "entities": [
+            "light.back_deck_string_lights",
+            "light.fence_string_lights",
+            "sensor.moon_phase"
+          ],
+          "title": "Outside"
+        },
+        {
+          "type": "entities",
+          "entities": [
+            "light.aidens_floor_lamp",
+            "light.aiden_s_lamp"
+          ],
+          "title": "Aiden's Room"
+        },
+        {
+          "type": "entities",
+          "entities": [
+            "light.maxs_floor_lamp",
+            "light.maxs_lamp_outlet",
+            "binary_sensor.esphome_web_470cfa_presence"
+          ],
+          "title": "Max's Room"
+        },
+        {
+          "type": "grid",
+          "square": false,
+          "columns": 1,
+          "cards": [
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "light.office_ambient_lights",
+                  "name": "Ambient Lights"
+                },
+                {
+                  "entity": "light.office_desk",
+                  "name": "Desk"
+                },
+                {
+                  "entity": "remote.office_homepod",
+                  "name": "HomePod"
+                },
+                "light.light_strip",
+                {
+                  "entity": "light.office_overhead_lights",
+                  "name": "Overhead Lights"
+                },
+                "sensor.epson_xp_4200_series_black_ink",
+                "sensor.epson_xp_4200_series_cyan_ink",
+                "sensor.electricity_maps_co2_intensity",
+                "sensor.electricity_maps_grid_fossil_fuel_percentage",
+                "sensor.epson_xp_4200_series",
+                "sensor.eve_motion_20eby9901_illuminance",
+                "binary_sensor.eve_motion_20eby9901_occupancy",
+                "sensor.lg_32_widescreen_monitor_current",
+                "sensor.lg_32_widescreen_monitor_current_consumption",
+                "sensor.lg_32_widescreen_monitor_voltage",
+                "sensor.lg_ultragear_40_monitor_current",
+                "sensor.lg_ultragear_40_monitor_current_consumption",
+                "sensor.lg_ultragear_40_monitor_voltage",
+                "binary_sensor.living_room_tv",
+                "sensor.epson_xp_4200_series_magenta_ink",
+                {
+                  "entity": "sensor.screek_office_motion_sensor_bh1750_illuminance",
+                  "name": "Motion Sensor BH1750 Illuminance"
+                },
+                {
+                  "entity": "sensor.screek_office_motion_sensor_move_energy",
+                  "name": "Motion Sensor Move Energy"
+                },
+                {
+                  "entity": "sensor.screek_office_motion_sensor_moving_distance",
+                  "name": "Motion Sensor Moving Distance"
+                },
+                {
+                  "entity": "binary_sensor.screek_office_motion_sensor_moving_target",
+                  "name": "Motion Sensor Moving Target"
+                },
+                {
+                  "entity": "binary_sensor.screek_office_motion_sensor_presence",
+                  "name": "Motion Sensor Presence"
+                },
+                {
+                  "entity": "sensor.screek_office_motion_sensor_still_distance",
+                  "name": "Motion Sensor Still Distance"
+                },
+                {
+                  "entity": "sensor.screek_office_motion_sensor_still_energy",
+                  "name": "Motion Sensor Still Energy"
+                },
+                {
+                  "entity": "binary_sensor.screek_office_motion_sensor_still_target",
+                  "name": "Motion Sensor Still Target"
+                },
+                "sensor.watchman_last_updated",
+                "sensor.watchman_missing_actions",
+                "sensor.watchman_missing_entities",
+                "sensor.epson_xp_4200_series_yellow_ink"
+              ],
+              "title": "Office"
+            },
+            {
+              "type": "media-control",
+              "entity": "media_player.office_homepod"
+            }
+          ]
+        },
+        {
+          "type": "grid",
+          "square": false,
+          "columns": 1,
+          "cards": [
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "input_datetime.primary_bedroom_alarm_wakeup_time",
+                  "name": "Alarm Wakeup Time"
+                },
+                "light.ankits_nightstand",
+                "light.bed_lightstrip",
+                "light.bedroom_ceiling_lights",
+                "light.bedroom_lights_group",
+                "light.bedroom_nightstands",
+                "remote.bedroom_tv",
+                "light.danielles_nightstand",
+                "sensor.bedroom_echo_next_alarm",
+                "sensor.bedroom_echo_next_reminder",
+                "sensor.bedroom_echo_next_timer",
+                "sensor.bedroom_occupancy_sensor_illuminance",
+                "binary_sensor.bedroom_occupancy_sensor_motion",
+                "sensor.monstera_air_humidity",
+                "sensor.monstera_conductivity",
+                "sensor.monstera_dli",
+                "sensor.monstera_illuminance",
+                "sensor.monstera_soil_moisture_2",
+                "sensor.monstera_soil_moisture",
+                "sensor.monstera_temperature_2",
+                "sensor.monstera_temperature",
+                "sensor.upstairs_humidity",
+                "sensor.upstairs_temperature"
+              ],
+              "title": "Primary Bedroom",
+              "footer": {
+                "type": "buttons",
+                "entities": [
+                  {
+                    "entity": "scene.turn_off_bedroom_lights_and_motion",
+                    "show_icon": true,
+                    "show_name": true
+                  }
+                ]
+              }
+            },
+            {
+              "type": "media-control",
+              "entity": "media_player.bedroom"
+            },
+            {
+              "type": "media-control",
+              "entity": "media_player.bedroom_tv"
+            },
+            {
+              "type": "thermostat",
+              "entity": "climate.upstairs",
+              "features": [
+                {
+                  "type": "climate-hvac-modes",
+                  "hvac_modes": [
+                    "heat",
+                    "cool",
+                    "heat_cool",
+                    "off"
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "media-control",
+              "entity": "media_player.smart_tv_pro"
+            },
+            {
+              "type": "media-control",
+              "entity": "media_player.bedroom_echo"
+            },
+            {
+              "type": "plant-status",
+              "entity": "plant.monstera"
+            }
+          ]
+        },
+        {
+          "type": "entities",
+          "entities": [
+            "sensor.stairway_motion_sensor_illuminance",
+            "binary_sensor.stairway_motion_sensor_motion",
+            "sensor.stairway_motion_sensor_temperature"
+          ],
+          "title": "Staircase (Dining Room \u21c4 Basement)"
+        },
+        {
+          "type": "entities",
+          "entities": [
+            "light.hallway_lamp"
+          ],
+          "title": "Staircase (Entrance \u21c4 Second Floor)"
+        },
+        {
+          "type": "entities",
+          "entities": [
+            {
+              "entity": "person.ankit_aggarwal"
+            },
+            {
+              "entity": "person.danielle_goodwin"
+            },
+            {
+              "entity": "person.zoe_aggarwal"
+            },
+            {
+              "entity": "person.aiden_kampe"
+            },
+            {
+              "entity": "person.max_aggarwal"
+            }
+          ],
+          "title": "Household",
+          "show_header_toggle": true
+        },
+        {
+          "type": "grid",
+          "square": true,
+          "columns": 3,
+          "cards": [
+            {
+              "show_state": true,
+              "show_name": false,
+              "camera_view": "auto",
+              "fit_mode": "cover",
+              "type": "picture-entity",
+              "entity": "person.ankit_aggarwal",
+              "aspect_ratio": "1",
+              "image": "/api/image/serve/b0810f8b0567c090cd603ae0f3c1ded3/512x512"
+            },
+            {
+              "type": "picture-entity",
+              "entity": "person.danielle_goodwin",
+              "aspect_ratio": "1",
+              "show_name": false,
+              "image": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 50' width='50' height='50' style='background-color:%23b3e5fc'%3E%3Cg%3E%3Ctext font-family='roboto' x='50%25' y='50%25' text-anchor='middle' stroke='%23212121' font-size='1.3em' dy='.3em'%3EDG%3C/text%3E%3C/g%3E%3C/svg%3E"
+            },
+            {
+              "type": "picture-entity",
+              "entity": "person.aiden_kampe",
+              "aspect_ratio": "1",
+              "show_name": false,
+              "image": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 50' width='50' height='50' style='background-color:%23b3e5fc'%3E%3Cg%3E%3Ctext font-family='roboto' x='50%25' y='50%25' text-anchor='middle' stroke='%23212121' font-size='1.3em' dy='.3em'%3EAK%3C/text%3E%3C/g%3E%3C/svg%3E"
+            },
+            {
+              "type": "picture-entity",
+              "entity": "person.max_aggarwal",
+              "aspect_ratio": "1",
+              "show_name": false,
+              "image": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 50' width='50' height='50' style='background-color:%23b3e5fc'%3E%3Cg%3E%3Ctext font-family='roboto' x='50%25' y='50%25' text-anchor='middle' stroke='%23212121' font-size='1.3em' dy='.3em'%3EMA%3C/text%3E%3C/g%3E%3C/svg%3E"
+            },
+            {
+              "type": "picture-entity",
+              "entity": "person.zoe_aggarwal",
+              "aspect_ratio": "1",
+              "show_name": false,
+              "image": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 50' width='50' height='50' style='background-color:%23b3e5fc'%3E%3Cg%3E%3Ctext font-family='roboto' x='50%25' y='50%25' text-anchor='middle' stroke='%23212121' font-size='1.3em' dy='.3em'%3EZA%3C/text%3E%3C/g%3E%3C/svg%3E"
+            }
+          ]
+        },
+        {
+          "type": "entities",
+          "entities": [
+            "binary_sensor.early_morning",
+            "binary_sensor.third_reality_inc_3rvs01031z"
+          ],
+          "title": "Binary sensor"
+        },
+        {
+          "type": "entities",
+          "entities": [
+            "calendar.united_states_md"
+          ],
+          "title": "Calendar"
+        },
+        {
+          "type": "entities",
+          "entities": [
+            "input_text.alexa_actionable_notification",
+            "input_number.bedroom_ct_night",
+            "input_number.bedroom_ct_day",
+            "input_number.bedroom_ct_morning",
+            "input_number.bedroom_ct_evening",
+            "input_number.bedroom_dynamic_color_temp",
+            "input_boolean.bedroom_sensor_helper_at_night",
+            "input_text.daily_override_greeting",
+            "input_boolean.danielle_greeted_recently",
+            "input_text.flirty_line_10",
+            "input_text.flirty_line_8",
+            "input_text.flirty_line_9",
+            "input_text.flirty_line_5",
+            "input_text.flirty_line_1",
+            "input_text.flirty_line_6",
+            "input_text.flirty_line_7",
+            "input_text.flirty_line_4",
+            "input_text.flirty_line_2",
+            "input_text.flirty_line_3",
+            "input_text.flirty_message",
+            "input_boolean.going_to_bed",
+            "input_boolean.goodnight_trigger",
+            "input_text.hello_world_response",
+            "input_text.hello_world_response_type",
+            "input_boolean.living_room_lighting_toggle",
+            "input_boolean.living_room_lux_toggle_helper",
+            "input_boolean.lux_bedroom_toggle",
+            "input_boolean.lux_toggle_dining_room",
+            "input_boolean.lux_toggle_kitchen",
+            "input_number.dynamic_max_brightness",
+            "input_number.dynamic_max_ct",
+            "input_number.dynamic_max_lux",
+            "input_number.dynamic_min_brightness",
+            "input_number.dynamic_min_ct",
+            "input_number.dynamic_min_lux",
+            "input_number.occupancy_brightness",
+            "input_number.occupancy_color_temp",
+            "input_number.open_floorplan_dynamic_brightness",
+            "input_number.open_floorplan_dynamic_color_temp",
+            "input_number.open_floorplan_max_brightness",
+            "input_number.open_floorplan_max_color_temp",
+            "input_number.open_floorplan_min_brightness",
+            "input_number.open_floorplan_min_color_temp",
+            "input_boolean.playful_greeting_sent_today",
+            "input_select.playful_greetings",
+            "input_number.primary_bedroom_manual_brightness",
+            "input_number.primary_bedroom_manual_color_temp",
+            "input_boolean.is_tomorrow_a_holiday",
+            "input_boolean.tv_mount_should_be_down",
+            "input_number.washer_idle_threshold",
+            "input_select.washer_owner",
+            "input_boolean.watch_tv_in_the_morning",
+            "input_button.hello_world_trigger"
+          ],
+          "title": "Helpers"
+        },
+        {
+          "type": "entities",
+          "entities": [
+            "light.basement_lamp",
+            "light.bedroom_ambient_lights",
+            "light.downstairs",
+            "light.hallway",
+            "light.living_room_lights",
+            "light.nightstands",
+            "light.office_ct_lights",
+            "light.stairway_lights"
+          ],
+          "title": "Light"
+        },
+        {
+          "type": "entities",
+          "entities": [
+            "openplantbook.search_result"
+          ],
+          "title": "OpenPlantbook"
+        },
+        {
+          "type": "entities",
+          "entities": [
+            "scene.bedroom_goodnight",
+            "scene.maxs_lights_off"
+          ],
+          "title": "Scene"
+        },
+        {
+          "type": "entities",
+          "entities": [
+            "sensor.ankits_apple_watch_battery",
+            "sensor.ankit_s_iphone_battery",
+            "sensor.ankits_macbook_air_battery",
+            "sensor.ankurs_apple_watch_battery",
+            "sensor.luffy55_battery",
+            "sensor.maxs_apple_watch_battery",
+            "sensor.open_floorplan_average_illuminance",
+            "sensor.spelling_bee_played",
+            "sensor.tv_mount_position",
+            "sensor.washer_running",
+            "sensor.zoes_apple_watch_battery",
+            "sensor.zoe_s_phone_battery"
+          ],
+          "title": "Sensor"
+        },
+        {
+          "type": "entities",
+          "entities": [
+            {
+              "entity": "update.update_firmware",
+              "name": "Firmware"
+            }
+          ],
+          "title": "Update"
+        },
+        {
+          "type": "weather-forecast",
+          "entity": "weather.forecast_home",
+          "show_forecast": false
+        },
+        {
+          "type": "grid",
+          "square": false,
+          "columns": 1,
+          "cards": [
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "sensor.ankit_s_sonos_arc_next_alarm",
+                  "name": "Next Alarm"
+                },
+                {
+                  "entity": "sensor.ankit_s_sonos_arc_next_reminder",
+                  "name": "Next Reminder"
+                },
+                {
+                  "entity": "sensor.ankit_s_sonos_arc_next_timer",
+                  "name": "Next Timer"
+                }
+              ],
+              "title": "Ankit's Sonos Arc"
+            },
+            {
+              "type": "media-control",
+              "entity": "media_player.ankit_s_sonos_arc"
+            }
+          ]
+        },
+        {
+          "type": "entities",
+          "entities": [
+            {
+              "entity": "sensor.connections_current_streak",
+              "name": "Current streak"
+            },
+            {
+              "entity": "sensor.connections_highest_streak",
+              "name": "Highest streak"
+            },
+            {
+              "entity": "sensor.connections_last_played",
+              "name": "Last played"
+            },
+            {
+              "entity": "sensor.connections_played",
+              "name": "Played"
+            },
+            {
+              "entity": "sensor.connections_won",
+              "name": "Won"
+            }
+          ],
+          "title": "Connections"
+        },
+        {
+          "type": "grid",
+          "square": false,
+          "columns": 1,
+          "cards": [
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "sensor.kitchen_next_alarm",
+                  "name": "Next Alarm"
+                },
+                {
+                  "entity": "sensor.kitchen_next_reminder",
+                  "name": "Next Reminder"
+                },
+                {
+                  "entity": "sensor.kitchen_next_timer",
+                  "name": "Next Timer"
+                }
+              ],
+              "title": "Kitchen"
+            },
+            {
+              "type": "media-control",
+              "entity": "media_player.kitchen_2"
+            }
+          ]
+        },
+        {
+          "type": "grid",
+          "square": false,
+          "columns": 1,
+          "cards": [
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "sensor.living_room_soundbar_next_alarm",
+                  "name": "Next Alarm"
+                },
+                {
+                  "entity": "sensor.living_room_soundbar_next_reminder",
+                  "name": "Next Reminder"
+                },
+                {
+                  "entity": "sensor.living_room_soundbar_next_timer",
+                  "name": "Next Timer"
+                }
+              ],
+              "title": "Living Room Soundbar"
+            },
+            {
+              "type": "media-control",
+              "entity": "media_player.living_room_soundbar_2"
+            }
+          ]
+        },
+        {
+          "type": "grid",
+          "square": false,
+          "columns": 1,
+          "cards": [
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "sensor.max_s_bedroom_echo_next_alarm",
+                  "name": "Next Alarm"
+                },
+                {
+                  "entity": "sensor.max_s_bedroom_echo_next_reminder",
+                  "name": "Next Reminder"
+                },
+                {
+                  "entity": "sensor.max_s_bedroom_echo_next_timer",
+                  "name": "Next Timer"
+                }
+              ],
+              "title": "Max's Bedroom Echo"
+            },
+            {
+              "type": "media-control",
+              "entity": "media_player.max_s_bedroom_echo"
+            }
+          ]
+        },
+        {
+          "type": "grid",
+          "square": false,
+          "columns": 1,
+          "cards": [
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "sensor.this_device_next_alarm",
+                  "name": "Next Alarm"
+                },
+                {
+                  "entity": "sensor.this_device_next_reminder",
+                  "name": "Next Reminder"
+                },
+                {
+                  "entity": "sensor.this_device_next_timer",
+                  "name": "Next Timer"
+                }
+              ],
+              "title": "This Device"
+            },
+            {
+              "type": "media-control",
+              "entity": "media_player.this_device"
+            }
+          ]
+        },
+        {
+          "type": "entities",
+          "entities": [
+            "light.wled_main",
+            "select.wled_playlist",
+            "select.wled_preset",
+            "light.wled_segment_1",
+            "light.wled"
+          ],
+          "title": "WLED"
+        },
+        {
+          "type": "entities",
+          "entities": [
+            {
+              "entity": "sensor.wordle_current_streak",
+              "name": "Current streak"
+            },
+            {
+              "entity": "sensor.wordle_highest_streak",
+              "name": "Highest streak"
+            },
+            {
+              "entity": "sensor.wordle_played",
+              "name": "Played"
+            },
+            {
+              "entity": "sensor.wordle_won",
+              "name": "Won"
+            }
+          ],
+          "title": "Wordle"
+        },
+        {
+          "type": "grid",
+          "square": false,
+          "columns": 1,
+          "cards": [
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "sensor.zoe_s_room_next_alarm",
+                  "name": "Next Alarm"
+                },
+                {
+                  "entity": "sensor.zoe_s_room_next_reminder",
+                  "name": "Next Reminder"
+                },
+                {
+                  "entity": "sensor.zoe_s_room_next_timer",
+                  "name": "Next Timer"
+                }
+              ],
+              "title": "Zoe's Room"
+            },
+            {
+              "type": "media-control",
+              "entity": "media_player.zoe_s_room"
+            }
+          ]
+        }
+      ],
+      "background": {
+        "opacity": 33,
+        "alignment": "center",
+        "size": "cover",
+        "repeat": "repeat",
+        "attachment": "scroll",
+        "image": "/api/image/serve/285279acefe8c66059556c7ec879e04b/original"
+      },
+      "type": "masonry"
+    },
+    {
+      "title": "Mobile",
+      "cards": [
+        {
+          "type": "entities",
+          "entities": [
+            "input_boolean.enable_dynamic_lighting",
+            "light.open_floorplan_lights"
+          ],
+          "title": "First Floor"
+        },
+        {
+          "type": "entities",
+          "entities": [
+            "light.front_door_light"
+          ],
+          "title": "Front door"
+        },
+        {
+          "type": "entities",
+          "entities": [
+            "light.back_deck_string_lights",
+            "light.fence_string_lights",
+            "sensor.moon_phase"
+          ],
+          "title": "Outside"
+        },
+        {
+          "type": "entities",
+          "entities": [
+            "light.aidens_floor_lamp",
+            "light.aiden_s_lamp"
+          ],
+          "title": "Aiden's Room"
+        },
+        {
+          "type": "entities",
+          "entities": [
+            "light.maxs_floor_lamp",
+            "light.maxs_lamp_outlet",
+            "binary_sensor.esphome_web_470cfa_presence"
+          ],
+          "title": "Max's Room"
+        },
+        {
+          "type": "grid",
+          "square": false,
+          "columns": 1,
+          "cards": [
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "light.office_ambient_lights",
+                  "name": "Ambient Lights"
+                },
+                {
+                  "entity": "light.office_desk",
+                  "name": "Desk"
+                },
+                {
+                  "entity": "remote.office_homepod",
+                  "name": "HomePod"
+                },
+                "light.light_strip",
+                {
+                  "entity": "light.office_overhead_lights",
+                  "name": "Overhead Lights"
+                },
+                "sensor.epson_xp_4200_series_black_ink",
+                "sensor.epson_xp_4200_series_cyan_ink",
+                "sensor.electricity_maps_co2_intensity",
+                "sensor.electricity_maps_grid_fossil_fuel_percentage",
+                "sensor.epson_xp_4200_series",
+                "sensor.eve_motion_20eby9901_illuminance",
+                "binary_sensor.eve_motion_20eby9901_occupancy",
+                "sensor.lg_32_widescreen_monitor_current",
+                "sensor.lg_32_widescreen_monitor_current_consumption",
+                "sensor.lg_32_widescreen_monitor_voltage",
+                "sensor.lg_ultragear_40_monitor_current",
+                "sensor.lg_ultragear_40_monitor_current_consumption",
+                "sensor.lg_ultragear_40_monitor_voltage",
+                "binary_sensor.living_room_tv",
+                "sensor.epson_xp_4200_series_magenta_ink",
+                {
+                  "entity": "sensor.screek_office_motion_sensor_bh1750_illuminance",
+                  "name": "Motion Sensor BH1750 Illuminance"
+                },
+                {
+                  "entity": "sensor.screek_office_motion_sensor_move_energy",
+                  "name": "Motion Sensor Move Energy"
+                },
+                {
+                  "entity": "sensor.screek_office_motion_sensor_moving_distance",
+                  "name": "Motion Sensor Moving Distance"
+                },
+                {
+                  "entity": "binary_sensor.screek_office_motion_sensor_moving_target",
+                  "name": "Motion Sensor Moving Target"
+                },
+                {
+                  "entity": "binary_sensor.screek_office_motion_sensor_presence",
+                  "name": "Motion Sensor Presence"
+                },
+                {
+                  "entity": "sensor.screek_office_motion_sensor_still_distance",
+                  "name": "Motion Sensor Still Distance"
+                },
+                {
+                  "entity": "sensor.screek_office_motion_sensor_still_energy",
+                  "name": "Motion Sensor Still Energy"
+                },
+                {
+                  "entity": "binary_sensor.screek_office_motion_sensor_still_target",
+                  "name": "Motion Sensor Still Target"
+                },
+                "sensor.watchman_last_updated",
+                "sensor.watchman_missing_actions",
+                "sensor.watchman_missing_entities",
+                "sensor.epson_xp_4200_series_yellow_ink"
+              ],
+              "title": "Office"
+            },
+            {
+              "type": "media-control",
+              "entity": "media_player.office_homepod"
+            }
+          ]
+        },
+        {
+          "type": "grid",
+          "square": false,
+          "columns": 1,
+          "cards": [
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "input_datetime.primary_bedroom_alarm_wakeup_time",
+                  "name": "Alarm Wakeup Time"
+                },
+                "light.ankits_nightstand",
+                "light.bed_lightstrip",
+                "light.bedroom_ceiling_lights",
+                "light.bedroom_lights_group",
+                "light.bedroom_nightstands",
+                "remote.bedroom_tv",
+                "light.danielles_nightstand",
+                "sensor.bedroom_echo_next_alarm",
+                "sensor.bedroom_echo_next_reminder",
+                "sensor.bedroom_echo_next_timer",
+                "sensor.bedroom_occupancy_sensor_illuminance",
+                "binary_sensor.bedroom_occupancy_sensor_motion",
+                "sensor.monstera_air_humidity",
+                "sensor.monstera_conductivity",
+                "sensor.monstera_dli",
+                "sensor.monstera_illuminance",
+                "sensor.monstera_soil_moisture_2",
+                "sensor.monstera_soil_moisture",
+                "sensor.monstera_temperature_2",
+                "sensor.monstera_temperature",
+                "sensor.upstairs_humidity",
+                "sensor.upstairs_temperature"
+              ],
+              "title": "Primary Bedroom",
+              "footer": {
+                "type": "buttons",
+                "entities": [
+                  {
+                    "entity": "scene.turn_off_bedroom_lights_and_motion",
+                    "show_icon": true,
+                    "show_name": true
+                  }
+                ]
+              }
+            },
+            {
+              "type": "media-control",
+              "entity": "media_player.bedroom"
+            },
+            {
+              "type": "media-control",
+              "entity": "media_player.bedroom_tv"
+            },
+            {
+              "type": "thermostat",
+              "entity": "climate.upstairs",
+              "features": [
+                {
+                  "type": "climate-hvac-modes",
+                  "hvac_modes": [
+                    "heat",
+                    "cool",
+                    "heat_cool",
+                    "off"
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "media-control",
+              "entity": "media_player.smart_tv_pro"
+            },
+            {
+              "type": "media-control",
+              "entity": "media_player.bedroom_echo"
+            },
+            {
+              "type": "plant-status",
+              "entity": "plant.monstera"
+            }
+          ]
+        },
+        {
+          "type": "entities",
+          "entities": [
+            "sensor.stairway_motion_sensor_illuminance",
+            "binary_sensor.stairway_motion_sensor_motion",
+            "sensor.stairway_motion_sensor_temperature"
+          ],
+          "title": "Staircase (Dining Room \u21c4 Basement)"
+        },
+        {
+          "type": "entities",
+          "entities": [
+            "light.hallway_lamp"
+          ],
+          "title": "Staircase (Entrance \u21c4 Second Floor)"
+        },
+        {
+          "type": "entities",
+          "entities": [
+            {
+              "entity": "person.ankit_aggarwal"
+            },
+            {
+              "entity": "person.danielle_goodwin"
+            },
+            {
+              "entity": "person.zoe_aggarwal"
+            },
+            {
+              "entity": "person.aiden_kampe"
+            },
+            {
+              "entity": "person.max_aggarwal"
+            }
+          ],
+          "title": "Household",
+          "show_header_toggle": true
+        },
+        {
+          "type": "grid",
+          "square": true,
+          "columns": 3,
+          "cards": [
+            {
+              "type": "picture-entity",
+              "entity": "person.ankit_aggarwal",
+              "aspect_ratio": "1",
+              "show_name": false,
+              "image": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 50' width='50' height='50' style='background-color:%23b3e5fc'%3E%3Cg%3E%3Ctext font-family='roboto' x='50%25' y='50%25' text-anchor='middle' stroke='%23212121' font-size='1.3em' dy='.3em'%3EAA%3C/text%3E%3C/g%3E%3C/svg%3E"
+            },
+            {
+              "type": "picture-entity",
+              "entity": "person.danielle_goodwin",
+              "aspect_ratio": "1",
+              "show_name": false,
+              "image": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 50' width='50' height='50' style='background-color:%23b3e5fc'%3E%3Cg%3E%3Ctext font-family='roboto' x='50%25' y='50%25' text-anchor='middle' stroke='%23212121' font-size='1.3em' dy='.3em'%3EDG%3C/text%3E%3C/g%3E%3C/svg%3E"
+            },
+            {
+              "type": "picture-entity",
+              "entity": "person.aiden_kampe",
+              "aspect_ratio": "1",
+              "show_name": false,
+              "image": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 50' width='50' height='50' style='background-color:%23b3e5fc'%3E%3Cg%3E%3Ctext font-family='roboto' x='50%25' y='50%25' text-anchor='middle' stroke='%23212121' font-size='1.3em' dy='.3em'%3EAK%3C/text%3E%3C/g%3E%3C/svg%3E"
+            },
+            {
+              "type": "picture-entity",
+              "entity": "person.max_aggarwal",
+              "aspect_ratio": "1",
+              "show_name": false,
+              "image": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 50' width='50' height='50' style='background-color:%23b3e5fc'%3E%3Cg%3E%3Ctext font-family='roboto' x='50%25' y='50%25' text-anchor='middle' stroke='%23212121' font-size='1.3em' dy='.3em'%3EMA%3C/text%3E%3C/g%3E%3C/svg%3E"
+            },
+            {
+              "type": "picture-entity",
+              "entity": "person.zoe_aggarwal",
+              "aspect_ratio": "1",
+              "show_name": false,
+              "image": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 50' width='50' height='50' style='background-color:%23b3e5fc'%3E%3Cg%3E%3Ctext font-family='roboto' x='50%25' y='50%25' text-anchor='middle' stroke='%23212121' font-size='1.3em' dy='.3em'%3EZA%3C/text%3E%3C/g%3E%3C/svg%3E"
+            }
+          ]
+        },
+        {
+          "type": "entities",
+          "entities": [
+            "binary_sensor.early_morning",
+            "binary_sensor.third_reality_inc_3rvs01031z"
+          ],
+          "title": "Binary sensor"
+        },
+        {
+          "type": "entities",
+          "entities": [
+            "calendar.united_states_md"
+          ],
+          "title": "Calendar"
+        },
+        {
+          "type": "entities",
+          "entities": [
+            "input_text.alexa_actionable_notification",
+            "input_number.bedroom_ct_night",
+            "input_number.bedroom_ct_day",
+            "input_number.bedroom_ct_morning",
+            "input_number.bedroom_ct_evening",
+            "input_number.bedroom_dynamic_color_temp",
+            "input_boolean.bedroom_sensor_helper_at_night",
+            "input_text.daily_override_greeting",
+            "input_boolean.danielle_greeted_recently",
+            "input_text.flirty_line_10",
+            "input_text.flirty_line_8",
+            "input_text.flirty_line_9",
+            "input_text.flirty_line_5",
+            "input_text.flirty_line_1",
+            "input_text.flirty_line_6",
+            "input_text.flirty_line_7",
+            "input_text.flirty_line_4",
+            "input_text.flirty_line_2",
+            "input_text.flirty_line_3",
+            "input_text.flirty_message",
+            "input_boolean.going_to_bed",
+            "input_boolean.goodnight_trigger",
+            "input_text.hello_world_response",
+            "input_text.hello_world_response_type",
+            "input_boolean.living_room_lighting_toggle",
+            "input_boolean.living_room_lux_toggle_helper",
+            "input_boolean.lux_bedroom_toggle",
+            "input_boolean.lux_toggle_dining_room",
+            "input_boolean.lux_toggle_kitchen",
+            "input_number.dynamic_max_brightness",
+            "input_number.dynamic_max_ct",
+            "input_number.dynamic_max_lux",
+            "input_number.dynamic_min_brightness",
+            "input_number.dynamic_min_ct",
+            "input_number.dynamic_min_lux",
+            "input_number.occupancy_brightness",
+            "input_number.occupancy_color_temp",
+            "input_number.open_floorplan_dynamic_brightness",
+            "input_number.open_floorplan_dynamic_color_temp",
+            "input_number.open_floorplan_max_brightness",
+            "input_number.open_floorplan_max_color_temp",
+            "input_number.open_floorplan_min_brightness",
+            "input_number.open_floorplan_min_color_temp",
+            "input_boolean.playful_greeting_sent_today",
+            "input_select.playful_greetings",
+            "input_number.primary_bedroom_manual_brightness",
+            "input_number.primary_bedroom_manual_color_temp",
+            "input_boolean.is_tomorrow_a_holiday",
+            "input_boolean.tv_mount_should_be_down",
+            "input_number.washer_idle_threshold",
+            "input_select.washer_owner",
+            "input_boolean.watch_tv_in_the_morning",
+            "input_button.hello_world_trigger"
+          ],
+          "title": "Helpers"
+        },
+        {
+          "type": "entities",
+          "entities": [
+            "light.basement_lamp",
+            "light.bedroom_ambient_lights",
+            "light.downstairs",
+            "light.hallway",
+            "light.living_room_lights",
+            "light.nightstands",
+            "light.office_ct_lights",
+            "light.stairway_lights"
+          ],
+          "title": "Light"
+        },
+        {
+          "type": "entities",
+          "entities": [
+            "openplantbook.search_result"
+          ],
+          "title": "OpenPlantbook"
+        },
+        {
+          "type": "entities",
+          "entities": [
+            "scene.bedroom_goodnight",
+            "scene.maxs_lights_off"
+          ],
+          "title": "Scene"
+        },
+        {
+          "type": "entities",
+          "entities": [
+            "sensor.ankits_apple_watch_battery",
+            "sensor.ankit_s_iphone_battery",
+            "sensor.ankits_macbook_air_battery",
+            "sensor.ankurs_apple_watch_battery",
+            "sensor.luffy55_battery",
+            "sensor.maxs_apple_watch_battery",
+            "sensor.open_floorplan_average_illuminance",
+            "sensor.spelling_bee_played",
+            "sensor.tv_mount_position",
+            "sensor.washer_running",
+            "sensor.zoes_apple_watch_battery",
+            "sensor.zoe_s_phone_battery"
+          ],
+          "title": "Sensor"
+        },
+        {
+          "type": "entities",
+          "entities": [
+            {
+              "entity": "update.update_firmware",
+              "name": "Firmware"
+            }
+          ],
+          "title": "Update"
+        },
+        {
+          "type": "weather-forecast",
+          "entity": "weather.forecast_home",
+          "show_forecast": false
+        },
+        {
+          "type": "grid",
+          "square": false,
+          "columns": 1,
+          "cards": [
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "sensor.ankit_s_sonos_arc_next_alarm",
+                  "name": "Next Alarm"
+                },
+                {
+                  "entity": "sensor.ankit_s_sonos_arc_next_reminder",
+                  "name": "Next Reminder"
+                },
+                {
+                  "entity": "sensor.ankit_s_sonos_arc_next_timer",
+                  "name": "Next Timer"
+                }
+              ],
+              "title": "Ankit's Sonos Arc"
+            },
+            {
+              "type": "media-control",
+              "entity": "media_player.ankit_s_sonos_arc"
+            }
+          ]
+        },
+        {
+          "type": "entities",
+          "entities": [
+            {
+              "entity": "sensor.connections_current_streak",
+              "name": "Current streak"
+            },
+            {
+              "entity": "sensor.connections_highest_streak",
+              "name": "Highest streak"
+            },
+            {
+              "entity": "sensor.connections_last_played",
+              "name": "Last played"
+            },
+            {
+              "entity": "sensor.connections_played",
+              "name": "Played"
+            },
+            {
+              "entity": "sensor.connections_won",
+              "name": "Won"
+            }
+          ],
+          "title": "Connections"
+        },
+        {
+          "type": "grid",
+          "square": false,
+          "columns": 1,
+          "cards": [
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "sensor.kitchen_next_alarm",
+                  "name": "Next Alarm"
+                },
+                {
+                  "entity": "sensor.kitchen_next_reminder",
+                  "name": "Next Reminder"
+                },
+                {
+                  "entity": "sensor.kitchen_next_timer",
+                  "name": "Next Timer"
+                }
+              ],
+              "title": "Kitchen"
+            },
+            {
+              "type": "media-control",
+              "entity": "media_player.kitchen_2"
+            }
+          ]
+        },
+        {
+          "type": "grid",
+          "square": false,
+          "columns": 1,
+          "cards": [
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "sensor.living_room_soundbar_next_alarm",
+                  "name": "Next Alarm"
+                },
+                {
+                  "entity": "sensor.living_room_soundbar_next_reminder",
+                  "name": "Next Reminder"
+                },
+                {
+                  "entity": "sensor.living_room_soundbar_next_timer",
+                  "name": "Next Timer"
+                }
+              ],
+              "title": "Living Room Soundbar"
+            },
+            {
+              "type": "media-control",
+              "entity": "media_player.living_room_soundbar_2"
+            }
+          ]
+        },
+        {
+          "type": "grid",
+          "square": false,
+          "columns": 1,
+          "cards": [
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "sensor.max_s_bedroom_echo_next_alarm",
+                  "name": "Next Alarm"
+                },
+                {
+                  "entity": "sensor.max_s_bedroom_echo_next_reminder",
+                  "name": "Next Reminder"
+                },
+                {
+                  "entity": "sensor.max_s_bedroom_echo_next_timer",
+                  "name": "Next Timer"
+                }
+              ],
+              "title": "Max's Bedroom Echo"
+            },
+            {
+              "type": "media-control",
+              "entity": "media_player.max_s_bedroom_echo"
+            }
+          ]
+        },
+        {
+          "type": "grid",
+          "square": false,
+          "columns": 1,
+          "cards": [
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "sensor.this_device_next_alarm",
+                  "name": "Next Alarm"
+                },
+                {
+                  "entity": "sensor.this_device_next_reminder",
+                  "name": "Next Reminder"
+                },
+                {
+                  "entity": "sensor.this_device_next_timer",
+                  "name": "Next Timer"
+                }
+              ],
+              "title": "This Device"
+            },
+            {
+              "type": "media-control",
+              "entity": "media_player.this_device"
+            }
+          ]
+        },
+        {
+          "type": "entities",
+          "entities": [
+            "light.wled_main",
+            "select.wled_playlist",
+            "select.wled_preset",
+            "light.wled_segment_1",
+            "light.wled"
+          ],
+          "title": "WLED"
+        },
+        {
+          "type": "entities",
+          "entities": [
+            {
+              "entity": "sensor.wordle_current_streak",
+              "name": "Current streak"
+            },
+            {
+              "entity": "sensor.wordle_highest_streak",
+              "name": "Highest streak"
+            },
+            {
+              "entity": "sensor.wordle_played",
+              "name": "Played"
+            },
+            {
+              "entity": "sensor.wordle_won",
+              "name": "Won"
+            }
+          ],
+          "title": "Wordle"
+        },
+        {
+          "type": "grid",
+          "square": false,
+          "columns": 1,
+          "cards": [
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "sensor.zoe_s_room_next_alarm",
+                  "name": "Next Alarm"
+                },
+                {
+                  "entity": "sensor.zoe_s_room_next_reminder",
+                  "name": "Next Reminder"
+                },
+                {
+                  "entity": "sensor.zoe_s_room_next_timer",
+                  "name": "Next Timer"
+                }
+              ],
+              "title": "Zoe's Room"
+            },
+            {
+              "type": "media-control",
+              "entity": "media_player.zoe_s_room"
+            }
+          ]
+        }
+      ],
+      "background": {
+        "opacity": 33,
+        "alignment": "center",
+        "size": "cover",
+        "repeat": "repeat",
+        "attachment": "scroll",
+        "image": "/api/image/serve/285279acefe8c66059556c7ec879e04b/original"
+      },
+      "type": "sections",
+      "max_columns": 4,
+      "dense_section_placement": true,
+      "top_margin": true,
+      "sections": [
+        {
+          "type": "grid",
+          "cards": [
+            {
+              "square": false,
+              "type": "grid",
+              "columns": 1,
+              "cards": [
+                {
+                  "type": "heading",
+                  "icon": "mdi:sofa",
+                  "heading": "Living Room",
+                  "heading_style": "title",
+                  "badges": [
+                    {
+                      "type": "entity",
+                      "show_state": true,
+                      "show_icon": true,
+                      "entity": "automation.sensor_lights_living_room",
+                      "tap_action": {
+                        "action": "toggle"
+                      },
+                      "name": "Motion Sensor",
+                      "color": "state",
+                      "state_content": "name"
+                    },
+                    {
+                      "type": "entity",
+                      "entity": "media_player.living_room_tv"
+                    },
+                    {
+                      "type": "entity",
+                      "entity": "binary_sensor.living_room_occupancy_motion"
+                    },
+                    {
+                      "type": "entity",
+                      "entity": "sensor.living_room_occupancy_illuminance"
+                    }
+                  ]
+                },
+                {
+                  "camera_view": "auto",
+                  "fit_mode": "fill",
+                  "type": "picture-glance",
+                  "entities": [
+                    {
+                      "entity": "media_player.living_room_apple_tv"
+                    },
+                    {
+                      "entity": "media_player.living_room_tv"
+                    },
+                    {
+                      "entity": "script.re_sync_tv_mount_with_tv_power"
+                    },
+                    {
+                      "entity": "light.living_room"
+                    },
+                    {
+                      "entity": "light.living_room_lamps_and_tv_lights"
+                    },
+                    {
+                      "entity": "light.living_room_tv_light"
+                    }
+                  ],
+                  "tap_action": {
+                    "action": "toggle"
+                  },
+                  "image": "/api/image/serve/77b7f31eb59952461f00c5d14aeb6540/512x512",
+                  "entity": "light.living_room_lights"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "grid",
+          "cards": [
+            {
+              "type": "grid",
+              "square": false,
+              "columns": 1,
+              "cards": [
+                {
+                  "type": "heading",
+                  "icon": "hue:room-dining",
+                  "heading": "Dining Room",
+                  "heading_style": "title",
+                  "badges": [
+                    {
+                      "type": "entity",
+                      "entity": "automation.sensor_lights_dining_room"
+                    },
+                    {
+                      "type": "entity",
+                      "entity": "binary_sensor.dining_room_occupancy_sensor_motion"
+                    },
+                    {
+                      "type": "entity",
+                      "entity": "sensor.dining_room_occupancy_sensor_illuminance"
+                    },
+                    {
+                      "type": "entity",
+                      "show_state": true,
+                      "show_icon": true,
+                      "entity": "climate.main_floor",
+                      "tap_action": {
+                        "action": "more-info"
+                      },
+                      "color": "state",
+                      "state_content": "current_temperature"
+                    }
+                  ]
+                },
+                {
+                  "camera_view": "auto",
+                  "fit_mode": "fill",
+                  "type": "picture-glance",
+                  "image": "/api/image/serve/636d9156e458607459c7be29d916c4f1/512x512",
+                  "entities": [
+                    {
+                      "entity": "light.dining_room_ceiling"
+                    },
+                    {
+                      "entity": "light.dining_room_table_2"
+                    },
+                    {
+                      "entity": "light.dining_room_tray"
+                    },
+                    {
+                      "entity": "climate.main_floor"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "entities",
+              "entities": [
+                "input_boolean.washer_on",
+                "sensor.washer_running_current",
+                "sensor.washer_running_current_consumption",
+                "sensor.washer_running_voltage"
+              ],
+              "title": "Laundry Room"
+            },
+            {
+              "type": "entities",
+              "entities": [
+                "light.zoes_floor_lamp",
+                "light.zoes_light",
+                "light.zoes_room"
+              ],
+              "title": "Zoe's Room"
+            }
+          ]
+        },
+        {
+          "type": "grid",
+          "cards": [
+            {
+              "square": false,
+              "type": "grid",
+              "columns": 1,
+              "cards": [
+                {
+                  "type": "heading",
+                  "icon": "mdi:fridge",
+                  "heading": "Kitchen",
+                  "heading_style": "title",
+                  "badges": [
+                    {
+                      "type": "entity",
+                      "show_state": true,
+                      "show_icon": true,
+                      "entity": "binary_sensor.back_door_sensor",
+                      "color": "state"
+                    },
+                    {
+                      "type": "entity",
+                      "entity": "binary_sensor.kitchen_occupancy_sensor_motion"
+                    },
+                    {
+                      "type": "entity",
+                      "entity": "sensor.kitchen_occupancy_sensor_illuminance"
+                    },
+                    {
+                      "type": "entity",
+                      "show_state": true,
+                      "show_icon": true,
+                      "entity": "sensor.kitchen_echo_next_reminder",
+                      "visibility": [
+                        {
+                          "condition": "or",
+                          "conditions": [
+                            {
+                              "condition": "state",
+                              "entity": "sensor.kitchen_echo_next_reminder",
+                              "state_not": "unavailable"
+                            },
+                            {
+                              "condition": "state",
+                              "entity": "sensor.kitchen_echo_next_reminder",
+                              "state_not": "unknown"
+                            }
+                          ]
+                        }
+                      ],
+                      "tap_action": {
+                        "action": "more-info"
+                      },
+                      "state_content": [
+                        "reminder",
+                        "recurrence"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "camera_view": "auto",
+                  "fit_mode": "cover",
+                  "type": "picture-glance",
+                  "image": "/api/image/serve/8518cfc9c6c01039b8cbce39dc2b3ccd/512x512",
+                  "entities": [
+                    {
+                      "entity": "light.kitchen_lights"
+                    },
+                    {
+                      "entity": "media_player.kitchen_echo"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "header": {
+        "layout": "responsive",
+        "badges_position": "top",
+        "badges_wrap": "scroll"
+      }
+    }
+  ]
+}

@@ -5,8 +5,7 @@ products:
     model: P-LFP01
 entities:
   - entity: switch
-    name: Flip image
-    icon: "mdi:flip-horizontal"
+    translation_key: flip_image
     category: config
     dps:
       - id: 103
@@ -46,8 +45,7 @@ entities:
         type: string
         name: storage
   - entity: select
-    name: Motion sensitivity
-    icon: "mdi:motion-sensor"
+    translation_key: motion_sensitivity
     category: config
     dps:
       - id: 106
@@ -579,9 +577,7 @@ entities:
         optional: true
         name: value
   - entity: number
-    name: Feed
-    category: config
-    icon: "mdi:chicken-drumstick"
+    translation_key: manual_feed
     dps:
       - id: 252
         type: integer

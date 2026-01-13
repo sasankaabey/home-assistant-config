@@ -38,3 +38,23 @@
         ] %}
         {% set idx = states('input_number.litterbot_nag_message_index') | int %}
         {{ messages[idx % messages|length] }}
+
+- binary_sensor:
+    - name: "Kids Home"
+      unique_id: kids_home
+      state: "{{ is_state('group.kids', 'home') }}"
+    - name: "Household Announce All"
+      unique_id: household_announce_all
+      state: >-
+        {% set now_minutes = now().hour * 60 + now().minute %}
+        {% set kids_home = is_state('group.kids', 'home') %}
+        {% if kids_home %}
+          {{ now_minutes >= 420 and now_minutes < 1200 }}
+        {% else %}
+          {{ now_minutes >= 420 and now_minutes < 1320 }}
+        {% endif %}
+    - name: "Household Announce Adults"
+      unique_id: household_announce_adults
+      state: >-
+        {% set now_minutes = now().hour * 60 + now().minute %}
+        {{ now_minutes >= 420 and now_minutes < 1320 }}

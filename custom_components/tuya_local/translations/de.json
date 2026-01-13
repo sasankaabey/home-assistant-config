@@ -34,7 +34,7 @@
             },
             "local": {
                 "title": "Konfigurieren Sie Ihr Tuya Local-Gerät",
-                "description": "[Folgen Sie diesen Anweisungen, um Ihre Geräte-ID und Ihren lokalen Schlüssel zu finden.](https://github.com/make-all/tuya-local#finding-your-device-id-and-local-key)",
+                "description": "[Folgen Sie diesen Anweisungen, um Ihre Geräte-ID und Ihren lokalen Schlüssel zu finden.](https://github.com/make-all/tuya-local/blob/main/DEVICE_DETAILS.md#finding-your-device-id-and-local-key)",
                 "data": {
                     "host": "IP-Adresse oder Host-Name",
                     "device_id": "Geräte-ID (device_id, oder device_id des Gateways für Geräte, die über ein Gateway angeschlossen sind)",
@@ -83,7 +83,7 @@
         "step": {
             "user": {
                 "title": "Konfigurieren Sie Ihr Tuya Local Gerät",
-                "description": "[Folgen Sie diesen Anweisungen, um Ihren lokalen Schlüssel zu finden.](https://github.com/make-all/tuya-local#finding-your-device-id-and-local-key)",
+                "description": "[Folgen Sie diesen Anweisungen, um Ihren lokalen Schlüssel zu finden.](https://github.com/make-all/tuya-local/blob/main/DEVICE_DETAILS.md#finding-your-device-id-and-local-key)",
                 "data": {
                     "host": "IP-Adresse oder Host-Name",
                     "local_key": "Lokaler Schlüssel",
@@ -204,6 +204,9 @@
                     }
                 }
             },
+            "cold_water": {
+                "name": "Kaltwasserbereiter"
+            },
             "thermostat": {
                 "name": "Thermostat",
                 "state_attributes": {
@@ -276,7 +279,8 @@
                             "program_1": "Programm 1",
                             "program_2": "Programm 2",
                             "program_3": "Programm 3",
-                            "standby": "Standby"
+                            "standby": "Standby",
+                            "fan_only": "Ventilator"
                         }
                     }
                 }
@@ -374,6 +378,9 @@
                             "smart": "Intelligent",
                             "strong": "Stark",
                             "custom": "Benutzerdefiniert",
+                            "auto": "Auto",
+                            "manual": "Manuell",
+                            "program": "Programm",
                             "high": "Hoch",
                             "medium": "Mittel",
                             "low": "Niedrig",
@@ -392,6 +399,7 @@
                             "circulate": "Zirkulieren",
                             "sleep": "Schlafen",
                             "auto": "Auto",
+                            "manual": "Manuell",
                             "eco": "Eco",
                             "anti-condensation": "Anti-Kondensation",
                             "extractor": "Abluft",
@@ -436,6 +444,9 @@
             }
         },
         "number": {
+            "manual_feed": {
+                "name": "Manuelle Fütterung"
+            },
             "maximum_temperature": {
                 "name": "Maximale Temperatur"
             },
@@ -555,6 +566,15 @@
                     "very_high": "Sehr hoch"
                 }
             },
+            "motion_sensitivity": {
+                "name": "Bewegungsempfindlichkeit",
+                "state": {
+                    "off": "Aus",
+                    "low": "Niedrig",
+                    "medium": "Mittel",
+                    "high": "Hoch"
+                }
+            },
             "recipe": {
                 "name": "Rezept",
                 "state": {
@@ -606,7 +626,10 @@
                 "state": {
                     "cancel": "Abbrechen",
                     "continuous": "Dauerbetrieb",
+                    "15s": "15 Sekunden",
+                    "20s": "20 Sekunden",
                     "30s": "30 Sekunden",
+                    "45s": "45 Sekunden",
                     "1m": "1 Minute",
                     "2m": "2 Minuten",
                     "5m": "5 Minuten",
@@ -709,7 +732,8 @@
                     "normal": "Normal",
                     "smart": "Intelligent",
                     "night": "Nacht",
-                    "motion": "Bewegung"
+                    "motion": "Bewegung",
+                    "off": "Aus"
                 }
             },
             "bidet_mode": {
@@ -933,7 +957,15 @@
                     "dry": "Trocken",
                     "comfortable": "Bequem",
                     "damp": "Feucht",
-                    "smoothing": "Glätten"
+                    "smoothing": "Glätten",
+                    "cleaned": "Gereinigt",
+                    "cold_water_unavailable": "Kaltwasser nicht verfügbar",
+                    "drain": "Abfluss",
+                    "drain_cold_water": "Kaltwasser ablassen",
+                    "drain_hot_water": "Heißwasser ablassen",
+                    "drain_normal_water": "Normales Wasser ablassen",
+                    "high_temperature_emptying": "Hochtemperatur-Leerung",
+                    "high_temperature_emptied": "Hochtemperatur-Leerung abgeschlossen"
                 }
             },
             "time_remaining": {
@@ -983,11 +1015,20 @@
             },
             "power_x": {
                 "name": "Leistung {x}"
+            },
+            "filter_life": {
+                "name": "Filterlebensdauer"
             }
         },
         "switch": {
             "anti_frost": {
                 "name": "Anti-frost"
+            },
+            "auto_clean": {
+                "name": "Automatische Reinigung"
+            },
+            "auto_light": {
+                "name": "Automatisches Licht"
             },
             "breaker": {
                 "name": "Leistungsschalter",
@@ -1001,6 +1042,9 @@
             },
             "evaporator_cleaning": {
                 "name": "Verdampferreinigung"
+            },
+            "flip_image": {
+                "name": "Bild umdrehen"
             },
             "ionizer": {
                 "name": "Ionisator"
@@ -1048,6 +1092,9 @@
             },
             "kettle": {
                 "name": "Wasserkocher"
+            },
+            "hot_water": {
+                "name": "Heißwasserbereiter"
             }
         }
     }

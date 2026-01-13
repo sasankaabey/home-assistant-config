@@ -34,7 +34,7 @@
             },
             "local": {
                 "title": "Настройка устройства Tuya Local",
-                "description": "[Следуйте этим инструкциям, чтобы найти идентификатор устройства и локальный ключ.](https://github.com/make-all/tuya-local#finding-your-device-id-and-local-key)",
+                "description": "[Следуйте этим инструкциям, чтобы найти идентификатор устройства и локальный ключ.](https://github.com/make-all/tuya-local/blob/main/DEVICE_DETAILS.md#finding-your-device-id-and-local-key)",
                 "data": {
                     "host": "IP-адрес или имя хоста",
                     "device_id": "Идентификатор устройства (device_id, или device_id шлюза для устройств, подключенных через шлюз)",
@@ -83,7 +83,7 @@
         "step": {
             "user": {
                 "title": "Настройка устройства Tuya Local",
-                "description": "[Следуйте этим инструкциям, чтобы найти идентификатор устройства и локальный ключ.](https://github.com/make-all/tuya-local#finding-your-device-id-and-local-key)",
+                "description": "[Следуйте этим инструкциям, чтобы найти идентификатор устройства и локальный ключ.](https://github.com/make-all/tuya-local/blob/main/DEVICE_DETAILS.md#finding-your-device-id-and-local-key)",
                 "data": {
                     "host": "IP-адрес или имя хоста",
                     "local_key": "Локальный ключ",
@@ -204,6 +204,9 @@
                     }
                 }
             },
+            "cold_water": {
+                "name": "Холодная вода"
+            },
             "thermostat": {
                 "name": "Термостат",
                 "state_attributes": {
@@ -276,7 +279,8 @@
                             "program_1": "Программа 1",
                             "program_2": "Программа 2",
                             "program_3": "Программа 3",
-                            "standby": "Режим ожидания"
+                            "standby": "Режим ожидания",
+                            "fan_only": "Вентилятор"
                         }
                     }
                 }
@@ -374,6 +378,9 @@
                             "smart": "Умный",
                             "strong": "Мощный",
                             "custom": "Пользовательский",
+                            "auto": "Авто",
+                            "manual": "Ручной",
+                            "program": "Программа",
                             "high": "Высокий",
                             "medium": "Средний",
                             "low": "Низкий",
@@ -392,6 +399,7 @@
                             "circulate": "Циркуляция",
                             "sleep": "Сон",
                             "auto": "Авто",
+                            "manual": "Ручной",
                             "eco": "Эко",
                             "anti-condensation": "Антиконденсация",
                             "extractor": "Экстрактор",
@@ -436,6 +444,9 @@
             }
         },
         "number": {
+            "manual_feed": {
+                "name": "Ручная подача"
+            },
             "maximum_temperature": {
                 "name": "Максимальная температура"
             },
@@ -555,6 +566,15 @@
                     "very_high": "Очень высокий"
                 }
             },
+            "motion_sensitivity": {
+                "name": "Чувствительность движения",
+                "state": {
+                    "off": "Выкл",
+                    "low": "Низкий",
+                    "medium": "Средний",
+                    "high": "Высокий"
+                }
+            },
             "recipe": {
                 "name": "Рецепт",
                 "state": {
@@ -606,7 +626,10 @@
                 "state": {
                     "cancel": "Отмена",
                     "continuous": "Непрерывный",
+                    "15s": "15 секунд",
+                    "20s": "20 секунд",
                     "30s": "30 секунд",
+                    "45s": "45 секунд",
                     "1m": "1 минута",
                     "2m": "2 минуты",
                     "5m": "5 минут",
@@ -709,7 +732,8 @@
                     "normal": "Нормальный",
                     "smart": "Умный",
                     "night": "Ночной",
-                    "motion": "Движение"
+                    "motion": "Движение",
+                    "off": "Выкл"
                 }
             },
             "bidet_mode": {
@@ -932,7 +956,15 @@
                     "dry": "Сухой",
                     "comfortable": "Комфортный",
                     "damp": "Влажный",
-                    "smoothing": "Сглаживание"
+                    "smoothing": "Сглаживание",
+                    "cleaned": "Очистка завершена",
+                    "cold_water_unavailable": "Холодная вода недоступна",
+                    "drain": "Слив",
+                    "drain_cold_water": "Слив холодной воды",
+                    "drain_hot_water": "Слив горячей воды",
+                    "drain_normal_water": "Слив обычной воды",
+                    "high_temperature_emptying": "Опорожнение при высокой температуре",
+                    "high_temperature_emptied": "Опорожнение при высокой температуре завершено"
                 }
             },
             "time_remaining": {
@@ -982,11 +1014,20 @@
             },
             "power_x": {
                 "name": "Мощность {x}"
+            },
+            "filter_life": {
+                "name": "Срок службы фильтра"
             }
         },
         "switch": {
             "anti_frost": {
                 "name": "Антимороз"
+            },
+            "auto_clean": {
+                "name": "Автоочистка"
+            },
+            "auto_light": {
+                "name": "Автоматическое освещение"
             },
             "breaker": {
                 "name": "Автоматический выключатель",
@@ -1000,6 +1041,9 @@
             },
             "evaporator_cleaning": {
                 "name": "Очистка испарителя"
+            },
+            "flip_image": {
+                "name": "Перевернуть изображение"
             },
             "ionizer": {
                 "name": "Ионизатор"
@@ -1047,6 +1091,9 @@
             },
             "kettle": {
                 "name": "Чайник"
+            },
+            "hot_water": {
+                "name": "Горячая вода"
             }
         }
     }

@@ -34,7 +34,7 @@
             },
             "local": {
                 "title": "Konfigurasikan perangkat Tuya Local Anda",
-                "description": "[Ikuti petunjuk ini untuk menemukan ID perangkat dan kunci lokal.](https://github.com/make-all/tuya-local#finding-your-device-id-and-local-key)",
+                "description": "[Ikuti petunjuk ini untuk menemukan ID perangkat dan kunci lokal.](https://github.com/make-all/tuya-local/blob/main/DEVICE_DETAILS.md#finding-your-device-id-and-local-key)",
                 "data": {
                     "host": "Alamat IP atau nama hos",
                     "device_id": "ID Perangkat (device_id, atau device_id dari gateway untuk perangkat yang tersambung via gateway)",
@@ -83,7 +83,7 @@
         "step": {
             "user": {
                 "title": "Konfigurasikan perangkat Tuya Local Anda",
-                "description": "[Ikuti petunjuk ini untuk menemukan ID perangkat dan kunci lokal.](https://github.com/make-all/tuya-local#finding-your-device-id-and-local-key)",
+                "description": "[Ikuti petunjuk ini untuk menemukan ID perangkat dan kunci lokal.](https://github.com/make-all/tuya-local/blob/main/DEVICE_DETAILS.md#finding-your-device-id-and-local-key)",
                 "data": {
                     "host": "Alamat IP atau nama hos",
                     "local_key": "Kunci lokal (local_key)",
@@ -204,6 +204,9 @@
                     }
                 }
             },
+            "cold_water": {
+                "name": "Air dingin"
+            },
             "thermostat": {
                 "name": "Termostat",
                 "state_attributes": {
@@ -276,7 +279,8 @@
                             "program_1": "Program 1",
                             "program_2": "Program 2",
                             "program_3": "Program 3",
-                            "standby": "Siaga"
+                            "standby": "Siaga",
+                            "fan_only": "Hanya kipas"
                         }
                     }
                 }
@@ -374,6 +378,9 @@
                             "smart": "Pintar",
                             "strong": "Kencang",
                             "custom": "Kustom",
+                            "auto": "Otomatis",
+                            "manual": "Manual",
+                            "program": "Program",
                             "high": "Tinggi",
                             "medium": "Sedang",
                             "low": "Rendah",
@@ -392,6 +399,7 @@
                             "circulate": "Sirkulasi",
                             "sleep": "Tidur",
                             "auto": "Otomatis",
+                            "manual": "Manual",
                             "eco": "Hemat",
                             "anti-condensation": "Anti kondensasi",
                             "extractor": "Ekstraktor",
@@ -436,6 +444,9 @@
             }
         },
         "number": {
+            "manual_feed": {
+                "name": "Pemberian makan manual"
+            },
             "maximum_temperature": {
                 "name": "Suhu maksimum"
             },
@@ -555,6 +566,15 @@
                     "very_high": "Sangat tinggi"
                 }
             },
+            "motion_sensitivity": {
+                "name": "Sensitivitas gerakan",
+                "state": {
+                    "off": "Mati",
+                    "low": "Rendah",
+                    "medium": "Sedang",
+                    "high": "Tinggi"
+                }
+            },
             "recipe": {
                 "name": "Resep",
                 "state": {
@@ -606,7 +626,10 @@
                 "state": {
                     "cancel": "Batal",
                     "continuous": "Terus menerus",
+                    "15s": "15 detik",
+                    "20s": "20 detik",
                     "30s": "30 detik",
+                    "45s": "45 detik",
                     "1m": "1 menit",
                     "2m": "2 menit",
                     "5m": "5 menit",
@@ -709,7 +732,8 @@
                     "normal": "Normal",
                     "smart": "Pintar",
                     "night": "Malam",
-                    "motion": "Gerakan"
+                    "motion": "Gerakan",
+                    "off": "Mati"
                 }
             },
             "bidet_mode": {
@@ -932,7 +956,15 @@
                     "dry": "Kering",
                     "comfortable": "Nyaman",
                     "damp": "Lembab",
-                    "smoothing": "Menghaluskan"
+                    "smoothing": "Menghaluskan",
+                    "cleaned": "Dibersihkan",
+                    "cold_water_unavailable": "Air dingin tidak tersedia",
+                    "drain": "Membuang",
+                    "drain_cold_water": "Membuang air dingin",
+                    "drain_hot_water": "Membuang air panas",
+                    "drain_normal_water": "Membuang air normal",
+                    "high_temperature_emptying": "Pengosongan suhu tinggi",
+                    "high_temperature_emptied": "Pengosongan suhu tinggi selesai"
                 }
             },
             "time_remaining": {
@@ -982,11 +1014,20 @@
             },
             "power_x": {
                 "name": "Daya {x}"
+            },
+            "filter_life": {
+                "name": "Umur filter"
             }
         },
         "switch": {
             "anti_frost": {
                 "name": "Anti beku"
+            },
+            "auto_clean": {
+                "name": "Pembersihan otomatis"
+            },
+            "auto_light": {
+                "name": "Lampu otomatis"
             },
             "breaker": {
                 "name": "Pemutus sirkuit",
@@ -1000,6 +1041,9 @@
             },
             "evaporator_cleaning": {
                 "name": "Pembersihan evaporator"
+            },
+            "flip_image": {
+                "name": "Balik gambar"
             },
             "ionizer": {
                 "name": "Pengion"
@@ -1047,6 +1091,9 @@
             },
             "kettle": {
                 "name": "Ketel"
+            },
+            "hot_water": {
+                "name": "Air panas"
             }
         }
     }

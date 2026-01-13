@@ -54,7 +54,7 @@ entities:
             value: sleep
 
   - entity: sensor
-    name: Filter Life
+    translation_key: filter_life
     dps:
       - id: 5
         name: sensor
@@ -80,6 +80,7 @@ entities:
 
   - entity: sensor
     name: Clean water tank
+    icon: mdi:water-opacity
     dps:
       - id: 106
         name: sensor
@@ -123,6 +124,11 @@ entities:
       - id: 103
         name: switch
         type: boolean
+        mapping:
+          - dps_val: true
+            value: false
+          - dps_val: false
+            value: true
 
   - entity: switch
     name: Dry Fan

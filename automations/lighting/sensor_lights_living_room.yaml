@@ -7,7 +7,7 @@
       motion_trigger:
       - binary_sensor.living_room_occupancy_motion
       light_switch:
-        entity_id: light.living_room_lamps_and_tv_lights
+        entity_id: light.living_room_lamps
       include_light_control:
       - use_transition
       - use_brightness

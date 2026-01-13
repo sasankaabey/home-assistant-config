@@ -1,15 +1,15 @@
 household:
   name: Household
   entities:
-    - person.ankit
-    - person.danielle
-    - person.zoe
-    - person.max
-    - person.aiden
+    - person.ankit_aggarwal
+    - person.danielle_goodwin
+    - person.zoe_aggarwal
+    - person.max_aggarwal
+    - person.aiden_kampe
 
 kids:
   name: Kids
   entities:
-    - person.zoe
-    - person.max
-    - person.aiden
+    - person.zoe_aggarwal
+    - person.max_aggarwal
+    - person.aiden_kampe
