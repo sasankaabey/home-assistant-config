@@ -79,8 +79,8 @@ When using `light: !include light_groups.yaml` in configuration.yaml, the light_
 
 ### Living Room Light Groups
 
-#### `light.living_room_ambient`
-Combines atmospheric/accent lighting:
+#### `light.living_room_lamps`
+Combines all lamp lighting (floor lamps + accent lights + TV backlight):
 - Floor Lamp 1
 - Floor Lamp 2
 - Hue Iris
@@ -90,7 +90,7 @@ Combines atmospheric/accent lighting:
 Main overhead lighting:
 - Living Room Ceiling
 
-#### `light.living_room_all`
+#### `light.living_room_lights`
 Master control for all living room lights (lists all individual lights directly):
 - Floor Lamp 1
 - Floor Lamp 2
@@ -98,20 +98,25 @@ Master control for all living room lights (lists all individual lights directly)
 - TV Light
 - Living Room Ceiling
 
+**Light Sync Behavior:**
+- When controlled via HA/Alexa/Google/Siri: All lights in the group stay in sync (brightness, color, effects stopped)
+- When controlled via Hue app directly: Individual lights can diverge (color loops, effects, etc.)
+- Automation: `sync_living_room_light_groups.yaml` ensures group coherence
+
 ### Voice Control Examples
 
 **Alexa:**
-- "Alexa, turn on living room ambient"
-- "Alexa, set living room all to 50%"
+- "Alexa, turn on living room lamps"
+- "Alexa, set living room lights to 50%"
 - "Alexa, turn off living room ceiling"
 
 **Siri:**
-- "Hey Siri, turn on living room ambient"
-- "Hey Siri, dim living room all to 25%"
+- "Hey Siri, turn on living room lamps"
+- "Hey Siri, dim living room lights to 25%"
 
 **Google:**
-- "Hey Google, turn on living room ambient"
-- "Hey Google, brighten living room all"
+- "Hey Google, turn on living room lamps"
+- "Hey Google, brighten living room lights"
 
 ## Voice Assistant Configuration
 

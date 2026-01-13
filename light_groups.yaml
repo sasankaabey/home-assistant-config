@@ -4,8 +4,8 @@
 # Uses the light group integration: https://www.home-assistant.io/integrations/light.group/
 
 - platform: group
-  name: Living Room Ambient
-  unique_id: living_room_ambient_group
+  name: Living Room Lamps
+  unique_id: living_room_lamps_group
   entities:
     - light.living_room_floor_lamp
     - light.living_room_floor_lamp_2
@@ -19,8 +19,8 @@
     - light.living_room_ceiling
 
 - platform: group
-  name: Living Room All Lights
-  unique_id: living_room_all_group
+  name: Living Room Lights
+  unique_id: living_room_lights_group
   entities:
     - light.living_room_floor_lamp
     - light.living_room_floor_lamp_2
