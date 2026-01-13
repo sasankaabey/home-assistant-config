@@ -1,25 +1,29 @@
 # Living Room Light Groups
 # These groups enable unified control of living room lights via voice assistants
 # (Alexa, Siri, Google Assistant) and automation
+# Uses the light group integration: https://www.home-assistant.io/integrations/light.group/
 
 living_room_ambient:
   name: Living Room Ambient
+  platform: group
   entities:
     - light.living_room_floor_lamp
     - light.living_room_floor_lamp_2
     - light.living_room_hue_iris
     - light.living_room_tv_light
-  all: true
 
 living_room_ceiling:
   name: Living Room Ceiling
+  platform: group
   entities:
     - light.living_room_ceiling
-  all: true
 
 living_room_all:
   name: Living Room All Lights
+  platform: group
   entities:
-    - light.living_room_ambient
+    - light.living_room_floor_lamp
+    - light.living_room_floor_lamp_2
+    - light.living_room_hue_iris
+    - light.living_room_tv_light
     - light.living_room_ceiling
-  all: true
