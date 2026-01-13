@@ -20,6 +20,7 @@
           - light.living_room_hue_iris
           - light.living_room_floor_lamp_2
           - light.living_room_floor_lamp
+          - light.living_room_tv_light
       data:
         effect: "none"  # Stop any running effects
         brightness: "{{ state_attr('light.living_room_lamps', 'brightness') }}"

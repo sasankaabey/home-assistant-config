@@ -10,6 +10,7 @@
     - light.living_room_hue_iris
     - light.living_room_floor_lamp_2
     - light.living_room_floor_lamp
+    - light.living_room_tv_light
 
 - platform: group
   name: Living Room Lights

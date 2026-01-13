@@ -71,10 +71,11 @@ Light groups are defined in `light_groups.yaml` and provide:
 ### Living Room Light Groups
 
 #### `light.living_room_lamps`
-Combines lamp lighting (floor lamps + accent lights):
+Combines all soft/ambient lighting that flanks the living room:
 - Hue Iris
 - Floor Lamp 2
 - Floor Lamp 1
+- TV Light
 
 #### `light.living_room_ceiling`
 Main overhead lighting:
