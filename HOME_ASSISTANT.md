@@ -44,7 +44,7 @@ This repository contains the Home Assistant configuration for a multi-platform s
 
 ## Light Groups
 
-Light groups are managed via the **Home Assistant UI (Helpers)** and provide:
+Light groups are defined in `light_groups.yaml` and provide:
 - Unified control of multiple lights as a single entity
 - Voice assistant compatibility (automatically exposed via cloud integration)
 - Simplified automation targeting
@@ -52,24 +52,21 @@ Light groups are managed via the **Home Assistant UI (Helpers)** and provide:
 
 ### Managing Light Groups
 
-**To create or modify light groups:**
-1. Go to Settings → Devices & Services → Helpers
-2. Click "+ Create Helper" → Group → Light group
-3. Configure entities, name, and options
-4. Save
+**To modify light groups:**
+1. Edit `light_groups.yaml` in the repository
+2. Ensure entity IDs match actual devices (check entity registry if needed)
+3. Commit and push changes
+4. Sync to HA OS and restart
 
-**Configuration is stored in:** `.storage/core.config_entries` (not version controlled)
-**Documentation file:** `light_groups.yaml` (documents current config for reference only)
-
-**After making changes in UI:**
-1. **Trigger device discovery:** "Alexa, discover devices" (or use Alexa app)
-2. Wait 1-2 minutes for discovery to complete
-3. Test voice commands
-4. Update `light_groups.yaml` documentation to reflect changes
+**After making changes:**
+1. Sync files to HA OS and restart Home Assistant
+2. **Trigger device discovery:** "Alexa, discover devices" (or use Alexa app)
+3. Wait 1-2 minutes for discovery to complete
+4. Test voice commands
 
 ### Living Room Light Groups
 
-#### `light.living_room_lamps_group`
+#### `light.living_room_lamps`
 Combines lamp lighting (floor lamps + accent lights):
 - Hue Iris
 - Floor Lamp 2

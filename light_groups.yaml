@@ -1,29 +1,22 @@
 # Living Room Light Groups
-#
-# NOTE: These groups are now managed via the Home Assistant UI (Helpers)
-# and stored in .storage/core.config_entries (not version controlled).
-# This file documents the configuration for reference only.
-#
-# To modify these groups, use: Settings → Devices & Services → Helpers
-# Then search for "Living Room" light groups.
-#
-# Current Configuration (as of last sync):
-#
-# Living Room Lamps Group
-# - light.living_room_hue_iris
-# - light.living_room_floor_lamp_2
-# - light.living_room_floor_lamp
-# Options: all=false, hide_members=true
-#
-# Living Room Lights
-# - light.living_room_ceiling
-# - light.living_room_tv_light
-# - light.living_room_floor_lamp_2
-# - light.living_room_floor_lamp
-# - light.living_room_hue_iris
-# Options: all=true, hide_members=true
-#
-# Light Sync Behavior:
-# - When controlled via HA/Alexa/Google/Siri: All lights in group stay in sync
-# - When controlled via Hue app directly: Individual lights can diverge
-# - Automation: sync_living_room_light_groups.yaml ensures coherence
+# These groups enable unified control of living room lights via voice assistants
+# (Alexa, Siri, Google Assistant) and automation
+# Uses the light group integration: https://www.home-assistant.io/integrations/light.group/
+
+- platform: group
+  name: Living Room Lamps
+  unique_id: living_room_lamps_group
+  entities:
+    - light.living_room_hue_iris
+    - light.living_room_floor_lamp_2
+    - light.living_room_floor_lamp
+
+- platform: group
+  name: Living Room Lights
+  unique_id: living_room_lights_group
+  entities:
+    - light.living_room_ceiling
+    - light.living_room_tv_light
+    - light.living_room_floor_lamp_2
+    - light.living_room_floor_lamp
+    - light.living_room_hue_iris

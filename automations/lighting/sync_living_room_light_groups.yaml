@@ -5,10 +5,10 @@
 
 - id: sync_living_room_lamps_on_change
   alias: Sync Living Room Lamps on Change
-  description: Stop effects and sync lights when Living Room Lamps Group is controlled
+  description: Stop effects and sync lights when Living Room Lamps is controlled
   trigger:
     - platform: state
-      entity_id: light.living_room_lamps_group
+      entity_id: light.living_room_lamps
   condition:
     # Only run if the change came from a service call (HA/Alexa/etc), not from Hue directly
     - condition: template
@@ -22,9 +22,9 @@
           - light.living_room_floor_lamp
       data:
         effect: "none"  # Stop any running effects
-        brightness: "{{ state_attr('light.living_room_lamps_group', 'brightness') }}"
-        color_temp: "{{ state_attr('light.living_room_lamps_group', 'color_temp') }}"
-        rgb_color: "{{ state_attr('light.living_room_lamps_group', 'rgb_color') }}"
+        brightness: "{{ state_attr('light.living_room_lamps', 'brightness') }}"
+        color_temp: "{{ state_attr('light.living_room_lamps', 'color_temp') }}"
+        rgb_color: "{{ state_attr('light.living_room_lamps', 'rgb_color') }}"
         transition: 1
   mode: restart
 
