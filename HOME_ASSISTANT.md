@@ -44,59 +44,48 @@ This repository contains the Home Assistant configuration for a multi-platform s
 
 ## Light Groups
 
-Light groups are defined in `light_groups.yaml` and provide:
+Light groups are managed via the **Home Assistant UI (Helpers)** and provide:
 - Unified control of multiple lights as a single entity
 - Voice assistant compatibility (automatically exposed via cloud integration)
 - Simplified automation targeting
 - Room-based organization
 
-### Configuration Format (IMPORTANT)
+### Managing Light Groups
 
-When using `light: !include light_groups.yaml` in configuration.yaml, the light_groups.yaml file MUST use list format:
+**To create or modify light groups:**
+1. Go to Settings → Devices & Services → Helpers
+2. Click "+ Create Helper" → Group → Light group
+3. Configure entities, name, and options
+4. Save
 
-```yaml
-- platform: group
-  name: Display Name
-  unique_id: unique_identifier
-  entities:
-    - light.entity_1
-    - light.entity_2
-```
+**Configuration is stored in:** `.storage/core.config_entries` (not version controlled)
+**Documentation file:** `light_groups.yaml` (documents current config for reference only)
 
-**Common mistakes to avoid:**
-- ❌ Don't use dict/key format (`group_name:`) when using `light: !include`
-- ❌ Don't nest light groups within other light groups (causes issues)
-- ✅ Do use list format with `- platform: group` for each group
-- ✅ Do add `unique_id` to each group for proper entity registry
-- ✅ Do list all individual lights directly in "all lights" groups
-
-**After making changes:**
-1. Sync files to HA OS
-2. Restart Home Assistant
-3. **Trigger device discovery:** "Alexa, discover devices" (or use Alexa app)
-4. Wait 1-2 minutes for discovery to complete
-5. Test voice commands
+**After making changes in UI:**
+1. **Trigger device discovery:** "Alexa, discover devices" (or use Alexa app)
+2. Wait 1-2 minutes for discovery to complete
+3. Test voice commands
+4. Update `light_groups.yaml` documentation to reflect changes
 
 ### Living Room Light Groups
 
-#### `light.living_room_lamps`
-Combines all lamp lighting (floor lamps + accent lights + TV backlight):
-- Floor Lamp 1
-- Floor Lamp 2
+#### `light.living_room_lamps_group`
+Combines lamp lighting (floor lamps + accent lights):
 - Hue Iris
-- TV Light
+- Floor Lamp 2
+- Floor Lamp 1
 
 #### `light.living_room_ceiling`
 Main overhead lighting:
 - Living Room Ceiling
 
 #### `light.living_room_lights`
-Master control for all living room lights (lists all individual lights directly):
-- Floor Lamp 1
-- Floor Lamp 2
-- Hue Iris
-- TV Light
+Master control for all living room lights:
 - Living Room Ceiling
+- TV Light
+- Floor Lamp 2
+- Floor Lamp 1
+- Hue Iris
 
 **Light Sync Behavior:**
 - When controlled via HA/Alexa/Google/Siri: All lights in the group stay in sync (brightness, color, effects stopped)
