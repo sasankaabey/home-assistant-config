@@ -52,20 +52,22 @@ Light groups are defined in `light_groups.yaml` and provide:
 
 ### Configuration Format (IMPORTANT)
 
-Light groups MUST use this exact YAML structure:
+When using `light: !include light_groups.yaml` in configuration.yaml, the light_groups.yaml file MUST use list format:
+
 ```yaml
-group_name:
+- platform: group
   name: Display Name
-  platform: group
+  unique_id: unique_identifier
   entities:
     - light.entity_1
     - light.entity_2
 ```
 
 **Common mistakes to avoid:**
+- ❌ Don't use dict/key format (`group_name:`) when using `light: !include`
 - ❌ Don't nest light groups within other light groups (causes issues)
-- ❌ Don't use list format with `- platform: group` at the start
-- ✅ Do use key-based format with `platform: group` under each group
+- ✅ Do use list format with `- platform: group` for each group
+- ✅ Do add `unique_id` to each group for proper entity registry
 - ✅ Do list all individual lights directly in "all lights" groups
 
 **After making changes:**
