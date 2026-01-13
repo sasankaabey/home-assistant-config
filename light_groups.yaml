@@ -3,24 +3,24 @@
 # (Alexa, Siri, Google Assistant) and automation
 # Uses the light group integration: https://www.home-assistant.io/integrations/light.group/
 
-living_room_ambient:
+- platform: group
   name: Living Room Ambient
-  platform: group
+  unique_id: living_room_ambient_group
   entities:
     - light.living_room_floor_lamp
     - light.living_room_floor_lamp_2
     - light.living_room_hue_iris
     - light.living_room_tv_light
 
-living_room_ceiling:
+- platform: group
   name: Living Room Ceiling
-  platform: group
+  unique_id: living_room_ceiling_group
   entities:
     - light.living_room_ceiling
 
-living_room_all:
+- platform: group
   name: Living Room All Lights
-  platform: group
+  unique_id: living_room_all_group
   entities:
     - light.living_room_floor_lamp
     - light.living_room_floor_lamp_2
