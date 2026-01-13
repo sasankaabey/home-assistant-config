@@ -54,9 +54,13 @@ Light groups are defined in `light_groups.yaml` and provide:
 
 **To modify light groups:**
 1. Edit `light_groups.yaml` in the repository
-2. Ensure entity IDs match actual devices (check entity registry if needed)
+2. **IMPORTANT:** Ensure entity IDs match actual devices (check entity registry if needed)
+   - If entity names are wrong, groups will fail to load or work incorrectly
+   - Verify entity IDs exist: SSH to minipc and check entity registry
 3. Commit and push changes
 4. Sync to HA OS and restart
+
+**Common mistake:** Using old/renamed entity IDs will cause groups to fail silently
 
 **After making changes:**
 1. Sync files to HA OS and restart Home Assistant
