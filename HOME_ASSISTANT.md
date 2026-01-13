@@ -50,6 +50,31 @@ Light groups are defined in `light_groups.yaml` and provide:
 - Simplified automation targeting
 - Room-based organization
 
+### Configuration Format (IMPORTANT)
+
+Light groups MUST use this exact YAML structure:
+```yaml
+group_name:
+  name: Display Name
+  platform: group
+  entities:
+    - light.entity_1
+    - light.entity_2
+```
+
+**Common mistakes to avoid:**
+- ❌ Don't nest light groups within other light groups (causes issues)
+- ❌ Don't use list format with `- platform: group` at the start
+- ✅ Do use key-based format with `platform: group` under each group
+- ✅ Do list all individual lights directly in "all lights" groups
+
+**After making changes:**
+1. Sync files to HA OS
+2. Restart Home Assistant
+3. **Trigger device discovery:** "Alexa, discover devices" (or use Alexa app)
+4. Wait 1-2 minutes for discovery to complete
+5. Test voice commands
+
 ### Living Room Light Groups
 
 #### `light.living_room_ambient`
@@ -64,9 +89,12 @@ Main overhead lighting:
 - Living Room Ceiling
 
 #### `light.living_room_all`
-Master control for all living room lights:
-- Living Room Ambient (group)
-- Living Room Ceiling (group)
+Master control for all living room lights (lists all individual lights directly):
+- Floor Lamp 1
+- Floor Lamp 2
+- Hue Iris
+- TV Light
+- Living Room Ceiling
 
 ### Voice Control Examples
 
