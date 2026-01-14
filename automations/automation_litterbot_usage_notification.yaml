@@ -1,0 +1,22 @@
+alias: "Litterbot Usage Notification"
+id: "litterbot_usage_notification"
+description: "Notify when the Litterbot is used with current cycle count"
+trigger:
+  - platform: state
+    entity_id: sensor.basement_pantry_shitbot_cleans_in_bin
+condition:
+  - condition: template
+    value_template: >-
+      {{ trigger.to_state.state | int(0) > trigger.from_state.state | int(0) }}
+action:
+  - service: notify.mobile_app_7b4b3d84_ce9d_418e_ad95_576581ee855e
+    data:
+      title: "🐱 ShitBot Used"
+      message: >-
+        Cycle {{ states('sensor.basement_pantry_shitbot_cleans_in_bin') }} since last clean.
+  - service: notify.mobile_app_6edede162518e0a8
+    data:
+      title: "🐱 ShitBot Used"
+      message: >-
+        Cycle {{ states('sensor.basement_pantry_shitbot_cleans_in_bin') }} since last clean.
+mode: single
