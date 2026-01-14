@@ -25,6 +25,18 @@ input_datetime: !include inputs/input_datetime.yaml
 input_button: !include inputs/input_button.yaml
 template: !include template.yaml
 
+# Notify groups for easier management
+notify:
+  - name: adults
+    platform: group
+    services:
+      # Ankit's devices
+      - service: mobile_app_7b4b3d84_ce9d_418e_ad95_576581ee855e  # Ankit's iPhone
+      - service: mobile_app_6aa08b57_105e_58fc_9da3_dffc3ea88d2b  # Ankit's MacBook Air
+      # Danielle's devices
+      - service: mobile_app_6edede162518e0a8  # Pixel 7a (Danielle)
+      - service: mobile_app_836f4e1f_c80b_46d6_ad6e_a08f18e499b0  # Luffy55 (Danielle's iPad?)
+
 # Logger Configuration
 logger:
   default: warning

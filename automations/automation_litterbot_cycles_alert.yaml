@@ -19,13 +19,7 @@ action:
   - service: script.alexa_announce_router
     data:
       message: "ShitBot needs to be cleaned."
-  - service: notify.mobile_app_7b4b3d84_ce9d_418e_ad95_576581ee855e
-    data:
-      title: "🔴 ShitBot Full"
-      message: >-
-        ShitBot has {{ states('sensor.basement_pantry_shitbot_cleans_in_bin') }}
-        clean cycles in the bin. Time to empty it.
-  - service: notify.mobile_app_6edede162518e0a8
+  - service: notify.adults
     data:
       title: "🔴 ShitBot Full"
       message: >-

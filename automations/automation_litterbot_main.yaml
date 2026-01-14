@@ -10,9 +10,9 @@ action:
   - service: input_boolean.turn_on
     target:
       entity_id: input_boolean.litterbot_nag_enabled
-  - service: notify.mobile_app_7b4b3d84_ce9d_418e_ad95_576581ee855e
+  - service: notify.adults
     data:
-      message: "⚠️ Litterbot needs attention! The cats can’t poop until it’s fixed. 🚫🐾"
+      message: "⚠️ Litterbot needs attention! The cats can't poop until it's fixed. 🚫🐾"
       title: "Litterbot Problem"
       data:
         tag: litterbot_alert
@@ -21,17 +21,4 @@ action:
         ttl: 0
         priority: high
         channel: "Litterbot Alerts"
-
-  - service: notify.mobile_app_6edede162518e0a8
-    data:
-      message: "⚠️ Litterbot needs attention! The cats can’t poop until it’s fixed. 🚫🐾"
-      title: "Litterbot Problem"
-      data:
-        tag: litterbot_alert
-        importance: high
-        persistent: true
-        ttl: 0
-        priority: high
-        channel: "Litterbot Alerts"
-
 mode: single

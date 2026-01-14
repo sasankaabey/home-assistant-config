@@ -18,11 +18,7 @@ action:
   - service: script.alexa_announce_router
     data:
       message: "ShitBot is stuck and needs attention."
-  - service: notify.mobile_app_7b4b3d84_ce9d_418e_ad95_576581ee855e
-    data:
-      title: "Litterbot check"
-      message: "ShitBot is stuck or offline and needs attention."
-  - service: notify.mobile_app_6edede162518e0a8
+  - service: notify.adults
     data:
       title: "Litterbot check"
       message: "ShitBot is stuck or offline and needs attention."

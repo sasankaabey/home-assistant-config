@@ -17,11 +17,7 @@ action:
     data:
       rgb_color: [0, 255, 0]
       brightness: 255
-  - service: notify.mobile_app_7b4b3d84_ce9d_418e_ad95_576581ee855e
-    data:
-      title: "🟢 ShitBot Reset"
-      message: "Bin emptied! Counter reset to 0."
-  - service: notify.mobile_app_6edede162518e0a8
+  - service: notify.adults
     data:
       title: "🟢 ShitBot Reset"
       message: "Bin emptied! Counter reset to 0."

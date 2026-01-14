@@ -38,7 +38,7 @@ action:
                 "Poe: please make it stop."
               ] %}
               {{ [camden_nags | random, poe_nags | random] }}
-        - service: notify.mobile_app_7b4b3d84_ce9d_418e_ad95_576581ee855e
+        - service: notify.adults
           data:
             message: "💩 Litterbot is STILL busted. Cats are circling. Send help."
             title: "NAG: Fix the Litterbot"
@@ -47,17 +47,6 @@ action:
               ttl: 0
               priority: high
               tag: litterbot_nag
-
-        - service: notify.mobile_app_6edede162518e0a8
-          data:
-            message: "💩 Litterbot is STILL busted. Cats are circling. Send help."
-            title: "NAG: Fix the Litterbot"
-            data:
-              persistent: true
-              ttl: 0
-              priority: high
-              tag: litterbot_nag
-
         - delay:
             minutes: "{{ interval_minutes }}"
 mode: single
