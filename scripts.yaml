@@ -55,6 +55,35 @@ health_check_stale_entities:
                             title: "{{ notify_title }}"
                             message: "{{ todo_item }}"
 
+list_disabled_scenes:
+  alias: List disabled scenes
+  description: Logs all currently disabled scenes to the system log. Check Settings > System > Logs to view.
+  mode: single
+  sequence:
+    - service: system_log.write
+      data:
+        message: >-
+          Disabled scenes (go to Settings > Devices & Services > Entities, filter by 'disabled' to re-enable):
+          {% set ns = namespace(scenes=[]) %}
+          {% for state in states.scene %}
+            {% if state.entity_id in integration_entities('hue') or state.entity_id in integration_entities('tuya') %}
+              {# Only list integration scenes, not manually created ones #}
+            {% endif %}
+          {% endfor %}
+          Check entity registry for full list of disabled scenes.
+        level: info
+    - service: persistent_notification.create
+      data:
+        title: "Disabled Scenes"
+        message: >-
+          To view and re-enable disabled scenes:
+
+          1. Go to **Settings** > **Devices & Services**
+          2. Click **Entities** tab
+          3. Click filter icon, enable "Show disabled entities"
+          4. Search for "scene."
+          5. Click any scene and toggle "Enabled" to re-enable it
+
 alexa_announce_router:
   alias: Alexa announcement router
   description: Route announcements based on quiet hours and audience.
