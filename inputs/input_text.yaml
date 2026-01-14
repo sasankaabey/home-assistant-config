@@ -57,11 +57,6 @@ alexa_actionable_notification:
   max: 255
   initial: '{"text": "This is a test of the Alexa Actions custom skill. Did it work?", "event": "actionable.skill.test"}'
 
-litterbot_nag_snooze_until_home_person:
-  name: Litterbot Nag Snooze Until Home Person
-  max: 255
-  initial: "person.ankit_aggarwal"
-
 litterbot_camden_tts_voice:
   name: Camden TTS Voice
   max: 255

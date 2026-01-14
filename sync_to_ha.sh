@@ -6,6 +6,7 @@ DEST_DIR="/Volumes/config"
 
 RSYNC_OPTS=(
   -a
+  --inplace
   --delete
   --stats
   --filter=':- .gitignore'

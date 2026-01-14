@@ -15,7 +15,7 @@ action:
     value_template: >-
       {% set status = states('sensor.basement_pantry_shitbot_status') %}
       {{ status not in ['standby', 'sleep', 'sleeping'] }}
-  - service: script.litterbot_alexa_announce
+  - service: script.alexa_announce_router
     data:
       message: "ShitBot is stuck and needs attention."
   - service: notify.mobile_app_7b4b3d84_ce9d_418e_ad95_576581ee855e

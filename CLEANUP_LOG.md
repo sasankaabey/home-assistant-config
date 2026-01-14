@@ -89,3 +89,142 @@ ha backups restore a4b62dfd
 - Media player duplicates were preserved (legitimate multi-protocol endpoints)
 - 739 disabled mobile app sensors remain disabled (auto-disabled by integration)
 - Total entities reduced from 1,964 to 1,952 (12 deleted)
+
+## 2026-01-13: Automation & Script Cleanup (60-day stale)
+
+**Criteria:** `last_triggered` older than 60 days (cutoff 2025-11-15) or never; scripts also required no repo references.
+
+### Automations Removed (3)
+- `automation.bedroom_nightlight_left_exit` (source `automations/lighting/bedroom_nightlight_on_bed_exit.yaml`, last_triggered: never)
+- `automation.bedroom_nightlight_right_exit` (source `automations/lighting/bedroom_nightlight_on_bed_exit.yaml`, last_triggered: never)
+- `automation.sensor_light_primary_bedroom` (source `automations/lighting/sensor_light_primary_bedroom.yaml`, last_triggered: 2025-10-16)
+
+### Scripts Removed (5)
+- `script.alexa_announce_living_room` (last_triggered: never; no repo references)
+- `script.litterbot_tts_announce` (last_triggered: never; no repo references)
+- `script.litterbot_nag_snooze` (last_triggered: never; no repo references)
+- `script.litterbot_nag_snooze_until_home` (last_triggered: never; no repo references)
+- `script.litterbot_nag_snooze_clear` (last_triggered: never; no repo references)
+
+### Scripts Kept (at time of cleanup)
+- `script.litterbot_alexa_announce` (kept temporarily; removed in follow-up below)
+
+### Files Modified
+- `scripts.yaml` - removed 5 scripts
+- `automations/lighting/bedroom_nightlight_on_bed_exit.yaml` - deleted
+- `automations/lighting/sensor_light_primary_bedroom.yaml` - deleted
+
+## 2026-01-13: Litterbot Announcement Follow-up
+
+### Scripts Removed (1)
+- `script.litterbot_alexa_announce` (replaced with direct `script.alexa_announce_router` calls in Litterbot automations)
+
+### Input Helpers Removed (1)
+- `input_number.litterbot_nag_snooze_minutes` (no remaining references after snooze script removal)
+
+### Input Helpers Removed (additional)
+- `input_boolean.litterbot_nag_snooze_until_home`
+- `input_text.litterbot_nag_snooze_until_home_person`
+- `input_datetime.litterbot_nag_snooze_until`
+
+### Automations Updated/Removed
+- `automations/automation_litterbot_nag.yaml` - removed snooze logic (now always notifies while enabled)
+- `automations/automation_litterbot_snooze_until_home_clear.yaml` - deleted (snooze helpers removed)
+
+### Files Modified
+- `scripts.yaml` - removed Litterbot Alexa announce script
+- `automations/automation_litterbot_cycles_alert.yaml` - direct router call
+- `automations/automation_litterbot_non_standby.yaml` - direct router call
+- `inputs/input_number.yaml` - removed snooze minutes helper
+- `inputs/input_boolean.yaml` - removed snooze until home helper
+- `inputs/input_text.yaml` - removed snooze person helper
+- `inputs/input_datetime.yaml` - cleared snooze datetime helper
+- `automations/automation_litterbot_nag.yaml` - removed snooze handling
+- `automations/automation_litterbot_snooze_until_home_clear.yaml` - deleted
+
+## 2026-01-14: UI Automation Mass Cleanup
+
+**Criteria:** Never triggered OR last_triggered > 60 days (stale)
+
+### Automations Removed (44 total)
+
+**Bedroom/Sleep Automations (8):**
+- `automation.bedroom_nightlight_left_exit` - never triggered
+- `automation.bedroom_nightlight_right_exit` - never triggered
+- `automation.bedroom_nightlight_on_bed_exit` - never triggered
+- `automation.bedroom_sensor_and_lights_off` - never triggered
+- `automation.bedtime_conditional_lights_off_or_ask_alexa` - never triggered
+- `automation.bedtime_office_motion_nightlight` - never triggered
+- `automation.bedtime_turn_off_bedroom_tv` - never triggered
+- `automation.primary_bedroom_motion_lights` - never triggered
+
+**Sensor Light Automations (4):**
+- `automation.sensor_light_primary_bedroom` - stale (2025-10-16)
+- `automation.sensor_light_bedroom_trial` - never triggered
+- `automation.sensor_light_office_ct_lights` - never triggered
+- `automation.sensor_light_office_desk_only` - never triggered
+
+**TV Mount Automations (3):**
+- `automation.tv_mount_control_by_tv_power` - never triggered
+- `automation.tv_mount_tracks_tv_power` - never triggered
+- `automation.tv_mount_verify_alignment_every_3_minutes` - never triggered
+
+**Alexa/Voice Automations (5):**
+- `automation.alexa_routine_trigger_goodnight_on_last_called_device` - never triggered
+- `automation.handle_alexa_actionable_by_person_id` - never triggered
+- `automation.set_alexa_alarm_based_on_spoken_time` - never triggered
+- `automation.daily_greeting_approved` - never triggered
+- `automation.daily_greeting_edit_response` - never triggered
+
+**Goodnight Routine Automations (2):**
+- `automation.run_goodnight_routine_by_person` - never triggered
+- `automation.run_goodnight_routine_by_person_or_device` - never triggered
+
+**Litterbot Automations (6):**
+- `automation.litterbot_alert_waits_for_someone` - never triggered
+- `automation.litterbot_problem_alert` - never triggered (YAML version exists)
+- `automation.litterbot_problem_cleared` - never triggered (YAML version exists)
+- `automation.litterbot_problem_trigger` - never triggered
+- `automation.modular_nag_loop` - never triggered
+- `automation.reset_litterbot_snark_counter` - never triggered
+
+**Plant Automations (3):**
+- `automation.bedroom_plants` - never triggered
+- `automation.wake_up_plants` - never triggered
+- `automation.notify_on_monstera_plant_issues` - never triggered
+
+**Color/Lighting Helper Automations (3):**
+- `automation.update_bedroom_time_of_day_color_temp` - never triggered
+- `automation.update_color_temp_helpers_by_time_of_day_2` - never triggered (duplicate)
+- `automation.update_open_floorplan_dynamic_helpers` - never triggered
+
+**Misc Automations (10):**
+- `automation.new_automation` - placeholder, never triggered
+- `automation.nighttime_motion_red_lights` - never triggered
+- `automation.office_desk_light_by_monitor_consumption` - never triggered
+- `automation.playful_greeting_for_danielle` - never triggered
+- `automation.primary_bedroom_dial_toggle_2` - never triggered (duplicate)
+- `automation.main_floor_thermostat_current_state` - never triggered
+- `automation.max_s_lights_on` - never triggered
+- `automation.turn_on_all_lights_except_front_door` - never triggered
+- `automation.turn_off_all_lights_except_front_door` - never triggered
+- `automation.turn_off_the_tv_if_no_one_s_watching` - never triggered
+
+### Automations Kept (7 total)
+
+All actively used and version-controlled:
+- `automation.monthly_smoke_detector_health_check` - triggered 2026-01-03
+- `automation.restore_lights_on_ha_startup` - triggered on every restart
+- `automation.sensor_light_kitchen` - actively triggering
+- `automation.sensor_lights_dining_room` - actively triggering
+- `automation.sensor_lights_living_room` - actively triggering
+- `automation.sync_living_room_lamps_on_change` - triggered 2026-01-13
+- `automation.sync_living_room_lights_on_change` - triggered 2026-01-13
+
+### Files Modified
+- `.storage/core.entity_registry` - Removed 44 automation entities
+
+### Statistics
+- **Before:** 51 automations
+- **After:** 7 automations
+- **Removed:** 44 automations (86% reduction)

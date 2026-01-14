@@ -20,21 +20,6 @@ action:
       sequence:
         - variables:
             interval_minutes: "{{ states('input_number.litterbot_nag_interval') | int(30) }}"
-            snooze_until: "{{ states('input_datetime.litterbot_nag_snooze_until') }}"
-            home_snooze_enabled: "{{ is_state('input_boolean.litterbot_nag_snooze_until_home', 'on') }}"
-            home_snooze_person: >-
-              {% set candidate = states('input_text.litterbot_nag_snooze_until_home_person') %}
-              {% if candidate in states %}
-                {{ candidate }}
-              {% else %}
-                person.ankit_aggarwal
-              {% endif %}
-            home_snoozed: >-
-              {{ home_snooze_enabled and not is_state(home_snooze_person, 'home') }}
-            time_snoozed: >-
-              {{ snooze_until not in ['unknown', 'unavailable', 'none', ''] and
-                 as_timestamp(snooze_until) > as_timestamp(now()) }}
-            snoozed: "{{ time_snoozed or home_snoozed }}"
             nag_message: >-
               {% set camden_nags = [
                 "Camden grumbles: still broken.",
@@ -53,30 +38,25 @@ action:
                 "Poe: please make it stop."
               ] %}
               {{ [camden_nags | random, poe_nags | random] }}
+        - service: notify.mobile_app_7b4b3d84_ce9d_418e_ad95_576581ee855e
+          data:
+            message: "💩 Litterbot is STILL busted. Cats are circling. Send help."
+            title: "NAG: Fix the Litterbot"
+            data:
+              persistent: true
+              ttl: 0
+              priority: high
+              tag: litterbot_nag
 
-        - if:
-            - condition: template
-              value_template: "{{ not snoozed }}"
-          then:
-            - service: notify.mobile_app_7b4b3d84_ce9d_418e_ad95_576581ee855e
-              data:
-                message: "💩 Litterbot is STILL busted. Cats are circling. Send help."
-                title: "NAG: Fix the Litterbot"
-                data:
-                  persistent: true
-                  ttl: 0
-                  priority: high
-                  tag: litterbot_nag
-
-            - service: notify.mobile_app_6edede162518e0a8
-              data:
-                message: "💩 Litterbot is STILL busted. Cats are circling. Send help."
-                title: "NAG: Fix the Litterbot"
-                data:
-                  persistent: true
-                  ttl: 0
-                  priority: high
-                  tag: litterbot_nag
+        - service: notify.mobile_app_6edede162518e0a8
+          data:
+            message: "💩 Litterbot is STILL busted. Cats are circling. Send help."
+            title: "NAG: Fix the Litterbot"
+            data:
+              persistent: true
+              ttl: 0
+              priority: high
+              tag: litterbot_nag
 
         - delay:
             minutes: "{{ interval_minutes }}"
