@@ -34,3 +34,12 @@
     - light.rgbcw_lightbulb_3
     - light.rgbcw_lightbulb_4
     - light.rgbcw_lightbulb_7
+
+# Primary Bedroom Light Groups
+
+- platform: group
+  name: Bedroom Nightstands
+  unique_id: bedroom_nightstands_group
+  entities:
+    - light.primary_bedroom_ankits_nightstand
+    - light.primary_bedroom_danielles_nightstand
