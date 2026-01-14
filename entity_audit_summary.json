@@ -1,0 +1,102 @@
+{
+  "audit_date": "2026-01-13",
+  "audit_timestamp": "2026-01-13T19:59:10.948513",
+  "system_stats": {
+    "total_entities": 1960,
+    "active_entities": 1212,
+    "disabled_entities": 748
+  },
+  "high_priority_issues": [
+    {
+      "entity_id": "group.household",
+      "status": "missing",
+      "type": "group",
+      "issue": "Group defined in YAML but not loading",
+      "impact": "TTS scripts will fail presence checks",
+      "fix": "Restart Home Assistant",
+      "files_affected": [
+        "/config/scripts.yaml"
+      ]
+    },
+    {
+      "entity_id": "group.kids",
+      "status": "missing",
+      "type": "group",
+      "issue": "Group defined in YAML but not loading",
+      "impact": "TTS scripts and template sensor will fail",
+      "fix": "Restart Home Assistant",
+      "files_affected": [
+        "/config/scripts.yaml",
+        "/config/template.yaml"
+      ]
+    },
+    {
+      "entity_id": "notify.mobile_app_ankit_s_iphone",
+      "status": "missing",
+      "type": "notify_service",
+      "issue": "Old service name no longer valid",
+      "impact": "Litterbot notifications will fail",
+      "fix": "Update to notify.mobile_app_7b4b3d84_ce9d_418e_ad95_576581ee855e",
+      "files_affected": [
+        "/config/automations.yaml",
+        "/config/automations/automation_litterbot_cycles_alert.yaml",
+        "/config/automations/automation_litterbot_main.yaml",
+        "/config/automations/automation_litterbot_nag.yaml",
+        "/config/automations/automation_litterbot_non_standby.yaml"
+      ]
+    },
+    {
+      "entity_id": "notify.mobile_app_pixel_7a",
+      "status": "missing",
+      "type": "notify_service",
+      "issue": "Old service name no longer valid",
+      "impact": "Litterbot notifications will fail",
+      "fix": "Update to notify.mobile_app_6edede162518e0a8",
+      "files_affected": [
+        "/config/automations.yaml",
+        "/config/automations/automation_litterbot_cycles_alert.yaml",
+        "/config/automations/automation_litterbot_main.yaml",
+        "/config/automations/automation_litterbot_nag.yaml",
+        "/config/automations/automation_litterbot_non_standby.yaml"
+      ]
+    }
+  ],
+  "medium_priority_issues": [],
+  "dashboard_issues": {
+    "missing_entities": 70,
+    "disabled_entities": 6,
+    "impact": "Dashboard cards show unavailable",
+    "priority": "low"
+  },
+  "post_cleanup_validation": {
+    "entities_deleted": 15,
+    "entities_disabled": 2,
+    "broken_references_found": 0,
+    "status": "success"
+  },
+  "files_analyzed": {
+    "yaml_configs": 20,
+    "dashboards": 2,
+    "total_entity_references": 166
+  },
+  "recommended_actions": [
+    {
+      "priority": "HIGH",
+      "action": "Restart Home Assistant",
+      "reason": "Load group.household and group.kids",
+      "command": "ha core restart"
+    },
+    {
+      "priority": "HIGH",
+      "action": "Update mobile app notify services",
+      "reason": "Fix litterbot automation notifications",
+      "files_to_edit": 6
+    },
+    {
+      "priority": "MEDIUM",
+      "action": "Clean up dashboard entities",
+      "reason": "Remove 70 missing entity references",
+      "time_estimate": "1-2 hours"
+    }
+  ]
+}

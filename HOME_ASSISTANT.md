@@ -158,12 +158,37 @@ Groups defined in `groups.yaml`:
 - `group.household` - All family members
 - `group.kids` - Zoe, Max, Aiden
 
+## Cleanup History
+
+### 2026-01-13: Comprehensive Entity Cleanup
+✅ **Completed:**
+- Removed 15 duplicate/orphaned entities
+- Disabled 2 duplicate automations
+- Fixed Living Room light groups (YAML-based)
+- Created sync automation for light group coherence
+- Fixed mobile app notification service names in litterbot automations
+- Created comprehensive audit reports
+
+**Backups:** `a4b62dfd` ("Before entity cleanup Jan 2026")
+
+**Audit Reports:**
+- `entity_audit_report.md` - Full findings and dashboard issues
+- `ENTITY_AUDIT_FIX_GUIDE.md` - Step-by-step fix instructions
+- `COMPREHENSIVE_CLEANUP_SUMMARY.md` - Cleanup summary
+- `QUICK_CLEANUP_GUIDE.md` - Quick reference
+
+**Remaining Tasks:**
+- Rename 8 Tuya RGBCW lights (see `TUYA_LIGHT_RENAME_GUIDE.md`)
+- Decide on Music Assistant strategy (39 virtual media players)
+- Clean up 70 dashboard references to missing entities (low priority)
+
 ## Ongoing Cleanup Tasks
 
 ### Current Phase: Living Room Light Groups
-✅ Create living room light groups with voice control
-- Establishes pattern for other rooms
-- Tests multi-platform voice integration
+✅ **Complete** - Living room light groups with voice control
+- YAML-based groups version controlled
+- Sync automation keeps lights synchronized
+- Multi-platform voice integration working (Alexa/Siri/Google)
 
 ### Next Phases: Room-by-Room
 1. Identify all devices per room
@@ -174,7 +199,7 @@ Groups defined in `groups.yaml`:
 6. Document naming conventions
 
 ### Rooms to Process
-- Living Room (✅ in progress)
+- Living Room (✅ complete)
 - Primary Bedroom
 - Dining Room
 - Kitchen
@@ -184,12 +209,50 @@ Groups defined in `groups.yaml`:
 
 ## Best Practices
 
+### Configuration Management
+
 1. **One Source of Truth**: Each device should have one authoritative entity
 2. **Consistent Naming**: `{room}_{device_type}_{descriptor}`
 3. **Use Groups**: Simplify automations and voice control
 4. **Document Changes**: Update this file when making structural changes
 5. **Test Before Committing**: Verify configurations load without errors
 6. **Version Control Everything**: Commit regularly with clear messages
+
+### Entity Cleanup & Maintenance
+
+7. **Regular Entity Audits**: Run comprehensive audits quarterly or when adding/removing devices
+   - Check for orphaned references in automations/scripts/dashboards
+   - Identify disabled entities still referenced in active configs
+   - Clean up entities from removed devices
+
+8. **Before Deleting Entities**: Always audit references first
+   ```bash
+   # Search for entity references in all configs
+   grep -r "entity_id_here" /config/ --include="*.yaml"
+   # Check dashboards
+   grep -r "entity_id_here" /config/.storage/lovelace*
+   ```
+
+9. **Mobile App Notify Services**: Device-specific UUIDs, not friendly names
+   - Correct: `notify.mobile_app_7b4b3d84_ce9d_418e_ad95_576581ee855e`
+   - Wrong: `notify.mobile_app_ankit_s_iphone` (breaks when device reinstalls app)
+   - Find correct service: Developer Tools → Services → Filter "notify"
+
+10. **Group Entities Must Load**: Groups defined in `groups.yaml` need HA restart to register
+    - If automations reference groups but they don't exist as entities, restart HA
+    - Verify in Developer Tools → States after restart
+
+11. **Backup Before Major Cleanups**: Always create backup before entity cleanup
+    ```bash
+    ssh root@192.168.4.141
+    ha backups new --name "Before [description] cleanup"
+    ```
+
+12. **Post-Cleanup Validation**: After deleting entities, verify:
+    - No errors in HA logs (Settings → System → Logs)
+    - Automations still work (check automation traces)
+    - Dashboards display correctly
+    - Voice commands still function
 
 ## Resources
 

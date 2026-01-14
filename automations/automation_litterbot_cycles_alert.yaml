@@ -11,13 +11,13 @@ action:
   - service: script.litterbot_alexa_announce
     data:
       message: "ShitBot needs to be cleaned."
-  - service: notify.mobile_app_ankit_s_iphone
+  - service: notify.mobile_app_7b4b3d84_ce9d_418e_ad95_576581ee855e
     data:
       title: "Litterbot bin"
       message: >-
         ShitBot has {{ states('sensor.basement_pantry_shitbot_cleans_in_bin') }}
         clean cycles in the bin. Time to empty it.
-  - service: notify.mobile_app_pixel_7a
+  - service: notify.mobile_app_6edede162518e0a8
     data:
       title: "Litterbot bin"
       message: >-

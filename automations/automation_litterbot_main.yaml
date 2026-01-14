@@ -10,7 +10,7 @@ action:
   - service: input_boolean.turn_on
     target:
       entity_id: input_boolean.litterbot_nag_enabled
-  - service: notify.mobile_app_ankit_s_iphone
+  - service: notify.mobile_app_7b4b3d84_ce9d_418e_ad95_576581ee855e
     data:
       message: "⚠️ Litterbot needs attention! The cats can’t poop until it’s fixed. 🚫🐾"
       title: "Litterbot Problem"
@@ -22,7 +22,7 @@ action:
         priority: high
         channel: "Litterbot Alerts"
 
-  - service: notify.mobile_app_pixel_7a
+  - service: notify.mobile_app_6edede162518e0a8
     data:
       message: "⚠️ Litterbot needs attention! The cats can’t poop until it’s fixed. 🚫🐾"
       title: "Litterbot Problem"

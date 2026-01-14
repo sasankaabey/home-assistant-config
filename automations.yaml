@@ -14,8 +14,8 @@
         todo_list: todo.home_maintenance
         notify_title: Home maintenance
         notify_targets:
-          - notify.mobile_app_ankit_s_iphone
-          - notify.mobile_app_pixel_7a
+          - notify.mobile_app_7b4b3d84_ce9d_418e_ad95_576581ee855e
+          - notify.mobile_app_6edede162518e0a8
         stale_days: 30
         entities:
           - entity_id: binary_sensor.dining_room_smoke

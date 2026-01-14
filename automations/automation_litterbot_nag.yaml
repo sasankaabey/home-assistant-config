@@ -58,7 +58,7 @@ action:
             - condition: template
               value_template: "{{ not snoozed }}"
           then:
-            - service: notify.mobile_app_ankit_s_iphone
+            - service: notify.mobile_app_7b4b3d84_ce9d_418e_ad95_576581ee855e
               data:
                 message: "💩 Litterbot is STILL busted. Cats are circling. Send help."
                 title: "NAG: Fix the Litterbot"
@@ -68,7 +68,7 @@ action:
                   priority: high
                   tag: litterbot_nag
 
-            - service: notify.mobile_app_pixel_7a
+            - service: notify.mobile_app_6edede162518e0a8
               data:
                 message: "💩 Litterbot is STILL busted. Cats are circling. Send help."
                 title: "NAG: Fix the Litterbot"
