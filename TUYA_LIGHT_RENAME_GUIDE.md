@@ -5,11 +5,11 @@
 
 ## The 8 Lights to Rename
 
-**Office Staircase Fixture (4 bulbs - now grouped):**
-- ✅ `light.rgbcw_lightbulb` - Part of office staircase group
-- ✅ `light.rgbcw_lightbulb_3` - Part of office staircase group
-- ✅ `light.rgbcw_lightbulb_4` - Part of office staircase group
-- ✅ `light.rgbcw_lightbulb_7` - Part of office staircase group
+**Office Hallway Light Fixture (4 bulbs - now grouped):**
+- ✅ `light.rgbcw_lightbulb` - Part of office hallway light group
+- ✅ `light.rgbcw_lightbulb_3` - Part of office hallway light group
+- ✅ `light.rgbcw_lightbulb_4` - Part of office hallway light group
+- ✅ `light.rgbcw_lightbulb_7` - Part of office hallway light group
 
 **Remaining to identify:**
 ```
@@ -19,7 +19,7 @@ light.rgbcw_lightbulb_6
 light.rgbcw_lightbulb_8
 ```
 
-Note: The office staircase bulbs now function as one group via `light.office_staircase` - you can control all 4 together or individually.
+Note: The office hallway bulbs (second floor) now function as one group via `light.office_hallway_light` - you can control all 4 together or individually.
 
 ## How to Identify and Rename
 

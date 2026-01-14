@@ -24,11 +24,11 @@
     - light.living_room_floor_lamp
     - light.living_room_hue_iris
 
-# Office Light Groups
+# Office/Second Floor Light Groups
 
 - platform: group
-  name: Office Staircase
-  unique_id: office_staircase_group
+  name: Office Hallway Light
+  unique_id: office_hallway_light_group
   entities:
     - light.rgbcw_lightbulb
     - light.rgbcw_lightbulb_3
