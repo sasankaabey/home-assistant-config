@@ -1,5 +1,6 @@
 alias: "Litterbot Clean Cycles Alert"
 id: "litterbot_clean_cycles_alert"
+description: "Alert when bin needs emptying and turn light red"
 trigger:
   - platform: template
     value_template: >-
@@ -8,18 +9,25 @@ trigger:
       {{ cycles >= threshold and cycles > 0 }}
 condition: []
 action:
+  # Turn light red as visual indicator
+  - service: light.turn_on
+    target:
+      entity_id: light.basement_pantry_shitbot
+    data:
+      rgb_color: [255, 0, 0]
+      brightness: 255
   - service: script.alexa_announce_router
     data:
       message: "ShitBot needs to be cleaned."
   - service: notify.mobile_app_7b4b3d84_ce9d_418e_ad95_576581ee855e
     data:
-      title: "Litterbot bin"
+      title: "🔴 ShitBot Full"
       message: >-
         ShitBot has {{ states('sensor.basement_pantry_shitbot_cleans_in_bin') }}
         clean cycles in the bin. Time to empty it.
   - service: notify.mobile_app_6edede162518e0a8
     data:
-      title: "Litterbot bin"
+      title: "🔴 ShitBot Full"
       message: >-
         ShitBot has {{ states('sensor.basement_pantry_shitbot_cleans_in_bin') }}
         clean cycles in the bin. Time to empty it.
