@@ -1,7 +1,9 @@
-# Living Room Light Groups
-# These groups enable unified control of living room lights via voice assistants
+# Light Groups
+# These groups enable unified control of lights via voice assistants
 # (Alexa, Siri, Google Assistant) and automation
 # Uses the light group integration: https://www.home-assistant.io/integrations/light.group/
+
+# Living Room Light Groups
 
 - platform: group
   name: Living Room Lamps
@@ -21,3 +23,14 @@
     - light.living_room_floor_lamp_2
     - light.living_room_floor_lamp
     - light.living_room_hue_iris
+
+# Office Light Groups
+
+- platform: group
+  name: Office Staircase
+  unique_id: office_staircase_group
+  entities:
+    - light.rgbcw_lightbulb
+    - light.rgbcw_lightbulb_3
+    - light.rgbcw_lightbulb_4
+    - light.rgbcw_lightbulb_7
