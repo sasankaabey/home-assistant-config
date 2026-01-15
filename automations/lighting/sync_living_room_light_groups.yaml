@@ -14,6 +14,12 @@
     - condition: template
       value_template: "{{ trigger.to_state.context.parent_id is none }}"
   action:
+    - variables:
+        source_light: light.living_room_lamps
+        brightness_val: "{{ state_attr(source_light, 'brightness') }}"
+        color_mode: "{{ state_attr(source_light, 'color_mode') }}"
+        color_temp_val: "{{ state_attr(source_light, 'color_temp') }}"
+        rgb_val: "{{ state_attr(source_light, 'rgb_color') }}"
     - service: light.turn_on
       target:
         entity_id:
@@ -22,11 +28,37 @@
           - light.living_room_floor_lamp
           - light.living_room_tv_light
       data:
-        effect: "none"  # Stop any running effects
-        brightness: "{{ state_attr('light.living_room_lamps', 'brightness') }}"
-        color_temp: "{{ state_attr('light.living_room_lamps', 'color_temp') }}"
-        rgb_color: "{{ state_attr('light.living_room_lamps', 'rgb_color') }}"
+        effect: "none"
+        brightness: "{{ brightness_val }}"
         transition: 1
+    # Apply color based on mode (can't set both color_temp and rgb_color)
+    - if:
+        - condition: template
+          value_template: "{{ color_mode == 'color_temp' and color_temp_val is not none }}"
+      then:
+        - service: light.turn_on
+          target:
+            entity_id:
+              - light.living_room_hue_iris
+              - light.living_room_floor_lamp_2
+              - light.living_room_floor_lamp
+              - light.living_room_tv_light
+          data:
+            color_temp: "{{ color_temp_val }}"
+      else:
+        - if:
+            - condition: template
+              value_template: "{{ rgb_val is not none }}"
+          then:
+            - service: light.turn_on
+              target:
+                entity_id:
+                  - light.living_room_hue_iris
+                  - light.living_room_floor_lamp_2
+                  - light.living_room_floor_lamp
+                  - light.living_room_tv_light
+              data:
+                rgb_color: "{{ rgb_val }}"
   mode: restart
 
 - id: sync_living_room_lights_on_change
@@ -40,6 +72,12 @@
     - condition: template
       value_template: "{{ trigger.to_state.context.parent_id is none }}"
   action:
+    - variables:
+        source_light: light.living_room_lights
+        brightness_val: "{{ state_attr(source_light, 'brightness') }}"
+        color_mode: "{{ state_attr(source_light, 'color_mode') }}"
+        color_temp_val: "{{ state_attr(source_light, 'color_temp') }}"
+        rgb_val: "{{ state_attr(source_light, 'rgb_color') }}"
     - service: light.turn_on
       target:
         entity_id:
@@ -49,9 +87,37 @@
           - light.living_room_floor_lamp
           - light.living_room_hue_iris
       data:
-        effect: "none"  # Stop any running effects
-        brightness: "{{ state_attr('light.living_room_lights', 'brightness') }}"
-        color_temp: "{{ state_attr('light.living_room_lights', 'color_temp') }}"
-        rgb_color: "{{ state_attr('light.living_room_lights', 'rgb_color') }}"
+        effect: "none"
+        brightness: "{{ brightness_val }}"
         transition: 1
+    # Apply color based on mode (can't set both color_temp and rgb_color)
+    - if:
+        - condition: template
+          value_template: "{{ color_mode == 'color_temp' and color_temp_val is not none }}"
+      then:
+        - service: light.turn_on
+          target:
+            entity_id:
+              - light.living_room_ceiling
+              - light.living_room_tv_light
+              - light.living_room_floor_lamp_2
+              - light.living_room_floor_lamp
+              - light.living_room_hue_iris
+          data:
+            color_temp: "{{ color_temp_val }}"
+      else:
+        - if:
+            - condition: template
+              value_template: "{{ rgb_val is not none }}"
+          then:
+            - service: light.turn_on
+              target:
+                entity_id:
+                  - light.living_room_ceiling
+                  - light.living_room_tv_light
+                  - light.living_room_floor_lamp_2
+                  - light.living_room_floor_lamp
+                  - light.living_room_hue_iris
+              data:
+                rgb_color: "{{ rgb_val }}"
   mode: restart
