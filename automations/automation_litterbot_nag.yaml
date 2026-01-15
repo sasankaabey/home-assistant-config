@@ -1,52 +1,52 @@
-alias: "Litterbot Nagging Reminder"
-id: "litterbot_nagging"
-trigger:
-  - platform: state
-    entity_id: binary_sensor.basement_pantry_shitbot_problem
-    to: "on"
-  - platform: state
-    entity_id: input_boolean.litterbot_nag_enabled
-    to: "on"
-condition: []
-action:
-  - repeat:
-      while:
-        - condition: state
-          entity_id: binary_sensor.basement_pantry_shitbot_problem
-          state: "on"
-        - condition: state
-          entity_id: input_boolean.litterbot_nag_enabled
-          state: "on"
-      sequence:
-        - variables:
-            interval_minutes: "{{ states('input_number.litterbot_nag_interval') | int(30) }}"
-            nag_message: >-
-              {% set camden_nags = [
-                "Camden grumbles: still broken.",
-                "Camden: this is unacceptable.",
-                "Camden: we need service.",
-                "Camden: this is your job.",
-                "Camden: restroom access denied.",
-                "Camden: shame."
-              ] %}
-              {% set poe_nags = [
-                "Poe: oh. is this bad? fix it.",
-                "Poe: wait, what? fix it.",
-                "Poe: is that the bathroom? make it work.",
-                "Poe: I don't get it. fix it.",
-                "Poe: are we okay? fix it.",
-                "Poe: please make it stop."
-              ] %}
-              {{ [camden_nags | random, poe_nags | random] }}
-        - service: notify.adults
-          data:
-            message: "💩 Litterbot is STILL busted. Cats are circling. Send help."
-            title: "NAG: Fix the Litterbot"
+- alias: "Litterbot Nagging Reminder"
+  id: "litterbot_nagging"
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.basement_pantry_shitbot_problem
+      to: "on"
+    - platform: state
+      entity_id: input_boolean.litterbot_nag_enabled
+      to: "on"
+  condition: []
+  action:
+    - repeat:
+        while:
+          - condition: state
+            entity_id: binary_sensor.basement_pantry_shitbot_problem
+            state: "on"
+          - condition: state
+            entity_id: input_boolean.litterbot_nag_enabled
+            state: "on"
+        sequence:
+          - variables:
+              interval_minutes: "{{ states('input_number.litterbot_nag_interval') | int(30) }}"
+              nag_message: >-
+                {% set camden_nags = [
+                  "Camden grumbles: still broken.",
+                  "Camden: this is unacceptable.",
+                  "Camden: we need service.",
+                  "Camden: this is your job.",
+                  "Camden: restroom access denied.",
+                  "Camden: shame."
+                ] %}
+                {% set poe_nags = [
+                  "Poe: oh. is this bad? fix it.",
+                  "Poe: wait, what? fix it.",
+                  "Poe: is that the bathroom? make it work.",
+                  "Poe: I don't get it. fix it.",
+                  "Poe: are we okay? fix it.",
+                  "Poe: please make it stop."
+                ] %}
+                {{ [camden_nags | random, poe_nags | random] }}
+          - service: notify.adults
             data:
-              persistent: true
-              ttl: 0
-              priority: high
-              tag: litterbot_nag
-        - delay:
-            minutes: "{{ interval_minutes }}"
-mode: single
+              message: "💩 Litterbot is STILL busted. Cats are circling. Send help."
+              title: "NAG: Fix the Litterbot"
+              data:
+                persistent: true
+                ttl: 0
+                priority: high
+                tag: litterbot_nag
+          - delay:
+              minutes: "{{ interval_minutes }}"
+  mode: single

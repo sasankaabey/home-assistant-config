@@ -1,28 +1,28 @@
-alias: "Litterbot Clean Cycles Alert"
-id: "litterbot_clean_cycles_alert"
-description: "Alert when bin needs emptying and turn light red"
-trigger:
-  - platform: template
-    value_template: >-
-      {% set cycles = states('sensor.basement_pantry_shitbot_cleans_in_bin') | int(0) %}
-      {% set threshold = states('input_number.litterbot_clean_cycles_threshold') | int(10) %}
-      {{ cycles >= threshold and cycles > 0 }}
-condition: []
-action:
-  # Turn light red as visual indicator
-  - service: light.turn_on
-    target:
-      entity_id: light.basement_pantry_shitbot
-    data:
-      rgb_color: [255, 0, 0]
-      brightness: 255
-  - service: script.alexa_announce_router
-    data:
-      message: "ShitBot needs to be cleaned."
-  - service: notify.adults
-    data:
-      title: "🔴 ShitBot Full"
-      message: >-
-        ShitBot has {{ states('sensor.basement_pantry_shitbot_cleans_in_bin') }}
-        clean cycles in the bin. Time to empty it.
-mode: single
+- alias: "Litterbot Clean Cycles Alert"
+  id: "litterbot_clean_cycles_alert"
+  description: "Alert when bin needs emptying and turn light red"
+  trigger:
+    - platform: template
+      value_template: >-
+        {% set cycles = states('sensor.basement_pantry_shitbot_cleans_in_bin') | int(0) %}
+        {% set threshold = states('input_number.litterbot_clean_cycles_threshold') | int(10) %}
+        {{ cycles >= threshold and cycles > 0 }}
+  condition: []
+  action:
+    # Turn light red as visual indicator
+    - service: light.turn_on
+      target:
+        entity_id: light.basement_pantry_shitbot
+      data:
+        rgb_color: [255, 0, 0]
+        brightness: 255
+    - service: script.alexa_announce_router
+      data:
+        message: "ShitBot needs to be cleaned."
+    - service: notify.adults
+      data:
+        title: "🔴 ShitBot Full"
+        message: >-
+          ShitBot has {{ states('sensor.basement_pantry_shitbot_cleans_in_bin') }}
+          clean cycles in the bin. Time to empty it.
+  mode: single

@@ -254,6 +254,97 @@ Groups defined in `groups.yaml`:
     - Dashboards display correctly
     - Voice commands still function
 
+## YAML Automation Format
+
+**CRITICAL:** When using `!include_dir_merge_list` (as in `configuration.yaml`), each automation file must be a **list** (starting with `-`), not a single object.
+
+### Correct Format (list item)
+```yaml
+- alias: "My Automation"
+  id: "my_automation"
+  trigger:
+    - platform: state
+      entity_id: sensor.example
+  action:
+    - service: notify.adults
+      data:
+        message: "Hello"
+  mode: single
+```
+
+### Wrong Format (single object - WILL NOT LOAD)
+```yaml
+alias: "My Automation"
+id: "my_automation"
+trigger:
+  - platform: state
+    entity_id: sensor.example
+action:
+  - service: notify.adults
+    data:
+      message: "Hello"
+mode: single
+```
+
+**Symptom:** Automations exist as files on disk but don't appear in HA UI.
+
+## Entity Registry Editing
+
+The entity registry (`.storage/core.entity_registry`) controls which entities are enabled/disabled.
+
+### Safe Editing Procedure
+1. **Stop HA first** (not restart): `ha core stop`
+2. Make edits to registry file
+3. **Start HA**: `ha core start`
+
+**WARNING:** If you just restart (`ha core restart`), HA will overwrite your registry changes with its in-memory state before shutting down.
+
+### Disabling New Entity Auto-Sync
+To prevent integrations from automatically creating entities (keeps environment clean):
+```bash
+# SSH to HA, then run Python to set pref_disable_new_entities=true
+python3 << 'EOF'
+import json
+with open('/config/.storage/core.config_entries', 'r') as f:
+    data = json.load(f)
+for entry in data['data']['entries']:
+    entry['pref_disable_new_entities'] = True
+with open('/config/.storage/core.config_entries', 'w') as f:
+    json.dump(data, f, indent=2)
+EOF
+```
+
+## Notify Groups
+
+Notify groups consolidate multiple device notifications. Defined in `configuration.yaml`:
+
+```yaml
+notify:
+  - name: adults
+    platform: group
+    services:
+      - service: mobile_app_device_uuid_1  # Ankit's iPhone
+      - service: mobile_app_device_uuid_2  # Danielle's Pixel
+```
+
+**Usage in automations:**
+```yaml
+- service: notify.adults
+  data:
+    title: "Alert Title"
+    message: "Message body"
+```
+
+## Syncing to HA OS
+
+Use `sync_to_ha.sh` script (excludes .storage, www, custom_components, etc.):
+```bash
+./sync_to_ha.sh
+ssh root@192.168.4.141 "ha core restart"
+```
+
+**NEVER use rsync --delete** against HA config - it will wipe .storage directory and destroy entity registry, causing need to restore from backup.
+
 ## Resources
 
 - [Home Assistant Documentation](https://www.home-assistant.io/docs/)

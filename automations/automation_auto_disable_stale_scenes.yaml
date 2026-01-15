@@ -1,33 +1,33 @@
-alias: "Auto-disable Stale Scenes"
-id: "auto_disable_stale_scenes"
-description: "Disables scenes that haven't been used in 30+ days. Check Settings > Devices & Services > Entities (filter by disabled) to re-enable."
-trigger:
-  - platform: time
-    at: "03:00:00"
-action:
-  - variables:
-      stale_days: 30
-      cutoff: "{{ (now() - timedelta(days=stale_days)).isoformat() }}"
-  - service: system_log.write
-    data:
-      message: "Auto-disable stale scenes: Checking for scenes unused since {{ cutoff }}"
-      level: info
-  - repeat:
-      for_each: "{{ states.scene | selectattr('state', 'defined') | list }}"
-      sequence:
-        - variables:
-            scene_id: "{{ repeat.item.entity_id }}"
-            last_changed: "{{ repeat.item.last_changed | default('1970-01-01T00:00:00+00:00') }}"
-            is_stale: "{{ last_changed < cutoff }}"
-        - if:
-            - condition: template
-              value_template: "{{ is_stale }}"
-          then:
-            - service: system_log.write
-              data:
-                message: "Auto-disabling stale scene: {{ scene_id }} (last used: {{ last_changed }})"
-                level: warning
-            - service: homeassistant.disable_entity
-              target:
-                entity_id: "{{ scene_id }}"
-mode: single
+- alias: "Auto-disable Stale Scenes"
+  id: "auto_disable_stale_scenes"
+  description: "Disables scenes that haven't been used in 30+ days. Check Settings > Devices & Services > Entities (filter by disabled) to re-enable."
+  trigger:
+    - platform: time
+      at: "03:00:00"
+  action:
+    - variables:
+        stale_days: 30
+        cutoff: "{{ (now() - timedelta(days=stale_days)).isoformat() }}"
+    - service: system_log.write
+      data:
+        message: "Auto-disable stale scenes: Checking for scenes unused since {{ cutoff }}"
+        level: info
+    - repeat:
+        for_each: "{{ states.scene | selectattr('state', 'defined') | list }}"
+        sequence:
+          - variables:
+              scene_id: "{{ repeat.item.entity_id }}"
+              last_changed: "{{ repeat.item.last_changed | default('1970-01-01T00:00:00+00:00') }}"
+              is_stale: "{{ last_changed < cutoff }}"
+          - if:
+              - condition: template
+                value_template: "{{ is_stale }}"
+            then:
+              - service: system_log.write
+                data:
+                  message: "Auto-disabling stale scene: {{ scene_id }} (last used: {{ last_changed }})"
+                  level: warning
+              - service: homeassistant.disable_entity
+                target:
+                  entity_id: "{{ scene_id }}"
+  mode: single

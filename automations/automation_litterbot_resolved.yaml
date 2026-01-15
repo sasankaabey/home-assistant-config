@@ -1,12 +1,12 @@
-alias: "Litterbot Problem Resolved"
-id: "litterbot_problem_cleared"
-trigger:
-  - platform: state
-    entity_id: binary_sensor.basement_pantry_shitbot_problem
-    to: "off"
-condition: []
-action:
-  - service: input_boolean.turn_off
-    target:
-      entity_id: input_boolean.litterbot_nag_enabled
-mode: single
+- alias: "Litterbot Problem Resolved"
+  id: "litterbot_problem_cleared"
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.basement_pantry_shitbot_problem
+      to: "off"
+  condition: []
+  action:
+    - service: input_boolean.turn_off
+      target:
+        entity_id: input_boolean.litterbot_nag_enabled
+  mode: single

@@ -1,25 +1,25 @@
-alias: "Litterbot Non-Standby Alert"
-id: "litterbot_non_standby_alert"
-trigger:
-  - platform: state
-    entity_id: sensor.basement_pantry_shitbot_status
-condition:
-  - condition: template
-    value_template: >-
-      {% set status = states('sensor.basement_pantry_shitbot_status') %}
-      {{ status not in ['standby', 'sleep', 'sleeping'] }}
-action:
-  - delay:
-      minutes: "{{ states('input_number.litterbot_non_standby_minutes') | int(5) }}"
-  - condition: template
-    value_template: >-
-      {% set status = states('sensor.basement_pantry_shitbot_status') %}
-      {{ status not in ['standby', 'sleep', 'sleeping'] }}
-  - service: script.alexa_announce_router
-    data:
-      message: "ShitBot is stuck and needs attention."
-  - service: notify.adults
-    data:
-      title: "Litterbot check"
-      message: "ShitBot is stuck or offline and needs attention."
-mode: restart
+- alias: "Litterbot Non-Standby Alert"
+  id: "litterbot_non_standby_alert"
+  trigger:
+    - platform: state
+      entity_id: sensor.basement_pantry_shitbot_status
+  condition:
+    - condition: template
+      value_template: >-
+        {% set status = states('sensor.basement_pantry_shitbot_status') %}
+        {{ status not in ['standby', 'sleep', 'sleeping'] }}
+  action:
+    - delay:
+        minutes: "{{ states('input_number.litterbot_non_standby_minutes') | int(5) }}"
+    - condition: template
+      value_template: >-
+        {% set status = states('sensor.basement_pantry_shitbot_status') %}
+        {{ status not in ['standby', 'sleep', 'sleeping'] }}
+    - service: script.alexa_announce_router
+      data:
+        message: "ShitBot is stuck and needs attention."
+    - service: notify.adults
+      data:
+        title: "Litterbot check"
+        message: "ShitBot is stuck or offline and needs attention."
+  mode: restart
