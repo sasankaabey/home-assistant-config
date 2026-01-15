@@ -1,7 +1,10 @@
+# yaml-language-server: $schema=https://json.schemastore.org/base.json
 # Light Groups
 # These groups enable unified control of lights via voice assistants
 # (Alexa, Siri, Google Assistant) and automation
 # Uses the light group integration: https://www.home-assistant.io/integrations/light.group/
+# Note: VS Code may show schema warnings for 'platform' - these are false positives.
+# The light group platform format is correct and HA loads it properly.
 
 # Living Room Light Groups
 

@@ -1,12 +1,13 @@
 # Home Assistant Configuration
 
-Repository: https://github.com/anktaggrwl/home-assistant-config
+Repository: <https://github.com/anktaggrwl/home-assistant-config>
 Local Path: `/Users/ankit/ha-config`
 HA OS Path: `/config` on minipc (192.168.4.141)
 
 ## Overview
 
 This repository contains the Home Assistant configuration for a multi-platform smart home supporting:
+
 - 5 family members (2 Android, 3 iOS devices)
 - Voice control via Alexa, Siri (HomeKit), and Google Assistant
 - Version-controlled configuration with git
@@ -14,6 +15,7 @@ This repository contains the Home Assistant configuration for a multi-platform s
 ## Configuration Structure
 
 ### Core Files
+
 - `configuration.yaml` - Main configuration file
 - `automations.yaml` - UI-created automations
 - `scripts.yaml` - UI-created scripts
@@ -22,6 +24,7 @@ This repository contains the Home Assistant configuration for a multi-platform s
 - `template.yaml` - Template sensors and helpers
 
 ### Modular Includes
+
 - `automations/` - Manual YAML automations organized by category
   - `lighting/` - Lighting automations
   - `automation_litterbot_*.yaml` - Litter box automations
@@ -30,6 +33,7 @@ This repository contains the Home Assistant configuration for a multi-platform s
 - `themes/` - Frontend themes
 
 ### Custom Components
+
 - Alexa Media Player
 - Eufy Security
 - Hue Sync Box
@@ -45,6 +49,7 @@ This repository contains the Home Assistant configuration for a multi-platform s
 ## Light Groups
 
 Light groups are defined in `light_groups.yaml` and provide:
+
 - Unified control of multiple lights as a single entity
 - Voice assistant compatibility (automatically exposed via cloud integration)
 - Simplified automation targeting
@@ -396,6 +401,39 @@ These errors appear in logs but are expected/harmless:
 Pipelines are stored in `.storage/assist_pipeline.pipelines`. If a conversation agent is removed (e.g., ChatGPT integration), pipelines referencing it will error.
 
 **Fix:** Update the `conversation_engine` field to use an available agent like `conversation.home_assistant`.
+
+## VS Code Schema Warnings (False Positives)
+
+VS Code with the Home Assistant extension may show schema validation warnings for included YAML files. These are **false positives** that can be safely ignored.
+
+### light_groups.yaml
+
+Warnings like `DisallowedExtraPropWarning` for `platform`, `name`, `unique_id`, etc. appear because:
+
+- The HA schema validator expects direct entity lists, not the `platform: group` format
+- This format is correct for light groups using the [light group integration](https://www.home-assistant.io/integrations/light.group/)
+- HA loads these files correctly despite the VS Code warnings
+
+**Suppression:** The file includes a schema override comment:
+
+```yaml
+# yaml-language-server: $schema=https://json.schemastore.org/base.json
+```
+
+### scripts.yaml
+
+Warnings about script properties (`alias`, `description`, `mode`, `fields`, `sequence`) are false positives because:
+
+- Scripts use dictionary format where script names are keys
+- VS Code expects a different schema structure than what HA actually uses
+- The file loads and works correctly in HA
+
+### General Guidance
+
+- Included YAML files often trigger false schema warnings
+- If a file works correctly in HA, ignore VS Code schema warnings
+- Use the `yaml-language-server: $schema=https://json.schemastore.org/base.json` comment to suppress warnings in problematic files
+- Test changes by restarting HA and checking the logs rather than relying on VS Code validation
 
 ## Resources
 
