@@ -58,6 +58,7 @@ Light groups are defined in `light_groups.yaml` and provide:
 ### Managing Light Groups
 
 **To modify light groups:**
+
 1. Edit `light_groups.yaml` in the repository
 2. **IMPORTANT:** Ensure entity IDs match actual devices (check entity registry if needed)
    - If entity names are wrong, groups will fail to load or work incorrectly
@@ -68,6 +69,7 @@ Light groups are defined in `light_groups.yaml` and provide:
 **Common mistake:** Using old/renamed entity IDs will cause groups to fail silently
 
 **After making changes:**
+
 1. Sync files to HA OS and restart Home Assistant
 2. **Trigger device discovery:** "Alexa, discover devices" (or use Alexa app)
 3. Wait 1-2 minutes for discovery to complete
@@ -76,18 +78,24 @@ Light groups are defined in `light_groups.yaml` and provide:
 ### Living Room Light Groups
 
 #### `light.living_room_lamps`
+
 Combines all soft/ambient lighting that flanks the living room:
+
 - Hue Iris
 - Floor Lamp 2
 - Floor Lamp 1
 - TV Light
 
 #### `light.living_room_ceiling`
+
 Main overhead lighting:
+
 - Living Room Ceiling
 
 #### `light.living_room_lights`
+
 Master control for all living room lights:
+
 - Living Room Ceiling
 - TV Light
 - Floor Lamp 2
@@ -95,6 +103,7 @@ Master control for all living room lights:
 - Hue Iris
 
 **Light Sync Behavior:**
+
 - When controlled via HA/Alexa/Google/Siri: All lights in the group stay in sync (brightness, color, effects stopped)
 - When controlled via Hue app directly: Individual lights can diverge (color loops, effects, etc.)
 - Automation: `sync_living_room_light_groups.yaml` ensures group coherence
@@ -102,28 +111,35 @@ Master control for all living room lights:
 ### Voice Control Examples
 
 **Alexa:**
+
 - "Alexa, turn on living room lamps"
 - "Alexa, set living room lights to 50%"
 - "Alexa, turn off living room ceiling"
 
 **Siri:**
+
 - "Hey Siri, turn on living room lamps"
 - "Hey Siri, dim living room lights to 25%"
 
 **Google:**
+
 - "Hey Google, turn on living room lamps"
 - "Hey Google, brighten living room lights"
 
 ## Voice Assistant Configuration
 
 ### Alexa & Google Assistant
+
 Configured via Nabu Casa Cloud in `configuration.yaml:39-97`
+
 - Auto-exposes: lights, switches, fans, covers, locks, climate, and more
 - Sensor filters for temperature, humidity, air quality, motion, etc.
 - No additional configuration needed for light groups
 
 ### HomeKit (Siri)
+
 Configured in `configuration.yaml:99-127`
+
 - Exposes: lights, switches, locks, covers, fans
 - Excludes helper/virtual entities
 - Light groups automatically available
@@ -160,13 +176,16 @@ Via service: `homeassistant.restart`
 - Aiden Kampe (Android)
 
 Groups defined in `groups.yaml`:
+
 - `group.household` - All family members
 - `group.kids` - Zoe, Max, Aiden
 
 ## Cleanup History
 
 ### 2026-01-13: Comprehensive Entity Cleanup
+
 ✅ **Completed:**
+
 - Removed 15 duplicate/orphaned entities
 - Disabled 2 duplicate automations
 - Fixed Living Room light groups (YAML-based)
@@ -177,12 +196,14 @@ Groups defined in `groups.yaml`:
 **Backups:** `a4b62dfd` ("Before entity cleanup Jan 2026")
 
 **Audit Reports:**
+
 - `entity_audit_report.md` - Full findings and dashboard issues
 - `ENTITY_AUDIT_FIX_GUIDE.md` - Step-by-step fix instructions
 - `COMPREHENSIVE_CLEANUP_SUMMARY.md` - Cleanup summary
 - `QUICK_CLEANUP_GUIDE.md` - Quick reference
 
 **Remaining Tasks:**
+
 - Rename 8 Tuya RGBCW lights (see `TUYA_LIGHT_RENAME_GUIDE.md`)
 - Decide on Music Assistant strategy (39 virtual media players)
 - Clean up 70 dashboard references to missing entities (low priority)
@@ -190,12 +211,15 @@ Groups defined in `groups.yaml`:
 ## Ongoing Cleanup Tasks
 
 ### Current Phase: Living Room Light Groups
+
 ✅ **Complete** - Living room light groups with voice control
+
 - YAML-based groups version controlled
 - Sync automation keeps lights synchronized
 - Multi-platform voice integration working (Alexa/Siri/Google)
 
 ### Next Phases: Room-by-Room
+
 1. Identify all devices per room
 2. Remove duplicate/ghost entities
 3. Establish Source of Truth (SoT) for each device
@@ -204,6 +228,7 @@ Groups defined in `groups.yaml`:
 6. Document naming conventions
 
 ### Rooms to Process
+
 - Living Room (✅ complete)
 - Primary Bedroom
 - Dining Room
@@ -225,12 +250,13 @@ Groups defined in `groups.yaml`:
 
 ### Entity Cleanup & Maintenance
 
-7. **Regular Entity Audits**: Run comprehensive audits quarterly or when adding/removing devices
+1. **Regular Entity Audits**: Run comprehensive audits quarterly or when adding/removing devices
    - Check for orphaned references in automations/scripts/dashboards
    - Identify disabled entities still referenced in active configs
    - Clean up entities from removed devices
 
-8. **Before Deleting Entities**: Always audit references first
+2. **Before Deleting Entities**: Always audit references first
+
    ```bash
    # Search for entity references in all configs
    grep -r "entity_id_here" /config/ --include="*.yaml"
@@ -238,32 +264,34 @@ Groups defined in `groups.yaml`:
    grep -r "entity_id_here" /config/.storage/lovelace*
    ```
 
-9. **Mobile App Notify Services**: Device-specific UUIDs, not friendly names
+3. **Mobile App Notify Services**: Device-specific UUIDs, not friendly names
    - Correct: `notify.mobile_app_7b4b3d84_ce9d_418e_ad95_576581ee855e`
    - Wrong: `notify.mobile_app_ankit_s_iphone` (breaks when device reinstalls app)
    - Find correct service: Developer Tools → Services → Filter "notify"
 
-10. **Group Entities Must Load**: Groups defined in `groups.yaml` need HA restart to register
-    - If automations reference groups but they don't exist as entities, restart HA
-    - Verify in Developer Tools → States after restart
+4. **Group Entities Must Load**: Groups defined in `groups.yaml` need HA restart to register
+   - If automations reference groups but they don't exist as entities, restart HA
+   - Verify in Developer Tools → States after restart
 
-11. **Backup Before Major Cleanups**: Always create backup before entity cleanup
-    ```bash
-    ssh root@192.168.4.141
-    ha backups new --name "Before [description] cleanup"
-    ```
+5. **Backup Before Major Cleanups**: Always create backup before entity cleanup
 
-12. **Post-Cleanup Validation**: After deleting entities, verify:
-    - No errors in HA logs (Settings → System → Logs)
-    - Automations still work (check automation traces)
-    - Dashboards display correctly
-    - Voice commands still function
+   ```bash
+   ssh root@192.168.4.141
+   ha backups new --name "Before [description] cleanup"
+   ```
+
+6. **Post-Cleanup Validation**: After deleting entities, verify:
+   - No errors in HA logs (Settings → System → Logs)
+   - Automations still work (check automation traces)
+   - Dashboards display correctly
+   - Voice commands still function
 
 ## YAML Automation Format
 
 **CRITICAL:** When using `!include_dir_merge_list` (as in `configuration.yaml`), each automation file must be a **list** (starting with `-`), not a single object.
 
 ### Correct Format (list item)
+
 ```yaml
 - alias: "My Automation"
   id: "my_automation"
@@ -278,6 +306,7 @@ Groups defined in `groups.yaml`:
 ```
 
 ### Wrong Format (single object - WILL NOT LOAD)
+
 ```yaml
 alias: "My Automation"
 id: "my_automation"
@@ -298,6 +327,7 @@ mode: single
 The entity registry (`.storage/core.entity_registry`) controls which entities are enabled/disabled.
 
 ### Safe Editing Procedure
+
 1. **Stop HA first** (not restart): `ha core stop`
 2. Make edits to registry file
 3. **Start HA**: `ha core start`
@@ -305,7 +335,9 @@ The entity registry (`.storage/core.entity_registry`) controls which entities ar
 **WARNING:** If you just restart (`ha core restart`), HA will overwrite your registry changes with its in-memory state before shutting down.
 
 ### Disabling New Entity Auto-Sync
+
 To prevent integrations from automatically creating entities (keeps environment clean):
+
 ```bash
 # SSH to HA, then run Python to set pref_disable_new_entities=true
 python3 << 'EOF'
@@ -333,6 +365,7 @@ notify:
 ```
 
 **Usage in automations:**
+
 ```yaml
 - service: notify.adults
   data:
@@ -343,6 +376,7 @@ notify:
 ## Syncing to HA OS
 
 Use `sync_to_ha.sh` script (excludes .storage, www, custom_components, etc.):
+
 ```bash
 ./sync_to_ha.sh
 ssh root@192.168.4.141 "ha core restart"
@@ -355,11 +389,13 @@ ssh root@192.168.4.141 "ha core restart"
 Some custom components have bugs that require local patches. These patches will be overwritten when the component is updated via HACS, so they may need to be reapplied.
 
 ### tuya_local - Unknown Color Fix
+
 **File:** `/config/custom_components/tuya_local/light.py` (~line 207)
 
 **Problem:** Device returns invalid color name, causing `ValueError: Unknown color`
 
 **Fix:** Wrap `color_util.color_name_to_rgb()` call in try/except:
+
 ```python
 elif self._named_color_dps:
     colour = self._named_color_dps.get_value(self._device)
@@ -373,11 +409,13 @@ elif self._named_color_dps:
 ```
 
 ### openplantbook - UnboundLocalError Fix
+
 **File:** `/config/custom_components/openplantbook/uploader.py` (~line 165)
 
 **Problem:** `latest_data` variable used before assignment when no plant data exists
 
 **Fix:** Add initialization before the for loop:
+
 ```python
 plant_device_state = None
 plant_entity_id = None
