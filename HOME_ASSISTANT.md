@@ -345,6 +345,58 @@ ssh root@192.168.4.141 "ha core restart"
 
 **NEVER use rsync --delete** against HA config - it will wipe .storage directory and destroy entity registry, causing need to restore from backup.
 
+## Custom Component Patches
+
+Some custom components have bugs that require local patches. These patches will be overwritten when the component is updated via HACS, so they may need to be reapplied.
+
+### tuya_local - Unknown Color Fix
+**File:** `/config/custom_components/tuya_local/light.py` (~line 207)
+
+**Problem:** Device returns invalid color name, causing `ValueError: Unknown color`
+
+**Fix:** Wrap `color_util.color_name_to_rgb()` call in try/except:
+```python
+elif self._named_color_dps:
+    colour = self._named_color_dps.get_value(self._device)
+    if colour:
+        try:
+            rgb = color_util.color_name_to_rgb(colour)
+            return {"r": rgb[0], "g": rgb[1], "b": rgb[2]}
+        except ValueError:
+            _LOGGER.debug(f"Unknown color name from device: {colour}")
+            return None
+```
+
+### openplantbook - UnboundLocalError Fix
+**File:** `/config/custom_components/openplantbook/uploader.py` (~line 165)
+
+**Problem:** `latest_data` variable used before assignment when no plant data exists
+
+**Fix:** Add initialization before the for loop:
+```python
+plant_device_state = None
+plant_entity_id = None
+latest_data = None  # Initialize to prevent UnboundLocalError
+for entry in plant_sensors_entries:
+```
+
+## Common Log Errors (Ignorable)
+
+These errors appear in logs but are expected/harmless:
+
+| Error | Cause | Action |
+|-------|-------|--------|
+| `Failed to refresh device state for RGBCW lightbulb` | Tuya lights are powered off at switch | Ignore - lights work when powered on |
+| `type NoneType doesn't define __round__ method` (Hue sensor) | Motion sensor hasn't reported temperature yet | Ignore - resolves when sensor updates |
+| `ld2412: Error with last command: incorrect Header` | ESPHome LD2412 radar sensor firmware quirk | Ignore - sensor still functions |
+| `ALTS creds ignored. Not running on GCP` | Google Cloud library message | Ignore - not an error |
+
+## Assist Pipeline Configuration
+
+Pipelines are stored in `.storage/assist_pipeline.pipelines`. If a conversation agent is removed (e.g., ChatGPT integration), pipelines referencing it will error.
+
+**Fix:** Update the `conversation_engine` field to use an available agent like `conversation.home_assistant`.
+
 ## Resources
 
 - [Home Assistant Documentation](https://www.home-assistant.io/docs/)
