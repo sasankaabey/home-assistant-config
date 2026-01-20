@@ -2,6 +2,17 @@
 
 Split tasks across agents to optimize cost and capability.
 
+## Workflow Reference
+
+For agent roles and routing, see: [org/.github/AGENTS.md](https://github.com/sasankaabey/.github/blob/main/AGENTS.md)
+
+For workflow process, see: [org/.github/MULTI_AGENT_WORKFLOW.md](https://github.com/sasankaabey/.github/blob/main/MULTI_AGENT_WORKFLOW.md)
+
+---
+
+
+Split tasks across agents to optimize cost and capability.
+
 ## Agent Allocation
 
 | Agent | Best For | Cost Profile |
