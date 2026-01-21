@@ -66,8 +66,3 @@ litterbot_poe_tts_voice:
   name: Poe TTS Voice
   max: 255
   initial: "qA5SHJ9UjGlW2QwXWR7w"
-
-last_washer_owner:
-  name: Last Washer Owner
-  max: 50
-  initial: "Unknown"
