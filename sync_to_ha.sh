@@ -2,7 +2,8 @@
 set -euo pipefail
 
 SRC_DIR="$(cd "$(dirname "$0")" && pwd)"
-DEST_DIR="/Volumes/config"
+DEST_HOST="root@192.168.4.141"
+DEST_DIR="/config"
 
 RSYNC_OPTS=(
   -a
@@ -49,4 +50,4 @@ if [[ "${DRY_RUN:-}" == "1" ]]; then
   RSYNC_OPTS+=(--dry-run)
 fi
 
-rsync "${RSYNC_OPTS[@]}" "$SRC_DIR/" "$DEST_DIR/"
+rsync "${RSYNC_OPTS[@]}" "$SRC_DIR/" "$DEST_HOST:$DEST_DIR/"
