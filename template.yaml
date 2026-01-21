@@ -101,3 +101,37 @@
         {% else %}
           mdi:tumble-dryer
         {% endif %}
+
+# Dashboard display sensors: show state + which integration is providing data
+- sensor:
+    - name: "Washer Door Status"
+      unique_id: washer_door_status_display
+      state: >-
+        {# Show state + which integration is active #}
+        {% set state = states('binary_sensor.washer_door') %}
+        {% set local_available = states('binary_sensor.washer_door_local') not in ['unavailable', 'unknown'] %}
+        {% set state_text = "Closed" if state == 'off' else "Open" if state == 'on' else "Unknown" %}
+        {% set source = "tuya_local" if local_available else "tuya" %}
+        {{ state_text }} ({{ source }})
+      icon: >-
+        {% if is_state('binary_sensor.washer_door', 'on') %}
+          mdi:washing-machine-alert
+        {% else %}
+          mdi:washing-machine
+        {% endif %}
+
+    - name: "Dryer Door Status"
+      unique_id: dryer_door_status_display
+      state: >-
+        {# Show state + which integration is active #}
+        {% set state = states('binary_sensor.dryer_door') %}
+        {% set local_available = states('binary_sensor.dryer_door_local') not in ['unavailable', 'unknown'] %}
+        {% set state_text = "Closed" if state == 'off' else "Open" if state == 'on' else "Unknown" %}
+        {% set source = "tuya_local" if local_available else "tuya" %}
+        {{ state_text }} ({{ source }})
+      icon: >-
+        {% if is_state('binary_sensor.dryer_door', 'on') %}
+          mdi:tumble-dryer-alert
+        {% else %}
+          mdi:tumble-dryer
+        {% endif %}

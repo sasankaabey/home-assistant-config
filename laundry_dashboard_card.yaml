@@ -13,9 +13,12 @@ cards:
     title: Washer Status
     show_header_toggle: false
     entities:
-      - entity: sensor.washer_running_current_consumption
-        name: Washer Power
+      - entity: sensor.washer_door_status
+        name: Washer Door
         icon: mdi:washing-machine
+      - entity: sensor.lg_washer_current_consumption
+        name: Washer Power
+        icon: mdi:power
       - entity: input_select.washer_owner
         name: Current Washer Load Owner
       - entity: input_boolean.laundry_nag_enabled
@@ -27,11 +30,11 @@ cards:
     title: Dryer Status
     show_header_toggle: false
     entities:
+      - entity: sensor.dryer_door_status
+        name: Dryer Door
+        icon: mdi:tumble-dryer
       - entity: binary_sensor.dryer_vibration
         name: Dryer Running
-        icon: mdi:tumble-dryer
-      - entity: binary_sensor.dryer_door_status
-        name: Dryer Door
       - entity: input_select.dryer_owner
         name: Current Dryer Load Owner
       - entity: input_boolean.dryer_nag_enabled
