@@ -6,7 +6,7 @@
       entity_id: binary_sensor.dryer_vibration
       to: "on"
       for:
-        seconds: 30
+        seconds: 10
   condition:
     - condition: state
       entity_id: input_boolean.laundry_nag_enabled

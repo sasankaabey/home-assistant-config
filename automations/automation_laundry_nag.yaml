@@ -16,8 +16,13 @@
           - variables:
               owner: "{{ states('input_select.washer_owner') }}"
               washer_stopped: "{{ states('input_datetime.washer_stopped_time') }}"
+              washer_stopped_timestamp: "{{ as_timestamp(washer_stopped) }}"
               minutes_elapsed: >
-                {{ ((now().timestamp() - (as_timestamp(washer_stopped) or 0)) / 60) | int }}
+                {% if washer_stopped_timestamp is not none and washer_stopped_timestamp > 0 %}
+                  {{ ((now().timestamp() - washer_stopped_timestamp) / 60) | int }}
+                {% else %}
+                  0
+                {% endif %}
               nag_interval: >
                 {% if minutes_elapsed >= 20 %}
                 1

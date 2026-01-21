@@ -49,7 +49,7 @@ Sends periodic reminders to move clothes:
 - Every 1 minute after 20 minutes
 
 ### 5. automation_laundry_dryer_started.yaml
-Stops nagging when dryer vibration is detected (dryer started).
+Stops nagging when dryer vibration is detected (dryer started). Detection requires the vibration sensor to be on for 10 seconds to confirm the dryer is running.
 
 ## Workflow
 
