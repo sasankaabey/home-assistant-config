@@ -3,7 +3,7 @@
   description: "Track when dryer door is opened after dryer finishes"
   trigger:
     - platform: state
-      entity_id: binary_sensor.dryer_door
+      entity_id: binary_sensor.dryer_door_status
       to: "on"
   condition:
     - condition: state

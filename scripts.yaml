@@ -1,4 +1,55 @@
 # yaml-language-server: $schema=https://json.schemastore.org/base.json
+
+laundry_notification_router:
+  alias: Laundry notification router
+  description: Route laundry notifications to appropriate household members
+  mode: queued
+  fields:
+    message:
+      description: Notification message
+      example: "The washer is done."
+    title:
+      description: Notification title
+      example: "Washer Finished"
+    owner:
+      description: Owner of the load (optional, for targeted notifications)
+      example: "Zoe"
+    notification_type:
+      description: Type of notification (general or targeted)
+      example: "targeted"
+    tag:
+      description: Notification tag
+      example: "washer_finished"
+    actions:
+      description: Notification actions (optional)
+      example: []
+  sequence:
+    - variables:
+        owner: "{{ owner | default('') }}"
+        notification_type: "{{ notification_type | default('general') }}"
+        is_kid: "{{ owner in ['Zoe', 'Max', 'Aiden'] }}"
+        actions: "{{ actions | default([]) }}"
+    - service: notify.adults
+      data:
+        title: "{{ title }}"
+        message: "{{ message }}"
+        data:
+          tag: "{{ tag }}"
+          actions: "{{ actions }}"
+    - choose:
+        - conditions:
+            - condition: template
+              value_template: "{{ notification_type == 'targeted' and is_kid and is_state('group.kids', 'home') }}"
+          sequence:
+            - service: "notify.mobile_app_{{ owner | lower }}_s_phone"
+              data:
+                title: "{{ title }}"
+                message: "{{ message }}"
+                data:
+                  tag: "{{ tag }}"
+                  actions: "{{ actions }}"
+      default: []
+
 health_check_stale_entities:
   alias: Health check stale entities
   description: Add a todo item if an entity has not updated within N days.

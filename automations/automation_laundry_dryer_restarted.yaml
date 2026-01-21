@@ -10,7 +10,7 @@
       entity_id: binary_sensor.dryer_vibration
       to: "on"
       for:
-        seconds: 10
+        seconds: 30
   condition:
     - condition: template
       value_template: "{{ not is_state('input_select.dryer_owner', 'Unknown') }}"

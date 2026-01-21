@@ -28,14 +28,12 @@
       data:
         message: "{{ owner }}, the dryer has finished. Please check if your clothes are dry."
         audience: "adults"
-    - service: notify.adults
+    - service: script.laundry_notification_router
       data:
         title: "Dryer Finished"
         message: "{{ owner }}, please check if your clothes are dry and open the dryer door!"
-        data:
-          tag: dryer_finished
-          importance: high
-          persistent: true
-          ttl: 0
-          priority: high
+        owner: "{{ owner }}"
+        notification_type: "targeted"
+        tag: "dryer_finished"
+        actions: []
   mode: single

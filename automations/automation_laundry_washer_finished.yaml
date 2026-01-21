@@ -28,19 +28,16 @@
       data:
         message: "{{ owner }}, the washer is done. Please move your clothes to the dryer."
         audience: "adults"
-    - service: notify.adults
+    - service: script.laundry_notification_router
       data:
         title: "Washer Finished"
         message: "{{ owner }}, move your clothes to the dryer! Do you have another load?"
-        data:
-          tag: washer_finished
-          importance: high
-          persistent: true
-          ttl: 0
-          priority: high
-          actions:
-            - action: "HAVE_ANOTHER_LOAD"
-              title: "Yes, Another Load"
-            - action: "NO_MORE_LOADS"
-              title: "No More Loads"
+        owner: "{{ owner }}"
+        notification_type: "targeted"
+        tag: "washer_finished"
+        actions:
+          - action: "HAVE_ANOTHER_LOAD"
+            title: "Yes, Another Load"
+          - action: "NO_MORE_LOADS"
+            title: "No More Loads"
   mode: single
