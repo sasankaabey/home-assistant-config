@@ -81,13 +81,15 @@ Sends periodic reminders to move clothes:
 ### Dryer Automations
 
 #### 5. automation_laundry_dryer_started.yaml
-Stops washer nagging when dryer vibration is detected. **Does NOT auto-assign dryer owner** - waits for door interaction to confirm load transfer. Requires 30 seconds of consistent vibration to avoid false positives.
+Stops washer nagging when dryer vibration is detected. **Does NOT assign dryer owner** - ownership is assigned later when washer becomes available. Requires 30 seconds of consistent vibration to avoid false positives.
 
 #### 6. automation_laundry_confirm_load_transfer.yaml
-**Intelligently assigns dryer ownership** based on door interaction:
-- If dryer owner exists and awaiting dry confirmation: Keeps same owner (continuing to dry)
-- If washer has load and no dryer owner: Transfers to washer owner (new load)
-- Handles case where someone opens dryer to check if dry, then continues drying
+**Transfers dryer ownership when washer becomes available:**
+- Triggers when `input_select.washer_owner` changes to "Unknown"
+- Conditions: Previous owner was NOT "Unknown" AND dryer is running AND dryer has no owner
+- Action: Assigns dryer_owner to the previous washer owner
+- **Key insight:** When washer becomes available, we know the load was physically removed
+- Simpler and more reliable than door-based detection
 
 #### 7. automation_laundry_dryer_finished.yaml
 Triggers when dryer vibration stops. Alerts dryer owner to check if clothes are dry.
@@ -160,17 +162,18 @@ Dryer vibration detected (30+ seconds consistent)
 Stop washer nagging
 Announce: "The dryer has started"
     ↓
-[Wait for door interaction to confirm ownership]
+[User responds to "next load" question OR timeout occurs]
     ↓
-Dryer door closes while dryer running
-    ↓
-IF awaiting_dry_confirmation flag is ON:
-    → Keep same dryer owner (continuing to dry)
-    → Announce: "Continuing to dry"
-IF washer has owner AND dryer owner is Unknown:
-    → Transfer to washer owner
-    → Announce: "Thank you for moving clothes"
-    → Reset washer owner
+IF user says "No more loads" OR timeout (5 min):
+    → Washer owner changes to "Unknown"
+    → **TRIGGER: Transfer dryer ownership**
+    → IF dryer is running AND dryer has no owner:
+        → Assign previous washer owner to dryer_owner
+        → Announce: "Thank you for moving clothes"
+IF user says "Yes, another load":
+    → Reserve washer for 5 minutes
+    → If washer doesn't start: Set washer owner to "Unknown"
+        → **TRIGGER: Transfer dryer ownership** (same as above)
     ↓
 Dryer vibration stops (dryer finishes)
     ↓
@@ -188,25 +191,15 @@ Stop dryer nagging
 Dryer door closes
     ↓
 Ask: "Are clothes dry?"
-Set awaiting_dry_confirmation flag
     ↓
 If YES (clothes are dry):
     → Announce: "Dryer available"
-    → Reset dryer owner
+    → Reset dryer owner to "Unknown"
 If NO (not dry):
     → Guide to restart dryer
     → Keep same dryer owner
-    → When dryer starts, confirm continuation
     ↓
-Meanwhile, handle "next load" response:
-    ↓
-If YES (another load):
-    → Reserve washer for 5 minutes
-    → If not started: Announce washer available to all
-If NO (no more loads):
-    → Announce washer available to all
-If NO RESPONSE (5 min timeout):
-    → Announce washer available to all
+Washer available announced to household
 ```
 
 ## Notifications
