@@ -2,7 +2,7 @@
 
 laundry_notification_router:
   alias: Laundry notification router
-  description: Route laundry notifications to appropriate household members
+  description: Route laundry notifications to appropriate household members based on owner and presence
   mode: queued
   fields:
     message:
@@ -12,11 +12,11 @@ laundry_notification_router:
       description: Notification title
       example: "Washer Finished"
     owner:
-      description: Owner of the load (optional, for targeted notifications)
+      description: Owner of the load
       example: "Zoe"
-    notification_type:
-      description: Type of notification (general or targeted)
-      example: "targeted"
+    mode:
+      description: Notification mode (notify or nag)
+      example: "nag"
     tag:
       description: Notification tag
       example: "washer_finished"
@@ -25,10 +25,20 @@ laundry_notification_router:
       example: []
   sequence:
     - variables:
-        owner: "{{ owner | default('') }}"
-        notification_type: "{{ notification_type | default('general') }}"
-        is_kid: "{{ owner in ['Zoe', 'Max', 'Aiden'] }}"
+        owner: "{{ owner | default('Unknown') }}"
+        mode: "{{ mode | default('notify') }}"
         actions: "{{ actions | default([]) }}"
+        is_adult_load: "{{ owner in ['Ankit', 'Danielle', 'Ankit+Danielle', 'Mixed'] }}"
+        is_kid_load: "{{ owner in ['Zoe', 'Max', 'Aiden'] }}"
+        # Check if kid is home (for kid loads only)
+        zoe_home: "{{ is_state('person.zoe', 'home') }}"
+        max_home: "{{ is_state('person.max', 'home') }}"
+        aiden_home: "{{ is_state('person.aiden', 'home') }}"
+        kid_is_home: >
+          {{ (owner == 'Zoe' and zoe_home) or 
+             (owner == 'Max' and max_home) or 
+             (owner == 'Aiden' and aiden_home) }}
+    # Always notify adults
     - service: notify.adults
       data:
         title: "{{ title }}"
@@ -36,10 +46,17 @@ laundry_notification_router:
         data:
           tag: "{{ tag }}"
           actions: "{{ actions }}"
+    # Nag logic
     - choose:
+        # Adult load OR Mixed: Nag adults (already notified above, no additional action needed)
         - conditions:
             - condition: template
-              value_template: "{{ notification_type == 'targeted' and is_kid and is_state('group.kids', 'home') }}"
+              value_template: "{{ mode == 'nag' and is_adult_load }}"
+          sequence: []
+        # Kid load + kid is home: Nag kid
+        - conditions:
+            - condition: template
+              value_template: "{{ mode == 'nag' and is_kid_load and kid_is_home }}"
           sequence:
             - service: "notify.mobile_app_{{ owner | lower }}_s_phone"
               data:
@@ -48,6 +65,11 @@ laundry_notification_router:
                 data:
                   tag: "{{ tag }}"
                   actions: "{{ actions }}"
+        # Kid load + kid NOT home: Nag routed to adults (already notified above)
+        - conditions:
+            - condition: template
+              value_template: "{{ mode == 'nag' and is_kid_load and not kid_is_home }}"
+          sequence: []
       default: []
 
 health_check_stale_entities:

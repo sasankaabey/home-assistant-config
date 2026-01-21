@@ -47,15 +47,13 @@
                 data:
                   message: "{{ owner }}, reminder: check the dryer. {{ escalation_msg }}"
                   audience: "adults"
-              - service: notify.adults
+              - service: script.laundry_notification_router
                 data:
                   title: "Dryer Check Reminder"
                   message: "{{ owner }}: Check the dryer! {{ escalation_msg }}"
-                  data:
-                    tag: dryer_nag
-                    persistent: true
-                    ttl: 0
-                    priority: high
+                  owner: "{{ owner }}"
+                  mode: "nag"
+                  tag: "dryer_nag"
           - delay:
               minutes: "{{ nag_interval | int }}"
   mode: single

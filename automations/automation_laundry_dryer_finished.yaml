@@ -33,7 +33,7 @@
         title: "Dryer Finished"
         message: "{{ owner }}, please check if your clothes are dry and open the dryer door!"
         owner: "{{ owner }}"
-        notification_type: "targeted"
+        mode: "nag"
         tag: "dryer_finished"
         actions: []
   mode: single

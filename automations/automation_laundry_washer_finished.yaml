@@ -33,7 +33,7 @@
         title: "Washer Finished"
         message: "{{ owner }}, move your clothes to the dryer! Do you have another load?"
         owner: "{{ owner }}"
-        notification_type: "targeted"
+        mode: "nag"
         tag: "washer_finished"
         actions:
           - action: "HAVE_ANOTHER_LOAD"

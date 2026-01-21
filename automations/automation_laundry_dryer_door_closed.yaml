@@ -28,7 +28,7 @@
         title: "Dryer Check"
         message: "{{ owner }}, are your clothes dry?"
         owner: "{{ owner }}"
-        notification_type: "targeted"
+        mode: "nag"
         tag: "dryer_check"
         actions:
           - action: "CLOTHES_ARE_DRY"

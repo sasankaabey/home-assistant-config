@@ -27,6 +27,8 @@
               title: "Ankit"
             - action: "SET_WASHER_OWNER_DANIELLE"
               title: "Danielle"
+            - action: "SET_WASHER_OWNER_ANKIT_DANIELLE"
+              title: "Ankit+Danielle"
             - action: "SET_WASHER_OWNER_ZOE"
               title: "Zoe"
             - action: "SET_WASHER_OWNER_MAX"
