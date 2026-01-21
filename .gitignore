@@ -48,3 +48,20 @@ ha_inventory.json
 
 # Generated media / caches
 www/alexa_tts/
+
+# --- Local dev / OS noise ---
+.DS_Store
+__pycache__/
+*.pyc
+
+# --- Secrets / local config ---
+.env
+.env.*
+!.env.example
+
+# --- Virtual environments ---
+.venv/
+venv/
+
+# --- Scratch / temp ---
+tools/one_off/__pycache__/
