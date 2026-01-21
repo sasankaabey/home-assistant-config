@@ -86,10 +86,10 @@ Triggers when dryer vibration stops. Alerts dryer owner to check if clothes are 
 
 #### 7. automation_laundry_dryer_nag.yaml
 Nags dryer owner to check the dryer:
-- 5-minute grace period initially
+- 5-minute grace period initially (no nags)
+- After 5 minutes, nags every 5 minutes
+- After 10 minutes total elapsed, escalates to every 1 minute
 - Only nags if washer is running AND door hasn't been opened
-- Every 5 minutes for first 10 minutes total
-- Every 1 minute after 10 minutes
 
 #### 8. automation_laundry_dryer_door_opened.yaml
 Tracks when dryer door is opened after dryer finishes. Stops dryer nagging.
