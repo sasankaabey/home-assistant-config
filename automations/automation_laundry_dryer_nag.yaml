@@ -28,7 +28,7 @@
                   0
                 {% endif %}
               washer_is_running: >
-                {{ states('sensor.washer_running_current_consumption') | float(0) > states('input_number.washer_idle_threshold') | float(0) }}
+                {{ (states('sensor.lg_washer_current_consumption') | float(0)) > (states('input_number.washer_idle_threshold') | float(0)) }}
               door_was_opened: "{{ is_state('input_boolean.dryer_door_opened_since_stop', 'on') }}"
               should_nag: "{{ minutes_elapsed >= 5 and washer_is_running and not door_was_opened }}"
               is_adult_load: >

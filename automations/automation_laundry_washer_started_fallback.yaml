@@ -23,7 +23,7 @@
 #     # Faster detection: 30 seconds above threshold instead of 2 minutes
 #     # This catches the washer sooner after it's started
 #     - platform: numeric_state
-#       entity_id: sensor.washer_running_current_consumption
+#       entity_id: sensor.lg_washer_current_consumption
 #       above: input_number.washer_idle_threshold
 #       for:
 #         seconds: 30
@@ -36,7 +36,7 @@
 #     # Additional check: verify power is STILL sustained
 #     # This prevents false positives if power spike dropped
 #     - condition: numeric_state
-#       entity_id: sensor.washer_running_current_consumption
+#       entity_id: sensor.lg_washer_current_consumption
 #       above: input_number.washer_idle_threshold
 #     - service: script.alexa_announce_router
 #       data:

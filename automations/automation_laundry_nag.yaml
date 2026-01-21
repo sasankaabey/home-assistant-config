@@ -44,7 +44,7 @@
               should_escalate: >
                 {{ is_adult_load or (is_kid_load and owner_is_home) }}
               washer_is_running: >
-                {{ (state_attr('sensor.washer_running_current_consumption', 'value') | float(0)) > (states('input_number.washer_idle_threshold') | float(0)) }}
+                {{ (states('sensor.lg_washer_current_consumption') | float(0)) > (states('input_number.washer_idle_threshold') | float(0)) }}
               nag_interval: >
                 {% if should_escalate and minutes_elapsed >= 20 %}
                 1

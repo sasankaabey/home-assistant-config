@@ -3,7 +3,7 @@
   description: "Alert owner and ask if they have another load when washer finishes"
   trigger:
     - platform: numeric_state
-      entity_id: sensor.washer_running_current_consumption
+      entity_id: sensor.lg_washer_current_consumption
       below: input_number.washer_idle_threshold
       for:
         minutes: 2

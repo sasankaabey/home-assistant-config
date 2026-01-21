@@ -34,7 +34,7 @@
     # Re-check current is still sustained above zombie draw level
     # If current dropped back to idle, the washer wasn't actually started
     - condition: numeric_state
-      entity_id: sensor.washer_running_current_consumption
+      entity_id: sensor.lg_washer_current_consumption
       above: input_number.washer_idle_threshold
     - service: script.alexa_announce_router
       data:
