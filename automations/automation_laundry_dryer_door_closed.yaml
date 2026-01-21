@@ -1,0 +1,37 @@
+- alias: "Laundry - Dryer Door Closed"
+  id: "laundry_dryer_door_closed"
+  description: "Ask if clothes are dry when dryer door is closed"
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.dryer_door
+      to: "off"
+      for:
+        seconds: 5
+  condition:
+    - condition: template
+      value_template: "{{ not is_state('input_select.dryer_owner', 'Unknown') }}"
+    - condition: state
+      entity_id: input_boolean.dryer_door_opened_since_stop
+      state: "on"
+  action:
+    - service: input_boolean.turn_on
+      target:
+        entity_id: input_boolean.awaiting_dry_confirmation
+    - variables:
+        owner: "{{ states('input_select.dryer_owner') }}"
+    - service: script.alexa_announce_router
+      data:
+        message: "{{ owner }}, are your clothes dry?"
+        audience: "adults"
+    - service: notify.adults
+      data:
+        title: "Dryer Check"
+        message: "{{ owner }}, are your clothes dry?"
+        data:
+          tag: dryer_check
+          actions:
+            - action: "CLOTHES_ARE_DRY"
+              title: "Yes, Dry"
+            - action: "CLOTHES_NOT_DRY"
+              title: "No, Not Dry"
+  mode: single

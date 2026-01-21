@@ -10,6 +10,18 @@ washer_owner:
     - Mixed
   initial: Unknown
 
+dryer_owner:
+  name: Dryer Load Owner
+  options:
+    - Unknown
+    - Ankit
+    - Danielle
+    - Zoe
+    - Max
+    - Aiden
+    - Mixed
+  initial: Unknown
+
 litterbot_camden_tts_engine:
   name: Camden TTS Engine
   options:

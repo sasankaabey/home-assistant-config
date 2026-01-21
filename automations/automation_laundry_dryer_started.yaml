@@ -1,6 +1,6 @@
 - alias: "Laundry - Dryer Started"
   id: "laundry_dryer_started"
-  description: "Stop nagging when dryer vibration is detected"
+  description: "Stop washer nagging and transfer ownership when dryer vibration is detected"
   trigger:
     - platform: state
       entity_id: binary_sensor.dryer_vibration
@@ -17,6 +17,11 @@
         entity_id: input_boolean.laundry_nag_enabled
     - variables:
         owner: "{{ states('input_select.washer_owner') }}"
+    - service: input_select.select_option
+      target:
+        entity_id: input_select.dryer_owner
+      data:
+        option: "{{ owner }}"
     - service: script.alexa_announce_router
       data:
         message: "{{ owner }}, thank you for moving the clothes to the dryer!"

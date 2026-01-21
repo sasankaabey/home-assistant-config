@@ -1,0 +1,58 @@
+- alias: "Laundry - Handle Dry Confirmation"
+  id: "laundry_handle_dry_confirmation"
+  description: "Handle responses when checking if clothes are dry"
+  trigger:
+    - platform: event
+      event_type: mobile_app_notification_action
+      event_data:
+        action: "CLOTHES_ARE_DRY"
+    - platform: event
+      event_type: mobile_app_notification_action
+      event_data:
+        action: "CLOTHES_NOT_DRY"
+  condition:
+    - condition: state
+      entity_id: input_boolean.awaiting_dry_confirmation
+      state: "on"
+  action:
+    - service: input_boolean.turn_off
+      target:
+        entity_id: input_boolean.awaiting_dry_confirmation
+    - variables:
+        dryer_owner: "{{ states('input_select.dryer_owner') }}"
+        clothes_are_dry: "{{ trigger.event.data.action == 'CLOTHES_ARE_DRY' }}"
+    - choose:
+        - conditions:
+            - condition: template
+              value_template: "{{ clothes_are_dry }}"
+          sequence:
+            - service: input_select.select_option
+              target:
+                entity_id: input_select.dryer_owner
+              data:
+                option: "Unknown"
+            - service: script.alexa_announce_router
+              data:
+                message: "The dryer is now available!"
+                audience: "adults"
+            - service: notify.adults
+              data:
+                title: "Dryer Available"
+                message: "{{ dryer_owner }} has removed their dry clothes. The dryer is available!"
+                data:
+                  tag: dryer_available
+      default:
+        - service: script.alexa_announce_router
+          data:
+            message: "{{ dryer_owner }}, please run the dryer again to finish drying your clothes."
+            audience: "adults"
+        - service: notify.adults
+          data:
+            title: "Dryer Needs Another Cycle"
+            message: "{{ dryer_owner }}, your clothes need more drying time. Please start the dryer again."
+            data:
+              tag: dryer_not_dry
+              actions:
+                - action: "DRYER_RESTARTED"
+                  title: "Dryer Restarted"
+  mode: single

@@ -1,0 +1,61 @@
+- alias: "Laundry - Dryer Nagging Reminder"
+  id: "laundry_dryer_nagging"
+  description: "Nag dryer owner to check dryer with grace period and escalation"
+  trigger:
+    - platform: state
+      entity_id: input_boolean.dryer_nag_enabled
+      to: "on"
+  condition: []
+  action:
+    - repeat:
+        while:
+          - condition: state
+            entity_id: input_boolean.dryer_nag_enabled
+            state: "on"
+        sequence:
+          - variables:
+              owner: "{{ states('input_select.dryer_owner') }}"
+              dryer_stopped: "{{ states('input_datetime.dryer_stopped_time') }}"
+              dryer_stopped_timestamp: "{{ as_timestamp(dryer_stopped) }}"
+              minutes_elapsed: >
+                {% if dryer_stopped_timestamp is not none and dryer_stopped_timestamp > 0 %}
+                  {{ ((now().timestamp() - dryer_stopped_timestamp) / 60) | int }}
+                {% else %}
+                  0
+                {% endif %}
+              washer_is_running: >
+                {{ states('sensor.washer_running_current_consumption') | float(0) > states('input_number.washer_idle_threshold') | float(2) }}
+              door_was_opened: "{{ is_state('input_boolean.dryer_door_opened_since_stop', 'on') }}"
+              should_nag: "{{ minutes_elapsed >= 5 and washer_is_running and not door_was_opened }}"
+              nag_interval: >
+                {% if minutes_elapsed >= 10 %}
+                1
+                {% else %}
+                5
+                {% endif %}
+              escalation_msg: >
+                {% if minutes_elapsed >= 10 %}
+                  It's been {{ minutes_elapsed }} minutes and the washer is still running! Check the dryer now!
+                {% else %}
+                  The washer is running and needs the dryer. Please check if your clothes are dry.
+                {% endif %}
+          - if:
+              - condition: template
+                value_template: "{{ should_nag }}"
+            then:
+              - service: script.alexa_announce_router
+                data:
+                  message: "{{ owner }}, reminder: check the dryer. {{ escalation_msg }}"
+                  audience: "adults"
+              - service: notify.adults
+                data:
+                  title: "Dryer Check Reminder"
+                  message: "{{ owner }}: Check the dryer! {{ escalation_msg }}"
+                  data:
+                    tag: dryer_nag
+                    persistent: true
+                    ttl: 0
+                    priority: high
+          - delay:
+              minutes: "{{ nag_interval | int }}"
+  mode: single
