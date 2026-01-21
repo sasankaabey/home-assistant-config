@@ -22,7 +22,7 @@ laundry_notification_router:
       example: "washer_finished"
     actions:
       description: Notification actions (optional)
-      example: []
+      example: "[]"
   sequence:
     - variables:
         owner: "{{ owner | default('Unknown') }}"
@@ -58,7 +58,7 @@ laundry_notification_router:
             - condition: template
               value_template: "{{ mode == 'nag' and is_kid_load and kid_is_home }}"
           sequence:
-            - service: "notify.mobile_app_{{ owner | lower }}_s_phone"
+            - service: "notify.{{ states('input_text.notify_service_' ~ owner | lower) }}"
               data:
                 title: "{{ title }}"
                 message: "{{ message }}"

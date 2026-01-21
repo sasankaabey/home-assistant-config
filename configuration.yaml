@@ -26,15 +26,16 @@ input_button: !include inputs/input_button.yaml
 template: !include template.yaml
 
 # Notify groups for easier management
+# Note: Update the actual device UUIDs in input_text helpers when devices change
 notify:
   - name: adults
     platform: group
     services:
       # Ankit's devices
-      - service: mobile_app_ankit_s_iphone
+      - service: mobile_app_7b4b3d84_ce9d_418e_ad95_576581ee855e
       - service: mobile_app_ankit_s_macbook_air
       # Danielle's devices
-      - service: mobile_app_pixel_7a
+      - service: mobile_app_6edede162518e0a8
       - service: mobile_app_luffy55
 
 # Logger Configuration

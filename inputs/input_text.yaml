@@ -66,3 +66,28 @@ litterbot_poe_tts_voice:
   name: Poe TTS Voice
   max: 255
   initial: "qA5SHJ9UjGlW2QwXWR7w"
+# Mobile device notify services (update these when devices change)
+notify_service_ankit:
+  name: "Ankit's Phone Notify Service"
+  max: 100
+  initial: "mobile_app_7b4b3d84_ce9d_418e_ad95_576581ee855e"
+
+notify_service_danielle:
+  name: "Danielle's Phone Notify Service"
+  max: 100
+  initial: "mobile_app_6edede162518e0a8"
+
+notify_service_zoe:
+  name: "Zoe's Phone Notify Service"
+  max: 100
+  initial: "mobile_app_zoe_s_phone"
+
+notify_service_max:
+  name: "Max's Phone Notify Service"
+  max: 100
+  initial: "mobile_app_max_s_phone"
+
+notify_service_aiden:
+  name: "Aiden's Phone Notify Service"
+  max: 100
+  initial: "mobile_app_aiden_s_phone"
