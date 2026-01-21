@@ -1,1 +1,4 @@
-{}
+washer_stopped_time:
+  name: Washer Stopped Time
+  has_date: true
+  has_time: true

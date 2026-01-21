@@ -15,3 +15,7 @@ tv_mount_should_be_down:
 litterbot_nag_enabled:
   name: Litterbot Nag Enabled
   initial: false
+
+laundry_nag_enabled:
+  name: Laundry Nag Enabled
+  initial: false

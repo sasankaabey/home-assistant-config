@@ -1,0 +1,38 @@
+- alias: "Laundry - Washer Finished"
+  id: "laundry_washer_finished"
+  description: "Alert owner to move clothes to dryer when washer finishes"
+  trigger:
+    - platform: numeric_state
+      entity_id: sensor.washer_running_current_consumption
+      below: input_number.washer_idle_threshold
+      for:
+        minutes: 2
+  condition:
+    - condition: template
+      value_template: "{{ not is_state('input_select.washer_owner', 'Unknown') }}"
+  action:
+    - service: input_datetime.set_datetime
+      target:
+        entity_id: input_datetime.washer_stopped_time
+      data:
+        timestamp: "{{ now().timestamp() }}"
+    - service: input_boolean.turn_on
+      target:
+        entity_id: input_boolean.laundry_nag_enabled
+    - variables:
+        owner: "{{ states('input_select.washer_owner') }}"
+    - service: script.alexa_announce_router
+      data:
+        message: "{{ owner }}, the washer is done. Please move your clothes to the dryer."
+        audience: "adults"
+    - service: notify.adults
+      data:
+        title: "Washer Finished"
+        message: "{{ owner }}, please move your clothes to the dryer!"
+        data:
+          tag: washer_finished
+          importance: high
+          persistent: true
+          ttl: 0
+          priority: high
+  mode: single

@@ -1,0 +1,48 @@
+- alias: "Laundry - Nagging Reminder"
+  id: "laundry_nagging"
+  description: "Nag load owner to move clothes to dryer with escalating frequency"
+  trigger:
+    - platform: state
+      entity_id: input_boolean.laundry_nag_enabled
+      to: "on"
+  condition: []
+  action:
+    - repeat:
+        while:
+          - condition: state
+            entity_id: input_boolean.laundry_nag_enabled
+            state: "on"
+        sequence:
+          - variables:
+              owner: "{{ states('input_select.washer_owner') }}"
+              washer_stopped: "{{ states('input_datetime.washer_stopped_time') }}"
+              minutes_elapsed: >
+                {{ ((now().timestamp() - as_timestamp(washer_stopped)) / 60) | int }}
+              nag_interval: >
+                {% if minutes_elapsed >= 20 %}
+                  1
+                {% else %}
+                  5
+                {% endif %}
+              escalation_msg: >
+                {% if minutes_elapsed >= 20 %}
+                  It's been {{ minutes_elapsed }} minutes! The clothes are getting musty!
+                {% else %}
+                  Please move them soon to avoid mildew.
+                {% endif %}
+          - service: script.alexa_announce_router
+            data:
+              message: "{{ owner }}, reminder: move your clothes to the dryer. {{ escalation_msg }}"
+              audience: "adults"
+          - service: notify.adults
+            data:
+              title: "Laundry Reminder"
+              message: "{{ owner }}: Move clothes to dryer! {{ escalation_msg }}"
+              data:
+                tag: laundry_nag
+                persistent: true
+                ttl: 0
+                priority: high
+          - delay:
+              minutes: "{{ nag_interval }}"
+  mode: single

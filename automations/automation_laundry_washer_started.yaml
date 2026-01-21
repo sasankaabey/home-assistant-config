@@ -1,0 +1,38 @@
+- alias: "Laundry - Washer Started"
+  id: "laundry_washer_started"
+  description: "Ask whose laundry load it is when washer starts"
+  trigger:
+    - platform: numeric_state
+      entity_id: sensor.washer_running_current_consumption
+      above: input_number.washer_idle_threshold
+      for:
+        minutes: 2
+  condition:
+    - condition: state
+      entity_id: input_select.washer_owner
+      state: "Unknown"
+  action:
+    - service: script.alexa_announce_router
+      data:
+        message: "The washer has started. Whose load is it?"
+        audience: "adults"
+    - service: notify.adults
+      data:
+        title: "Washer Started"
+        message: "Whose laundry load is in the washer?"
+        data:
+          tag: washer_owner_request
+          actions:
+            - action: "SET_WASHER_OWNER_ANKIT"
+              title: "Ankit"
+            - action: "SET_WASHER_OWNER_DANIELLE"
+              title: "Danielle"
+            - action: "SET_WASHER_OWNER_ZOE"
+              title: "Zoe"
+            - action: "SET_WASHER_OWNER_MAX"
+              title: "Max"
+            - action: "SET_WASHER_OWNER_AIDEN"
+              title: "Aiden"
+            - action: "SET_WASHER_OWNER_MIXED"
+              title: "Mixed"
+  mode: single
