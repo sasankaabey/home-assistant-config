@@ -43,6 +43,7 @@ Format: Keep entries brief. Link to DECISIONS.md for rationale.
 - `REUSABLE_SCRIPTS_PLAN.md` - Strategic plan for extracting reusable automation patterns
 - `WASHER_DOOR_SENSOR_SETUP.md` - Complete guide for door sensor setup and troubleshooting
 - `FALLBACK_INTEGRATION_PATTERN.md` - Reusable pattern for local→cloud fallback sensors
+- `DASHBOARD_STATUS_DISPLAY_PATTERN.md` - Dashboard patterns for showing integration status (Closed (tuya_local) vs Open (tuya))
 
 ---
 
