@@ -8,6 +8,14 @@ Format: Keep entries brief. Link to DECISIONS.md for rationale.
 
 ## 2026-01-21
 
+### Added
+
+- **Fallback Integration Pattern** - Template sensors that prefer local (tuya_local) but fallback to cloud (tuya)
+  - `binary_sensor.washer_door` - Prefers local, fallback: `contact_sensor_door` (cloud)
+  - `binary_sensor.dryer_door` - Prefers local, fallback: `contact_sensor_2_door` (cloud)
+  - **Benefits**: Resilience when local unavailable, prefers local for lower latency, transparent to automations
+  - **Documentation**: `FALLBACK_INTEGRATION_PATTERN.md` - Reusable pattern for other devices
+
 ### Improved
 
 - **Washer Load Assignment Trigger** - Changed from 2-minute power delay to door close + sustained power detection
@@ -23,11 +31,18 @@ Format: Keep entries brief. Link to DECISIONS.md for rationale.
   - Pauses nagging if power spikes again (clothes went back in or new load started)
   - Notifies owner if nagging paused due to washer restarting
 
-### Added
+### Fixed
+
+- **Washer Power Sensor** - Updated all automations to use correct entity: `sensor.lg_washer_current_consumption`
+  - Was: `sensor.washer_running_current_consumption` (non-existent)
+  - Fixed in: washer_started, washer_finished, handle_next_load, nag, dryer_nag automations
+
+### Documents Added
 
 - `TASKS.md` - Notification enhancement backlog (styled buttons, text input, deep links, Telegram)
 - `REUSABLE_SCRIPTS_PLAN.md` - Strategic plan for extracting reusable automation patterns
 - `WASHER_DOOR_SENSOR_SETUP.md` - Complete guide for door sensor setup and troubleshooting
+- `FALLBACK_INTEGRATION_PATTERN.md` - Reusable pattern for local→cloud fallback sensors
 
 ---
 
