@@ -1,4 +1,20 @@
 #!/usr/bin/env python3
+"""
+ha_api.py — Home Assistant API helper
+
+Purpose:
+  Small helper for calling the Home Assistant REST API from the command line.
+
+Usage:
+  python3 tools/scripts/ha_api.py [args]
+
+Auth:
+  Expects a long-lived access token in: ~/.ha_token
+
+Notes:
+  - Keeps tokens out of git by reading from your home directory.
+  - Default base URLs are defined in DEFAULT_BASE_URLS.
+"""
 import json
 import sys
 import time

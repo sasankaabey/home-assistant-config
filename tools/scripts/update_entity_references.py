@@ -1,4 +1,17 @@
 #!/usr/bin/env python3
+"""
+update_entity_references.py — Update entity references across YAML
+
+Purpose:
+  Finds and updates entity_id references across configuration files after renames.
+
+Usage:
+  python3 tools/scripts/update_entity_references.py [args]
+
+Safety:
+  Review diffs before committing. Prefer dry-run/output mode if available.
+"""
+
 import argparse
 import json
 import re

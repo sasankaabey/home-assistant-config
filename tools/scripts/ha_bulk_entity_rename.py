@@ -1,4 +1,17 @@
 #!/usr/bin/env python3
+"""
+ha_bulk_entity_rename.py — Bulk entity rename helper
+
+Purpose:
+  Assists with bulk-renaming Home Assistant entity IDs and related references.
+
+Usage:
+  python3 tools/scripts/ha_bulk_entity_rename.py [args]
+
+Safety:
+  Review outputs before applying changes. Prefer dry-run/preview if supported.
+"""
+
 import argparse
 import asyncio
 import json

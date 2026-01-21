@@ -1,4 +1,17 @@
 #!/usr/bin/env python3
+"""
+ha_inventory_dump.py — Inventory dump utility
+
+Purpose:
+  Dumps Home Assistant entities/devices/services to a file for auditing and cleanup work.
+
+Usage:
+  python3 tools/scripts/ha_inventory_dump.py [args]
+
+Notes:
+  Useful before refactors and registry cleanups.
+"""
+
 import argparse
 import asyncio
 import json

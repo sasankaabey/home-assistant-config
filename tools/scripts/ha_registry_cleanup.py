@@ -1,4 +1,17 @@
 #!/usr/bin/env python3
+"""
+ha_registry_cleanup.py — Registry cleanup utility
+
+Purpose:
+  Helps identify and clean up entity/device registry artifacts.
+
+Usage:
+  python3 tools/scripts/ha_registry_cleanup.py [args]
+
+Safety:
+  Review carefully before writing changes. Prefer dry-run if available.
+"""
+
 import argparse
 import asyncio
 import json
