@@ -1,0 +1,57 @@
+# FALLBACK AUTOMATION
+# Use this if binary_sensor.washer_door is not available on your washer device
+# This uses a faster power-spike detection (30 seconds instead of 2 minutes)
+# Combined with sustained power confirmation to prevent false positives
+# 
+# To activate: Remove the leading # and comment out automation_laundry_washer_started.yaml
+# To detect door: Check Home Assistant UI → Developer Tools → States
+# Look for binary_sensor entities on your washer device (often named like "door_open" or "device_state")
+
+# - alias: "Laundry - Washer Started (Fallback - Power Based)"
+#   id: "laundry_washer_started_fallback"
+#   description: "Ask whose load when washer starts - fast detection with sustained power confirmation"
+#   trigger:
+#     # Faster detection: 30 seconds above threshold instead of 2 minutes
+#     # This catches the washer sooner after it's started
+#     - platform: numeric_state
+#       entity_id: sensor.washer_running_current_consumption
+#       above: input_number.washer_idle_threshold
+#       for:
+#         seconds: 30
+#   condition:
+#     # Only ask if load hasn't been assigned yet
+#     - condition: state
+#       entity_id: input_select.washer_owner
+#       state: "Unknown"
+#   action:
+#     # Additional check: verify power is STILL sustained
+#     # This prevents false positives if power spike dropped
+#     - condition: numeric_state
+#       entity_id: sensor.washer_running_current_consumption
+#       above: input_number.washer_idle_threshold
+#     - service: script.alexa_announce_router
+#       data:
+#         message: "The washer has started. Whose load is it?"
+#         audience: "adults"
+#     - service: notify.adults
+#       data:
+#         title: "Washer Started"
+#         message: "Whose laundry load is in the washer?"
+#         data:
+#           tag: washer_owner_request
+#           actions:
+#             - action: "SET_WASHER_OWNER_ANKIT"
+#               title: "Ankit"
+#             - action: "SET_WASHER_OWNER_DANIELLE"
+#               title: "Danielle"
+#             - action: "SET_WASHER_OWNER_ANKIT_DANIELLE"
+#               title: "Ankit+Danielle"
+#             - action: "SET_WASHER_OWNER_ZOE"
+#               title: "Zoe"
+#             - action: "SET_WASHER_OWNER_MAX"
+#               title: "Max"
+#             - action: "SET_WASHER_OWNER_AIDEN"
+#               title: "Aiden"
+#             - action: "SET_WASHER_OWNER_MIXED"
+#               title: "Mixed"
+#   mode: single

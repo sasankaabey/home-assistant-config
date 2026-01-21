@@ -1,17 +1,41 @@
 - alias: "Laundry - Washer Started"
   id: "laundry_washer_started"
-  description: "Ask whose laundry load it is when washer starts"
+  description: "Ask whose laundry load it is when washer starts (triggered by door close + sustained power spike)"
+  # IMPORTANT: This automation requires binary_sensor.washer_door entity
+  # This should be a door/window sensor on the washer providing:
+  #   - "off" when door is CLOSED (load starting)
+  #   - "on" when door is OPEN
+  # If not available as binary_sensor.washer_door, update the trigger below to match your device entity
   trigger:
-    - platform: numeric_state
-      entity_id: sensor.washer_running_current_consumption
-      above: input_number.washer_idle_threshold
-      for:
-        minutes: 2
+    # Primary trigger: Washer door close (indicates load about to be added)
+    # Door close is a better indicator than power because:
+    # 1. Door close happens right when load is added
+    # 2. Power spike confirmation ensures washer actually started
+    # 3. Avoids false positives from power fluctuations
+    - platform: state
+      entity_id: binary_sensor.washer_door
+      to: "off"
+      id: "door_closed"
   condition:
+    # Only ask if load hasn't been assigned yet
     - condition: state
       entity_id: input_select.washer_owner
       state: "Unknown"
+    # Verify current is above idle threshold (load has started/is starting)
+    # This confirms it's not just a door open/close without actual load
+    - condition: numeric_state
+      entity_id: sensor.washer_running_current_consumption
+      above: input_number.washer_idle_threshold
   action:
+    # Small delay to let washer stabilize its power draw
+    # This prevents false triggers from power spikes that immediately drop
+    - delay:
+        seconds: 3
+    # Re-check current is still sustained above zombie draw level
+    # If current dropped back to idle, the washer wasn't actually started
+    - condition: numeric_state
+      entity_id: sensor.washer_running_current_consumption
+      above: input_number.washer_idle_threshold
     - service: script.alexa_announce_router
       data:
         message: "The washer has started. Whose load is it?"

@@ -73,14 +73,59 @@ Is it code review or PR feedback?
   - Can you disable entity creation without removing MA?
 - [ ] Research HA entity naming conventions - what do large installs use?
 
-### For Gemini/NotebookLM (Analysis)
-
-- [ ] Summarize this repo's structure for onboarding new agents
-- [ ] Create audio overview of HA config for reference
-
 ### For ChatGPT (Quick Questions/Planning)
 
 - [ ] Plan room-by-room entity cleanup approach (after Perplexity research)
+
+### Backlog: Actionable Notification Enhancements
+
+Context: Current laundry automation uses basic actionable notifications. These enhancements will improve UX and enable more complex household automations.
+
+#### For Codex (YAML Drafting)
+
+- [ ] Create script: `script.send_actionable_notification` - Generic notification with action buttons wrapper
+  - Supports styled buttons (green/red/neutral)
+  - Supports text input actions
+  - Supports deep links to lovelace pages
+  - Standardized across all automations
+
+#### For Claude Code (Implementation/Testing)
+
+- [ ] Enhance laundry notifications with text input
+  - Allow custom snooze duration in "Snooze" button
+  - Capture input and convert to minutes
+  - Test with actual mobile app
+
+- [ ] Add styled buttons to laundry notifications
+  - "Yes, Dry" → green button (positive)
+  - "No, Not Dry" → red button (destructive)
+  - "Snooze" → neutral button
+
+- [ ] Add deep links to laundry dashboard
+  - "View Status" button → navigate to lovelace/laundry page
+  - Implement page if doesn't exist
+
+- [ ] Add Telegram bot fallback
+  - Set up telegram_bot integration
+  - Send laundry notifications to telegram as fallback
+  - Route based on family member preferences
+
+#### For Future (Not started)
+
+- [ ] Create reusable `script.nag_with_escalation` using new actionable notification patterns
+- [ ] Extend to other automations (litterbox, chores, maintenance)
+- [ ] Document actionable notification patterns in HOME_ASSISTANT.md
+
+### Completed Recent Tasks
+
+- [x] Fix sync_to_ha.sh to use SSH rsync instead of local mount
+- [x] Simplify notify services with input_text helpers
+- [x] Fix script.laundry_notification_router validation error
+- [x] Create REUSABLE_SCRIPTS_PLAN.md for future automation patterns
+- [x] Improve washer load assignment trigger to use door close + power spike
+  - Changed from 2-minute delay to door close event (faster, more reliable)
+  - Added sustained power draw verification to prevent false positives
+  - Enhanced nag automation to pause if washer restarts (clothes went back in)
 
 ### Completed
 
@@ -90,6 +135,10 @@ Is it code review or PR feedback?
 - [x] Fix notify.adults service names
 - [x] Patch tuya_local and openplantbook custom components
 - [x] Fix conversation.chatgpt pipeline error
+- [x] Fix sync_to_ha.sh to use SSH rsync instead of local mount
+- [x] Simplify notify services with input_text helpers
+- [x] Fix script.laundry_notification_router validation error
+- [x] Create REUSABLE_SCRIPTS_PLAN.md for future automation patterns
 
 ## Handoff Protocol
 
@@ -121,7 +170,7 @@ When Claude Code identifies documentation needs:
 
 ## Session Notes
 
-_Use this space to leave notes between sessions/agents_
+Use this space to leave notes between sessions/agents
 
 ---
 Last updated: 2026-01-14
