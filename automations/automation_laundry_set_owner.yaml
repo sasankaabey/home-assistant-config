@@ -1,0 +1,47 @@
+- alias: "Laundry - Set Washer Owner"
+  id: "laundry_set_washer_owner"
+  description: "Set washer owner when notification button is pressed"
+  trigger:
+    - platform: event
+      event_type: mobile_app_notification_action
+      event_data:
+        action: "SET_WASHER_OWNER_ANKIT"
+    - platform: event
+      event_type: mobile_app_notification_action
+      event_data:
+        action: "SET_WASHER_OWNER_DANIELLE"
+    - platform: event
+      event_type: mobile_app_notification_action
+      event_data:
+        action: "SET_WASHER_OWNER_ANKIT_DANIELLE"
+    - platform: event
+      event_type: mobile_app_notification_action
+      event_data:
+        action: "SET_WASHER_OWNER_ZOE"
+    - platform: event
+      event_type: mobile_app_notification_action
+      event_data:
+        action: "SET_WASHER_OWNER_MAX"
+    - platform: event
+      event_type: mobile_app_notification_action
+      event_data:
+        action: "SET_WASHER_OWNER_AIDEN"
+    - platform: event
+      event_type: mobile_app_notification_action
+      event_data:
+        action: "SET_WASHER_OWNER_MIXED"
+  action:
+    - service: input_select.select_option
+      target:
+        entity_id: input_select.washer_owner
+      data:
+        option: >
+          {% if trigger.event.data.action == 'SET_WASHER_OWNER_ANKIT' %}Ankit
+          {% elif trigger.event.data.action == 'SET_WASHER_OWNER_DANIELLE' %}Danielle
+          {% elif trigger.event.data.action == 'SET_WASHER_OWNER_ANKIT_DANIELLE' %}Ankit+Danielle
+          {% elif trigger.event.data.action == 'SET_WASHER_OWNER_ZOE' %}Zoe
+          {% elif trigger.event.data.action == 'SET_WASHER_OWNER_MAX' %}Max
+          {% elif trigger.event.data.action == 'SET_WASHER_OWNER_AIDEN' %}Aiden
+          {% elif trigger.event.data.action == 'SET_WASHER_OWNER_MIXED' %}Mixed
+          {% endif %}
+  mode: queued

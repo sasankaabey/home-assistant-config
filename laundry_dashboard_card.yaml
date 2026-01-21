@@ -1,0 +1,69 @@
+# Laundry Management Dashboard Card
+# Add this to your Lovelace dashboard for manual override capability
+
+type: vertical-stack
+cards:
+  - type: markdown
+    content: |
+      # 🧺 Laundry Management
+      
+      Manual override: Change the dropdown below to reassign load ownership
+  
+  - type: entities
+    title: Washer Status
+    show_header_toggle: false
+    entities:
+      - entity: sensor.washer_running_current_consumption
+        name: Washer Power
+        icon: mdi:washing-machine
+      - entity: input_select.washer_owner
+        name: Current Washer Load Owner
+      - entity: input_boolean.laundry_nag_enabled
+        name: Washer Nags Active
+      - entity: input_datetime.washer_stopped_time
+        name: Washer Stopped At
+  
+  - type: entities
+    title: Dryer Status
+    show_header_toggle: false
+    entities:
+      - entity: binary_sensor.dryer_vibration
+        name: Dryer Running
+        icon: mdi:tumble-dryer
+      - entity: binary_sensor.dryer_door_status
+        name: Dryer Door
+      - entity: input_select.dryer_owner
+        name: Current Dryer Load Owner
+      - entity: input_boolean.dryer_nag_enabled
+        name: Dryer Nags Active
+      - entity: input_datetime.dryer_stopped_time
+        name: Dryer Stopped At
+  
+  - type: entities
+    title: Nag Controls
+    show_header_toggle: false
+    entities:
+      - entity: input_datetime.laundry_nag_snooze_until
+        name: Nags Snoozed Until
+      - type: button
+        name: Clear Snooze
+        tap_action:
+          action: call-service
+          service: input_datetime.set_datetime
+          service_data:
+            entity_id: input_datetime.laundry_nag_snooze_until
+            datetime: "1970-01-01T00:00:00+00:00"
+
+# Instructions:
+# 1. Go to your Lovelace dashboard
+# 2. Click "Edit Dashboard" (three dots menu)
+# 3. Add a new card
+# 4. Choose "Manual" card type
+# 5. Paste this YAML configuration
+# 6. Save
+#
+# Usage:
+# - View current washer/dryer owners
+# - Click any dropdown to manually reassign ownership
+# - Check nag status and snooze time
+# - Clear snooze manually if needed

@@ -4,6 +4,20 @@ washer_owner:
     - Unknown
     - Ankit
     - Danielle
+    - Ankit+Danielle
+    - Zoe
+    - Max
+    - Aiden
+    - Mixed
+  initial: Unknown
+
+dryer_owner:
+  name: Dryer Load Owner
+  options:
+    - Unknown
+    - Ankit
+    - Danielle
+    - Ankit+Danielle
     - Zoe
     - Max
     - Aiden

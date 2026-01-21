@@ -1,0 +1,30 @@
+- alias: "Laundry - Next Load Timeout"
+  id: "laundry_next_load_timeout"
+  description: "Alert household if no response about next load after 5 minutes"
+  trigger:
+    - platform: state
+      entity_id: input_boolean.awaiting_next_load_response
+      to: "on"
+      for:
+        minutes: 5
+  condition: []
+  action:
+    - service: input_boolean.turn_off
+      target:
+        entity_id: input_boolean.awaiting_next_load_response
+    - service: input_select.select_option
+      target:
+        entity_id: input_select.washer_owner
+      data:
+        option: "Unknown"
+    - service: script.alexa_announce_router
+      data:
+        message: "The washer is now available for anyone to use!"
+        audience: "all"
+    - service: notify.adults
+      data:
+        title: "Washer Available"
+        message: "No response received. The washer is now available for anyone to use!"
+        data:
+          tag: washer_available
+  mode: single

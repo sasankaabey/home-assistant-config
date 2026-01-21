@@ -1,0 +1,30 @@
+- alias: "Laundry - Dryer Started"
+  id: "laundry_dryer_started"
+  description: "Stop washer nagging when dryer vibration is detected (but don't assign owner yet)"
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.dryer_vibration
+      to: "on"
+      for:
+        seconds: 30
+  condition:
+    - condition: state
+      entity_id: input_boolean.laundry_nag_enabled
+      state: "on"
+  action:
+    - service: input_boolean.turn_off
+      target:
+        entity_id: input_boolean.laundry_nag_enabled
+    - variables:
+        washer_owner: "{{ states('input_select.washer_owner') }}"
+    - service: script.alexa_announce_router
+      data:
+        message: "The dryer has started!"
+        audience: "adults"
+    - service: notify.adults
+      data:
+        title: "Dryer Started"
+        message: "The dryer has started. {{ washer_owner }} may be moving their load."
+        data:
+          tag: dryer_started
+  mode: single

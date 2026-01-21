@@ -1,0 +1,29 @@
+- alias: "Laundry - Dryer Restarted After Not Dry"
+  id: "laundry_dryer_restarted"
+  description: "Reset state when dryer is restarted after clothes not dry"
+  trigger:
+    - platform: event
+      event_type: mobile_app_notification_action
+      event_data:
+        action: "DRYER_RESTARTED"
+    - platform: state
+      entity_id: binary_sensor.dryer_vibration
+      to: "on"
+      for:
+        seconds: 30
+  condition:
+    - condition: template
+      value_template: "{{ not is_state('input_select.dryer_owner', 'Unknown') }}"
+  action:
+    - service: input_boolean.turn_off
+      target:
+        entity_id: input_boolean.dryer_door_opened_since_stop
+    - variables:
+        owner: "{{ states('input_select.dryer_owner') }}"
+    - service: notify.adults
+      data:
+        title: "Dryer Restarted"
+        message: "{{ owner }} has restarted the dryer to finish drying their clothes."
+        data:
+          tag: dryer_restarted
+  mode: single

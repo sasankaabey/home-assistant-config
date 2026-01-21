@@ -1,0 +1,22 @@
+- alias: "Laundry - Handle Snooze"
+  id: "laundry_snooze_handler"
+  description: "Handle laundry nag snooze requests from adults"
+  trigger:
+    - platform: event
+      event_type: mobile_app_notification_action
+      event_data:
+        action: "SNOOZE_LAUNDRY_NAG"
+  condition: []
+  action:
+    - service: input_datetime.set_datetime
+      target:
+        entity_id: input_datetime.laundry_nag_snooze_until
+      data:
+        datetime: "{{ (now() + timedelta(minutes=30)).isoformat() }}"
+    - service: notify.adults
+      data:
+        message: "Laundry nags snoozed for 30 minutes"
+        data:
+          tag: "laundry_snooze_confirm"
+          notification_icon: "mdi:sleep"
+  mode: single

@@ -1,0 +1,19 @@
+- alias: "Laundry - Dryer Door Opened"
+  id: "laundry_dryer_door_opened"
+  description: "Track when dryer door is opened after dryer finishes"
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.dryer_door_status
+      to: "on"
+  condition:
+    - condition: state
+      entity_id: input_boolean.dryer_nag_enabled
+      state: "on"
+  action:
+    - service: input_boolean.turn_on
+      target:
+        entity_id: input_boolean.dryer_door_opened_since_stop
+    - service: input_boolean.turn_off
+      target:
+        entity_id: input_boolean.dryer_nag_enabled
+  mode: single

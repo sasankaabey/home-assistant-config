@@ -15,3 +15,23 @@ tv_mount_should_be_down:
 litterbot_nag_enabled:
   name: Litterbot Nag Enabled
   initial: false
+
+laundry_nag_enabled:
+  name: Laundry Nag Enabled
+  initial: false
+
+dryer_nag_enabled:
+  name: Dryer Nag Enabled
+  initial: false
+
+dryer_door_opened_since_stop:
+  name: Dryer Door Opened Since Stop
+  initial: false
+
+awaiting_dry_confirmation:
+  name: Awaiting Dry Confirmation
+  initial: false
+
+awaiting_next_load_response:
+  name: Awaiting Next Load Response
+  initial: false

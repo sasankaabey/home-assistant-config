@@ -1,0 +1,71 @@
+- alias: "Laundry - Handle Next Load Response"
+  id: "laundry_handle_next_load_response"
+  description: "Handle response about having another load to wash"
+  trigger:
+    - platform: event
+      event_type: mobile_app_notification_action
+      event_data:
+        action: "HAVE_ANOTHER_LOAD"
+    - platform: event
+      event_type: mobile_app_notification_action
+      event_data:
+        action: "NO_MORE_LOADS"
+  condition:
+    - condition: state
+      entity_id: input_boolean.awaiting_next_load_response
+      state: "on"
+  action:
+    - service: input_boolean.turn_off
+      target:
+        entity_id: input_boolean.awaiting_next_load_response
+    - variables:
+        owner: "{{ states('input_select.washer_owner') }}"
+        has_another_load: "{{ trigger.event.data.action == 'HAVE_ANOTHER_LOAD' }}"
+    - choose:
+        - conditions:
+            - condition: template
+              value_template: "{{ has_another_load }}"
+          sequence:
+            - service: notify.adults
+              data:
+                title: "Washer Reserved"
+                message: "{{ owner }} has another load. Washer is reserved for 5 minutes."
+                data:
+                  tag: washer_reserved
+            - delay:
+                minutes: 5
+            - condition: template
+              value_template: >
+                {{ states('sensor.washer_running_current_consumption') | float(0) < states('input_number.washer_idle_threshold') | float(0) }}
+            - service: input_select.select_option
+              target:
+                entity_id: input_select.washer_owner
+              data:
+                option: "Unknown"
+            - service: script.alexa_announce_router
+              data:
+                message: "The washer is now available for anyone to use!"
+                audience: "all"
+            - service: notify.adults
+              data:
+                title: "Washer Available"
+                message: "{{ owner }}'s 5 minutes are up. The washer is now available for anyone!"
+                data:
+                  tag: washer_available
+      default:
+        - service: input_select.select_option
+          target:
+            entity_id: input_select.washer_owner
+          data:
+            option: "Unknown"
+        - service: script.alexa_announce_router
+          data:
+            message: "The washer is now available for anyone to use!"
+            audience: "all"
+        - service: notify.adults
+          data:
+            title: "Washer Available"
+            message: "The washer is now available for anyone to use!"
+            data:
+              tag: washer_available
+  mode: single
