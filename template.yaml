@@ -58,3 +58,46 @@
       state: >-
         {% set now_minutes = now().hour * 60 + now().minute %}
         {{ now_minutes >= 420 and now_minutes < 1320 }}
+
+# Fallback binary sensors: prefer local (tuya_local) over cloud (tuya)
+# These provide resilience when local integration becomes unavailable
+- binary_sensor:
+    - name: "Washer Door"
+      unique_id: washer_door_fallback
+      device_class: door
+      state: >-
+        {# Prefer tuya_local, fallback to tuya cloud #}
+        {% if states('binary_sensor.washer_door_local') not in ['unavailable', 'unknown'] %}
+          {{ states('binary_sensor.washer_door_local') }}
+        {% else %}
+          {{ states('binary_sensor.contact_sensor_door') }}
+        {% endif %}
+      availability: >-
+        {{ states('binary_sensor.washer_door_local') not in ['unavailable', 'unknown']
+           or states('binary_sensor.contact_sensor_door') not in ['unavailable', 'unknown'] }}
+      icon: >-
+        {% if is_state('binary_sensor.washer_door', 'on') %}
+          mdi:washing-machine-alert
+        {% else %}
+          mdi:washing-machine
+        {% endif %}
+
+    - name: "Dryer Door"
+      unique_id: dryer_door_fallback
+      device_class: door
+      state: >-
+        {# Prefer tuya_local, fallback to tuya cloud #}
+        {% if states('binary_sensor.dryer_door_local') not in ['unavailable', 'unknown'] %}
+          {{ states('binary_sensor.dryer_door_local') }}
+        {% else %}
+          {{ states('binary_sensor.contact_sensor_2_door') }}
+        {% endif %}
+      availability: >-
+        {{ states('binary_sensor.dryer_door_local') not in ['unavailable', 'unknown']
+           or states('binary_sensor.contact_sensor_2_door') not in ['unavailable', 'unknown'] }}
+      icon: >-
+        {% if is_state('binary_sensor.dryer_door', 'on') %}
+          mdi:tumble-dryer-alert
+        {% else %}
+          mdi:tumble-dryer
+        {% endif %}

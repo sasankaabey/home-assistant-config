@@ -1,11 +1,11 @@
 - alias: "Laundry - Washer Started"
   id: "laundry_washer_started"
   description: "Ask whose laundry load it is when washer starts (triggered by door close + sustained power spike)"
-  # IMPORTANT: This automation requires binary_sensor.washer_door entity
-  # This should be a door/window sensor on the washer providing:
-  #   - "off" when door is CLOSED (load starting)
-  #   - "on" when door is OPEN
-  # If not available as binary_sensor.washer_door, update the trigger below to match your device entity
+  # IMPORTANT: This automation uses binary_sensor.washer_door (fallback template)
+  # The fallback sensor prefers tuya_local but falls back to tuya cloud integration
+  # Cloud entity: binary_sensor.contact_sensor_door
+  # Local entity: binary_sensor.washer_door_local (if available)
+  # See template.yaml for fallback logic
   trigger:
     # Primary trigger: Washer door close (indicates load about to be added)
     # Door close is a better indicator than power because:

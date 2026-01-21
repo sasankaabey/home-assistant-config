@@ -94,9 +94,15 @@ Once deployed, test by:
 
 ## Current Status
 
-As of 2026-01-21, the automation is configured for `binary_sensor.washer_door` but **NOT YET TESTED** on production.
+As of 2026-01-21, the automation is configured with fallback template sensor:
 
-**Next Step**: Identify the actual door sensor entity ID and update the automation before deploying.
+**Template Sensor**: `binary_sensor.washer_door` (defined in `template.yaml`)  
+**Prefers**: `binary_sensor.washer_door_local` (tuya_local integration)  
+**Fallback**: `binary_sensor.contact_sensor_door` (tuya cloud integration)  
+
+The fallback pattern provides resilience when local integration becomes unavailable while preferring local for lower latency and no cloud dependency.
+
+**See**: `FALLBACK_INTEGRATION_PATTERN.md` for details on the fallback logic.
 
 ## Troubleshooting
 

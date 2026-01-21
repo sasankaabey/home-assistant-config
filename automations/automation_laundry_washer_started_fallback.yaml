@@ -1,4 +1,13 @@
-# FALLBACK AUTOMATION
+# FALLBACK AUTOMATION - NOT CURRENTLY NEEDED
+# 
+# UPDATE 2026-01-21: We now use binary_sensor.washer_door (template with fallback)
+# This handles both local (tuya_local) and cloud (tuya) automatically
+# See FALLBACK_INTEGRATION_PATTERN.md for details
+#
+# Keep this file for reference in case door sensor hardware fails completely
+# or if you need power-only detection for other appliances
+#
+# ORIGINAL PURPOSE:
 # Use this if binary_sensor.washer_door is not available on your washer device
 # This uses a faster power-spike detection (30 seconds instead of 2 minutes)
 # Combined with sustained power confirmation to prevent false positives
