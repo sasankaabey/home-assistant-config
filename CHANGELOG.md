@@ -6,6 +6,31 @@ Format: Keep entries brief. Link to DECISIONS.md for rationale.
 
 ---
 
+## 2026-01-21
+
+### Improved
+
+- **Washer Load Assignment Trigger** - Changed from 2-minute power delay to door close + sustained power detection
+  - Now uses `binary_sensor.washer_door` close event as primary trigger
+  - Verifies sustained power draw above idle threshold to confirm load started
+  - 3-second stabilization delay prevents false positives from power spikes
+  - **Result**: Load assignment notification in 3-5 seconds vs 2 minutes
+  - **Fallback**: Created `automation_laundry_washer_started_fallback.yaml` for systems without door sensor (uses 30-sec power threshold)
+  - **Setup Guide**: See `WASHER_DOOR_SENSOR_SETUP.md` for entity configuration
+
+- **Laundry Nagging Logic** - Enhanced to pause when washer restarts
+  - Added `washer_is_running` check to prevent confusing nags
+  - Pauses nagging if power spikes again (clothes went back in or new load started)
+  - Notifies owner if nagging paused due to washer restarting
+
+### Added
+
+- `TASKS.md` - Notification enhancement backlog (styled buttons, text input, deep links, Telegram)
+- `REUSABLE_SCRIPTS_PLAN.md` - Strategic plan for extracting reusable automation patterns
+- `WASHER_DOOR_SENSOR_SETUP.md` - Complete guide for door sensor setup and troubleshooting
+
+---
+
 ## 2026-01-14
 
 ### Added
