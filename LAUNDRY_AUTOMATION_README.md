@@ -41,12 +41,14 @@ This automation system tracks laundry loads from washer to dryer with comprehens
 ### Needs to be Added
 ⚠️ **REQUIRED**: You need to add these sensors:
 - `binary_sensor.dryer_vibration` - Detects when the dryer is running (e.g., Aqara vibration sensor)
-- `binary_sensor.dryer_door` - Detects when dryer door opens/closes (e.g., contact sensor)
+- `binary_sensor.dryer_door_status` - Detects when dryer door opens/closes (contact sensor)
+- `binary_sensor.washer_door_status` - Detects when washer door opens/closes (contact sensor, optional)
 
 **How to add sensors:**
-1. **Dryer vibration sensor**: Use a Zigbee/Z-Wave vibration sensor (e.g., Aqara vibration sensor) attached to the dryer
-2. **Dryer door sensor**: Use a contact sensor on the dryer door
-3. Ensure entity IDs match or update the automations
+1. **Dryer vibration sensor**: Use a Zigbee/Z-Wave vibration sensor (e.g., Aqara vibration sensor) attached to the dryer. **Detection requires 30+ seconds of consistent motion** to avoid false positives from bumps or jostling.
+2. **Dryer door sensor**: Use a contact sensor on the dryer door (entity name must be `binary_sensor.dryer_door_status`)
+3. **Washer door sensor** (optional): Use a contact sensor on the washer door (entity name must be `binary_sensor.washer_door_status`)
+4. Ensure entity IDs match exactly or update the automations
 
 ### New Input Helpers (Already Added)
 - `input_boolean.laundry_nag_enabled` - Controls whether washer nagging is active
@@ -79,65 +81,96 @@ Sends periodic reminders to move clothes:
 ### Dryer Automations
 
 #### 5. automation_laundry_dryer_started.yaml
-Stops washer nagging when dryer vibration is detected. Transfers ownership from washer_owner to dryer_owner.
+Stops washer nagging when dryer vibration is detected. **Does NOT auto-assign dryer owner** - waits for door interaction to confirm load transfer. Requires 30 seconds of consistent vibration to avoid false positives.
 
-#### 6. automation_laundry_dryer_finished.yaml
+#### 6. automation_laundry_confirm_load_transfer.yaml
+**Intelligently assigns dryer ownership** based on door interaction:
+- If dryer owner exists and awaiting dry confirmation: Keeps same owner (continuing to dry)
+- If washer has load and no dryer owner: Transfers to washer owner (new load)
+- Handles case where someone opens dryer to check if dry, then continues drying
+
+#### 7. automation_laundry_dryer_finished.yaml
 Triggers when dryer vibration stops. Alerts dryer owner to check if clothes are dry.
 
-#### 7. automation_laundry_dryer_nag.yaml
+#### 8. automation_laundry_dryer_nag.yaml
 Nags dryer owner to check the dryer:
 - 5-minute grace period initially (no nags)
 - After 5 minutes, nags every 5 minutes
 - After 10 minutes total elapsed, escalates to every 1 minute
 - Only nags if washer is running AND door hasn't been opened
 
-#### 8. automation_laundry_dryer_door_opened.yaml
+#### 9. automation_laundry_dryer_door_opened.yaml
 Tracks when dryer door is opened after dryer finishes. Stops dryer nagging.
 
-#### 9. automation_laundry_dryer_door_closed.yaml
+#### 10. automation_laundry_dryer_door_closed.yaml
 Asks if clothes are dry when dryer door is closed after being opened.
 
-#### 10. automation_laundry_handle_dry_confirmation.yaml
+#### 11. automation_laundry_handle_dry_confirmation.yaml
 Handles responses to "are clothes dry" question:
 - If dry: Resets dryer owner, announces dryer availability
-- If not dry: Guides user to restart dryer
+- If not dry: Guides user to restart dryer, keeps same owner
 
-#### 11. automation_laundry_dryer_restarted.yaml
+#### 12. automation_laundry_dryer_restarted.yaml
 Resets state when dryer is restarted after clothes weren't dry.
 
 ### Availability Automations
 
-#### 12. automation_laundry_handle_next_load.yaml
+#### 13. automation_laundry_handle_next_load.yaml
 Handles responses about having another load:
 - If yes: Reserves washer for 5 minutes
 - If no: Announces washer availability to all
 - If 5 minutes expire: Announces washer availability to all
 
-#### 13. automation_laundry_next_load_timeout.yaml
+#### 14. automation_laundry_next_load_timeout.yaml
 Alerts household if no response about next load after 5 minutes.
+
+### Notification Routing
+
+#### script.laundry_notification_router
+Smart notification routing script that:
+- **Always notifies adults** of all laundry status changes
+- **Notifies kids** only when they are home (checks `group.kids`)
+- **Sends targeted notifications** to specific household members for actions requiring their attention
+- Supports both general announcements and owner-specific notifications
+
+**Notification Types:**
+- `general`: Adults only, regardless of who owns the load
+- `targeted`: Adults + specific owner if they're a kid who's home
 
 ## Workflow
 
 ```
-Washer starts (power > threshold)
+Washer starts (power > threshold for 2 min)
     ↓
 Ask: "Whose load is it?"
     ↓
 [User selects owner via notification button]
     ↓
-Washer finishes (power < threshold)
+Washer finishes (power < threshold for 2 min)
     ↓
 Alert owner: "Move clothes to dryer"
 Ask: "Do you have another load?"
     ↓
-Start 5-minute nags
+Start 5-minute nags to move clothes
     ↓
 After 20 min → Escalate to 1-minute nags
     ↓
-Dryer vibration detected
+Dryer vibration detected (30+ seconds consistent)
     ↓
-Stop washer nagging, transfer to dryer owner
-Announce: "Thank you for moving clothes"
+Stop washer nagging
+Announce: "The dryer has started"
+    ↓
+[Wait for door interaction to confirm ownership]
+    ↓
+Dryer door closes while dryer running
+    ↓
+IF awaiting_dry_confirmation flag is ON:
+    → Keep same dryer owner (continuing to dry)
+    → Announce: "Continuing to dry"
+IF washer has owner AND dryer owner is Unknown:
+    → Transfer to washer owner
+    → Announce: "Thank you for moving clothes"
+    → Reset washer owner
     ↓
 Dryer vibration stops (dryer finishes)
     ↓
@@ -155,13 +188,15 @@ Stop dryer nagging
 Dryer door closes
     ↓
 Ask: "Are clothes dry?"
+Set awaiting_dry_confirmation flag
     ↓
-If YES:
+If YES (clothes are dry):
     → Announce: "Dryer available"
     → Reset dryer owner
-If NO:
+If NO (not dry):
     → Guide to restart dryer
-    → Monitor for dryer restart
+    → Keep same dryer owner
+    → When dryer starts, confirm continuation
     ↓
 Meanwhile, handle "next load" response:
     ↓
