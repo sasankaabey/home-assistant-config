@@ -37,6 +37,11 @@
             - condition: template
               value_template: >
                 {{ states('sensor.washer_running_current_consumption') | float(0) < states('input_number.washer_idle_threshold') | float(0) }}
+            - service: input_select.select_option
+              target:
+                entity_id: input_select.washer_owner
+              data:
+                option: "Unknown"
             - service: script.alexa_announce_router
               data:
                 message: "The washer is now available for anyone to use!"
@@ -48,6 +53,11 @@
                 data:
                   tag: washer_available
       default:
+        - service: input_select.select_option
+          target:
+            entity_id: input_select.washer_owner
+          data:
+            option: "Unknown"
         - service: script.alexa_announce_router
           data:
             message: "The washer is now available for anyone to use!"

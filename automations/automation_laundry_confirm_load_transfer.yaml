@@ -1,67 +1,34 @@
-- alias: "Laundry - Confirm Load Transfer to Dryer"
-  id: "laundry_confirm_load_transfer"
-  description: "Confirm washer load was transferred when dryer door closes and dryer running"
+- alias: "Laundry - Transfer Ownership When Washer Available"
+  id: "laundry_transfer_ownership_on_washer_available"
+  description: "Transfer dryer ownership when washer becomes available (load removed)"
   trigger:
     - platform: state
-      entity_id: binary_sensor.dryer_door_status
-      to: "off"
-      for:
-        seconds: 5
+      entity_id: input_select.washer_owner
+      to: "Unknown"
   condition:
+    - condition: template
+      value_template: "{{ trigger.from_state.state != 'Unknown' }}"
+    - condition: template
+      value_template: "{{ is_state('input_select.dryer_owner', 'Unknown') }}"
     - condition: state
       entity_id: binary_sensor.dryer_vibration
       state: "on"
   action:
     - variables:
-        washer_owner: "{{ states('input_select.washer_owner') }}"
-        dryer_owner: "{{ states('input_select.dryer_owner') }}"
-        washer_has_load: "{{ not is_state('input_select.washer_owner', 'Unknown') }}"
-        dryer_has_owner: "{{ not is_state('input_select.dryer_owner', 'Unknown') }}"
-        awaiting_dry_confirmation: "{{ is_state('input_boolean.awaiting_dry_confirmation', 'on') }}"
-    - choose:
-        # Case 1: Existing dryer owner continuing their load (not dry yet)
-        - conditions:
-            - condition: template
-              value_template: "{{ dryer_has_owner and awaiting_dry_confirmation }}"
-          sequence:
-            # Keep the same dryer owner, they're continuing to dry
-            - service: input_boolean.turn_off
-              target:
-                entity_id: input_boolean.awaiting_dry_confirmation
-            - service: script.alexa_announce_router
-              data:
-                message: "{{ dryer_owner }} is continuing to dry their load."
-                audience: "adults"
-            - service: notify.adults
-              data:
-                title: "Dryer Continuing"
-                message: "{{ dryer_owner }}'s clothes need more time. Dryer restarted."
-                data:
-                  tag: dryer_continuing
-        # Case 2: New load from washer owner (dryer was available)
-        - conditions:
-            - condition: template
-              value_template: "{{ washer_has_load and not dryer_has_owner }}"
-          sequence:
-            - service: input_select.select_option
-              target:
-                entity_id: input_select.dryer_owner
-              data:
-                option: "{{ washer_owner }}"
-            - service: input_select.select_option
-              target:
-                entity_id: input_select.washer_owner
-              data:
-                option: "Unknown"
-            - service: script.alexa_announce_router
-              data:
-                message: "{{ washer_owner }}, thank you for moving the clothes to the dryer!"
-                audience: "adults"
-            - service: notify.adults
-              data:
-                title: "Load Transferred"
-                message: "{{ washer_owner }} moved their clothes to the dryer."
-                data:
-                  tag: load_transferred
-      default: []
+        previous_washer_owner: "{{ trigger.from_state.state }}"
+    - service: input_select.select_option
+      target:
+        entity_id: input_select.dryer_owner
+      data:
+        option: "{{ previous_washer_owner }}"
+    - service: script.alexa_announce_router
+      data:
+        message: "{{ previous_washer_owner }}, thank you for moving the clothes to the dryer!"
+        audience: "adults"
+    - service: notify.adults
+      data:
+        title: "Load Transferred"
+        message: "{{ previous_washer_owner }} moved their clothes to the dryer."
+        data:
+          tag: load_transferred
   mode: single
